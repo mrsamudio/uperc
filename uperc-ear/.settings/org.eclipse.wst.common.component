@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
+    <wb-module deploy-name="uperc">
+                
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+                
+        <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="uperc-ejb.jar" deploy-path="/" handle="module:/resource/uperc-ejb/uperc-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="uperc-web.war" deploy-path="/" handle="module:/resource/uperc-web/uperc-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="uperc-configuracion.war" deploy-path="/" handle="module:/resource/uperc-configuracion/uperc-configuracion">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="uperc-recursos.war" deploy-path="/" handle="module:/resource/uperc-recursos/uperc-recursos">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="uperc-usuarios.war" deploy-path="/" handle="module:/resource/uperc-usuarios/uperc-usuarios">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="uperc-reservas.war" deploy-path="/" handle="module:/resource/uperc-reservas/uperc-reservas">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="uperc-integracion.war" deploy-path="/" handle="module:/resource/uperc-integracion/uperc-integracion">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+            
+    </wb-module>
+    
+</project-modules>
