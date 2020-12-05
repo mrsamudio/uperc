@@ -13,11 +13,13 @@
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
 	">
 
+
+	<mvc:annotation-driven />
 	<!-- paquete en donde se buscan los componentes -->
 	<context:component-scan
 		base-package="co.edu.ucundinamarca.uperc" />
-
-	<mvc:annotation-driven />
+<!-- 	<bean id="iniciosession" -->
+<!-- 		class="co.edu.ucundinamarca.uperc.InicioSession" /> -->
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -26,11 +28,15 @@
 	</bean>
 
 	<!-- configuracion de registro de los por aspectos -->
-	<aop:aspectj-autoproxy>
-		<aop:include name="logDeApectos" />
-	</aop:aspectj-autoproxy>
+	<aop:aspectj-autoproxy/>
+<!-- 	<aop:aspectj-autoproxy> -->
+<!-- 		<aop:include name="logDeApectos" /> -->
+<!-- 	</aop:aspectj-autoproxy> -->
 
-	<bean id="logDeApectos"
-		class="co.edu.ucundinamarca.uperc.LogApectos" />
+<!-- 	<bean id="logDeApectos" -->
+<!-- 		class="co.edu.ucundinamarca.uperc.configuracion.LogApectos" /> -->
+
+		
+		
 
 </beans>
