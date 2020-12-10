@@ -56,7 +56,7 @@
 		</dependency>
 
 
-		<!-- Dependencias de spring framewrk -->
+		<!-- Dependencias de spring framework -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -92,6 +92,14 @@
 			<version>5.3.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>5.3.1</version>
+		</dependency>
+
+
 		<!-- Programación orientada a aspectos -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
 		<dependency>
@@ -105,6 +113,15 @@
 			<artifactId>spring-aspects</artifactId>
 			<version>5.3.1</version>
 		</dependency>
+
+		<!-- Sección Bases de datos -->
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.4.25.Final</version>
+		</dependency>
+
 
 		<!-- sección de pruebas -->
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
@@ -176,7 +193,7 @@
 
 			<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-dependency-plugin -->
 			<plugin>
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+				<!-- <groupId>org.apache.maven.plugins</groupId> -->
 				<artifactId>maven-dependency-plugin</artifactId>
 				<version>3.1.2</version>
 			</plugin>
