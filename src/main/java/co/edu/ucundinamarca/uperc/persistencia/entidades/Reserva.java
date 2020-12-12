@@ -3,29 +3,57 @@ package co.edu.ucundinamarca.uperc.persistencia.entidades;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
- * @author Mario Roberto Samudio Martinez
+ * 
+ * Guarda las reservas que han sido solicitadas por los usuarios. - El campo
+ * FECHA_SOLICITUD registra el momento de tiempo en que se solicitó la reserva.
+ * - El campo ESTADO registra si la reserva se encuentra activa o inactiva. - El
+ * campo NUM_ESTACION registra el número del estacionamiento reservado para el
+ * vehiculo. - El campo FECHA_RESERVA registra el momento en el que se espera
+ * que el vehiculo ingrese al parqueadero de la universidad para ocupar el
+ * espacio reservado. - El campo FECHA_FIN registra el momento en que finaliza
+ * la reserva. - El campo CANCELADA registra si la reserva fue cancelada o no
+ * 
+ * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
+@Entity
+@Table(name = "RESERVA")
 public class Reserva {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private long id;
+
+	@Column(name = "FECHA_SOLICITUD")
 	private Date fechaSolicitud;
+
+	@Column(name = "ESTADO")
 	private boolean estado;
+
+	@Column(name = "NUM_ESTACION")
 	private int numEstacion;
+
+	@Column(name = "FECHA_RESERVA")
 	private Date fechaReserva;
+
+	@Column(name = "FECHA_FIN")
 	private Date fechaFin;
+
+	@Column(name = "CANCELADA")
 	private boolean cancelada;
+
+	@Column(name = "USUARIO")
 	private int usuario;
-	public Usuario m_Usuario;
-
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * Constructor por defecto
@@ -35,9 +63,8 @@ public class Reserva {
 	}
 
 	/**
-	 * Constructor por defecto
+	 * Constructor que carga todos los atributos
 	 * 
-	 * @param id
 	 * @param fechaSolicitud
 	 * @param estado
 	 * @param numEstacion
@@ -46,9 +73,16 @@ public class Reserva {
 	 * @param cancelada
 	 * @param usuario
 	 */
-	public Reserva(long id, Date fechaSolicitud, boolean estado, int numEstacion, Date fechaReserva, Date fechaFin,
+	public Reserva(Date fechaSolicitud, boolean estado, int numEstacion, Date fechaReserva, Date fechaFin,
 			boolean cancelada, int usuario) {
 
+		setFechaSolicitud(fechaSolicitud);
+		setEstado(estado);
+		setNumEstacion(numEstacion);
+		setFechaReserva(fechaReserva);
+		setFechaFin(fechaFin);
+		setCancelada(cancelada);
+		setUsuario(usuario);
 	}
 
 	/**
@@ -63,7 +97,7 @@ public class Reserva {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id) {
+	private void setId(long id) {
 		this.id = id;
 	}
 
@@ -79,7 +113,7 @@ public class Reserva {
 	 * 
 	 * @param fechaSolicitud
 	 */
-	public void setFechaSolicitud(Date fechaSolicitud) {
+	private void setFechaSolicitud(Date fechaSolicitud) {
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
@@ -95,7 +129,7 @@ public class Reserva {
 	 * 
 	 * @param estado
 	 */
-	public void setEstado(boolean estado) {
+	private void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -111,7 +145,7 @@ public class Reserva {
 	 * 
 	 * @param numEstacion
 	 */
-	public void setNumEstacion(int numEstacion) {
+	private void setNumEstacion(int numEstacion) {
 		this.numEstacion = numEstacion;
 	}
 
@@ -127,7 +161,7 @@ public class Reserva {
 	 * 
 	 * @param fechaReserva
 	 */
-	public void setFechaReserva(Date fechaReserva) {
+	private void setFechaReserva(Date fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
 
@@ -143,7 +177,7 @@ public class Reserva {
 	 * 
 	 * @param fechaFin
 	 */
-	public void setFechaFin(Date fechaFin) {
+	private void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -159,7 +193,7 @@ public class Reserva {
 	 * 
 	 * @param cancelada
 	 */
-	public void setCancelada(boolean cancelada) {
+	private void setCancelada(boolean cancelada) {
 		this.cancelada = cancelada;
 	}
 
@@ -175,97 +209,8 @@ public class Reserva {
 	 * 
 	 * @param usuario
 	 */
-	public void setUsuario(int usuario) {
+	private void setUsuario(int usuario) {
 		this.usuario = usuario;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public Reserva selectById(long id) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param fechaSolicitud
-	 */
-	public List<Reserva> selectByFechaSol(Date fechaSolicitud) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param fechaReserva
-	 */
-	public List<Reserva> selectByFechaRes(Date fechaReserva) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param fechaInicial
-	 * @param fechaFinal
-	 */
-	public List<Reserva> selectByRangoFSol(Date fechaInicial, Date fechaFinal) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param fechaInicial
-	 * @param fechaFinal
-	 */
-	public List<Reserva> selectByRangoFRes(Date fechaInicial, Date fechaFinal) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Reserva> selectAll() {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param reserva
-	 */
-	public boolean update(Reserva reserva) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param reserva
-	 */
-	public boolean insert(Reserva reserva) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean activate(long id) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean deactivate(long id) {
-		return false;
-	}
-
-//	/**
-//	 * 
-//	 * @param fecha
-//	 */
-//	public List<EspaciosParqueo> consultaDisponibilidad(Date fecha) {
-//		return null;
-//	}
 }// end Reserva

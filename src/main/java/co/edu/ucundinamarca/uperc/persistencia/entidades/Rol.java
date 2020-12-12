@@ -1,23 +1,31 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * @author Mario Roberto Samudio Martinez
+ * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
+@Entity
+@Table(name = "ROL")
 public class Rol {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private int id;
+
+	@Column(name = "NOMBRE")
 	private String nombre;
 
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
+	@Column(name = "DESCRIPCION")
+	private String descripcion;
 
 	/**
 	 * Constructor por defecto
@@ -41,8 +49,10 @@ public class Rol {
 	 * @param id
 	 * @param nombre
 	 */
-	public Rol(int id, String nombre) {
-
+	public Rol(String nombre, String descripcion) {
+		
+		setNombre(nombre);
+		setDescripcion(descripcion);
 	}
 
 	/**
@@ -78,34 +88,17 @@ public class Rol {
 	}
 
 	/**
-	 * 
-	 * @param id
+	 * @return the descripcion
 	 */
-	public Rol selectById(int id) {
-		return null;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
 	/**
-	 * 
-	 * @return
+	 * @param descripcion the descripcion to set
 	 */
-	public List<Rol> selectAll() {
-		return null;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	/**
-	 * 
-	 * @param rol
-	 */
-	public boolean insert(Rol rol) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param rol
-	 */
-	public boolean update(Rol rol) {
-		return false;
-	}
 }// end Rol

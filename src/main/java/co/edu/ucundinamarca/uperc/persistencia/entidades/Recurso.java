@@ -1,33 +1,72 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
+ * Guarda los dispositivos que capturan o muestran la información del ingreso o
+ * egreso de los usuarios con sus vehículos. - El campo ID_SESSION registra un
+ * número que identifica la sesión en que el sistema externo realizará consultas
+ * a la base de datos - El campo FECHA_SESSION registra el momento en el que el
+ * número de sesión fué creado. - El campo TIPO registra el tipo de
+ * recurso(dispositivo), puede ser un televisor o monitor o cámara. - El campo
+ * IP registra la dirección asignada dentro de la red. - El campo PUERTO
+ * registra el puerto por el que el dispositivo se está comunicando. - El campo
+ * MAC registra la mac única del dispositivo. - El campo PROTOCOLO registra el
+ * protocolo por el cuál el recurso se comunica (TCP - UDP A FUTURO PUEDEN SER
+ * MÁS PROTOCOLOS). - El campo FECHA_REGISTRO registra el momento de tiempo en
+ * el que se agregó el recurso al sistema. - El campo URL_FABRICANTE registra la
+ * dirección web del fabricante del recurso. - El campo ESTADO registra si el
+ * recurso se encuentra activo o inactivo.
+ * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:27
  */
+@Entity
+@Table(name = "RECURSO")
 public class Recurso {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private long id;
+
+	@Column(name = "NOMBRE")
 	private String nombre;
+
+	@Column(name = "MARCA")
 	private String marca;
+
+	@Column(name = "TIPO")
 	private String tipo;
+
+	@Column(name = "IP")
 	private String ip;
+
+	@Column(name = "PUERTO")
 	private int puerto;
+
+	@Column(name = "MAC")
 	private String mac;
+
+	@Column(name = "PROTOCOLO")
 	private String protocolo;
+
+	@Column(name = "FECHA_REGISTRO")
 	private Date fechaRegistro;
+
+	@Column(name = "URL_FABRICANTE")
 	private String urlFabricante;
+
+	@Column(name = "ESTADO")
 	private boolean estado;
-
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * Constructor por defecto
@@ -39,7 +78,6 @@ public class Recurso {
 	/**
 	 * Constructor por defecto
 	 * 
-	 * @param id
 	 * @param nombre
 	 * @param marca
 	 * @param tipo
@@ -51,9 +89,19 @@ public class Recurso {
 	 * @param urlFabricante
 	 * @param estado
 	 */
-	public Recurso(long id, String nombre, String marca, String tipo, String ip, String puerto, String mac,
+	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac,
 			String protocolo, Date fechaRegistro, String urlFabricante, boolean estado) {
 
+		setNombre(nombre);
+		setMarca(marca);
+		setTipo(tipo);
+		setIp(ip);
+		setPuerto(puerto);
+		setMac(mac);
+		setProtocolo(protocolo);
+		setfechaRegistro(fechaRegistro);
+		setUrlFabricante(urlFabricante);
+		setEstado(estado);
 	}
 
 	/**
@@ -68,7 +116,7 @@ public class Recurso {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id) {
+	private void setId(long id) {
 		this.id = id;
 	}
 
@@ -84,7 +132,7 @@ public class Recurso {
 	 * 
 	 * @param nombre
 	 */
-	public void setNombre(String nombre) {
+	private void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -100,7 +148,7 @@ public class Recurso {
 	 * 
 	 * @param marca
 	 */
-	public void setMarca(String marca) {
+	private void setMarca(String marca) {
 		this.marca = marca;
 	}
 
@@ -116,7 +164,7 @@ public class Recurso {
 	 * 
 	 * @param tipo
 	 */
-	public void setTipo(String tipo) {
+	private void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
@@ -132,7 +180,7 @@ public class Recurso {
 	 * 
 	 * @param ip
 	 */
-	public void setIp(String ip) {
+	private void setIp(String ip) {
 		this.ip = ip;
 	}
 
@@ -148,7 +196,7 @@ public class Recurso {
 	 * 
 	 * @param puerto
 	 */
-	public void setPuerto(int puerto) {
+	private void setPuerto(int puerto) {
 		this.puerto = puerto;
 	}
 
@@ -164,7 +212,7 @@ public class Recurso {
 	 * 
 	 * @param mac
 	 */
-	public void setMac(String mac) {
+	private void setMac(String mac) {
 		this.mac = mac;
 	}
 
@@ -179,7 +227,7 @@ public class Recurso {
 	 * 
 	 * @param protocolo
 	 */
-	public void setProtocolo(String protocolo) {
+	private void setProtocolo(String protocolo) {
 		this.protocolo = protocolo;
 	}
 
@@ -195,7 +243,7 @@ public class Recurso {
 	 * 
 	 * @param fechaRegistro
 	 */
-	public void setfechaRegistro(Date fechaRegistro) {
+	private void setfechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 
@@ -211,7 +259,7 @@ public class Recurso {
 	 * 
 	 * @param urlFabricante
 	 */
-	public void setUrlFabricante(String urlFabricante) {
+	private void setUrlFabricante(String urlFabricante) {
 		this.urlFabricante = urlFabricante;
 	}
 
@@ -227,55 +275,8 @@ public class Recurso {
 	 * 
 	 * @param estado
 	 */
-	public void setEstado(boolean estado) {
+	private void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public Recurso selectById(long id) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Recurso> selectAll() {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param recurso
-	 */
-	public boolean insert(Recurso recurso) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param recurso
-	 */
-	public boolean update(Recurso recurso) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean activate(long id) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean deactivate(long id) {
-		return false;
-	}
 }// end Recurso

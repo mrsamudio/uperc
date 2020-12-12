@@ -43,7 +43,7 @@ public class Configuracion {
 	private int usuario;
 
 	// TODO: comprobar columna Y AGREGARLA A MODELO BD
-//	@Column(name = "ESTADO")
+	@Column(name = "ESTADO")
 	private boolean estado;
 
 	/**
@@ -53,17 +53,9 @@ public class Configuracion {
 
 	}
 
-	/**
-	 * Constructor que carga el id
-	 * 
-	 * @param id
-	 */
-	public Configuracion(int id) {
-		setId(id);
-	}
 
 	/**
-	 * Constructor que carga todos las columnas menos el id
+	 * Constructor que carga todos los atributos
 	 * 
 	 * @param intentosFallidos
 	 * @param caducidadPass
@@ -84,28 +76,7 @@ public class Configuracion {
 
 	}
 
-	/**
-	 * Constructor que carga todas las columnas
-	 * 
-	 * @param id
-	 * @param intentosFallidos
-	 * @param caducidadPass
-	 * @param maxAdmin
-	 * @param fechaGuardado
-	 * @param usuario
-	 * @param estado
-	 */
-	public Configuracion(int id, int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, int usuario,
-			boolean estado) {
 
-		setId(id);
-		setIntentosFallidos(intentosFallidos);
-		setCaducidadContrasena(caducidadPass);
-		setMaxAdmin(maxAdmin);
-		setFechaGuardado(fechaGuardado);
-		setUsuario(usuario);
-		setEstado(estado);
-	}
 
 	/**
 	 * Obtiene el id
@@ -144,7 +115,7 @@ public class Configuracion {
 	}
 
 	/**
-	 * Obtiene el valor maximo de caducidad de la contraseña El entero representa
+	 * Obtiene el valor máximo de caducidad de la contraseña. El entero representa
 	 * días
 	 * 
 	 * @return caducidad de la contraseña
@@ -154,7 +125,7 @@ public class Configuracion {
 	}
 
 	/**
-	 * Guarda el valor maximo de caducidad de la contraseña
+	 * Guarda el valor máximo de caducidad de la contraseña
 	 * 
 	 * @param caducidadContrasena
 	 */

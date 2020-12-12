@@ -1,25 +1,34 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
-
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
+ * Guarda los perfiles de usuario definidos en los requisitos. Es una tabla
+ * catálogo.
+ * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:27
  */
+@Entity
+@Table(name = "PERFIL_USUARIO")
 public class PerfilUsuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private int id;
+
+	@Column(name = "NOMBRE")
 	private String nombre;
 
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
+	@Column(name = "DESCRIPCION")
+	private String descripcion;
 
 	/**
 	 * Constructor por defecto
@@ -29,22 +38,23 @@ public class PerfilUsuario {
 	}
 
 	/**
-	 * Constructor por defecto que inicializa atributo nombre
+	 * Constructor que inicializa atributo nombre
 	 * 
 	 * @param nombre
 	 */
 	public PerfilUsuario(String nombre) {
-
+		setNombre(nombre);
 	}
 
 	/**
-	 * Constructor por defecto que inicializa todos los atributos
+	 * Constructor que inicializa todos los atributos
 	 * 
-	 * @param id
 	 * @param nombre
 	 */
-	public PerfilUsuario(int id, String nombre) {
+	public PerfilUsuario(String nombre, String descripcion) {
 
+		setNombre(nombre);
+		setDescripcion(descripcion);
 	}
 
 	/**
@@ -59,7 +69,7 @@ public class PerfilUsuario {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	private void setId(int id) {
 		this.id = id;
 	}
 
@@ -75,35 +85,21 @@ public class PerfilUsuario {
 	 * 
 	 * @param nombre
 	 */
-	public void setNombre(String nombre) {
+	private void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 	/**
-	 * 
-	 * @param id
+	 * @return la descripción
 	 */
-	public PerfilUsuario selectById(int id) {
-		return null;
-	}
-
-	public List<PerfilUsuario> selectAll() {
-		return null;
+	public String getDescripcion() {
+		return this.descripcion;
 	}
 
 	/**
-	 * 
-	 * @param perfilUsuario
+	 * @param descripcion the descripción to set
 	 */
-	public boolean insert(PerfilUsuario perfilUsuario) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param perfilUsuario
-	 */
-	public boolean update(PerfilUsuario perfilUsuario) {
-		return false;
+	private void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 }// end PerfilUsuario

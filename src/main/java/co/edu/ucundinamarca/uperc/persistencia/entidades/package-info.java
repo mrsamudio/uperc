@@ -1,8 +1,5 @@
 /**
- * 
- */
-/**
- * Entidades relacionada con la persistencia en bases de datos
+ * Entidades relacionadas con la persistencia en bases de datos
  * @since 0.0.1
  * @author mrsamudio
  * @version 0.0.1

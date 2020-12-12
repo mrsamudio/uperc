@@ -1,33 +1,51 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.time.Month;
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * clase que representa la tabla de registros de entrada y salida de vehiculos y
+ * clase que representa la tabla de registros de entrada y salida de vehículos y
  * los usuarios asociados.
+ * 
+ * Guarda el momento en que los recursos(dispositivos de captura) registran el
+ * ingreso o egreso al parqueadero de los usuarios y vehículos.
  * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
+@Entity
+@Table(name = "REGISTRO_IE")
 public class RegistroIE {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private long id;
+
+	@Column(name = "FECHA_INGRESO")
 	private Date fechaIngreso;
+
+	@Column(name = "FECHA_EGRESO")
 	private Date fechaEgreso;
+
+	@Column(name = "RECURSO")
 	private int recurso;
+
+	@Column(name = "VEHICULO")
 	private int vehiculo;
+
+	@Column(name = "USUARIO_INGRESO")
 	private int usuarioIngreso;
+
+	@Column(name = "USUARIO_EGRESO")
 	private int usuarioEgreso;
-	public Vehiculo m_Vehiculo;
-	public Usuario m_Usuario;
-	public Recurso m_Recurso;
-
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * Constructor por defecto
@@ -37,9 +55,8 @@ public class RegistroIE {
 	}
 
 	/**
-	 * Constructor por defecto
+	 * Constructor que inicializa todos los atributos
 	 * 
-	 * @param id
 	 * @param fechaIngreso
 	 * @param fechaEgreso
 	 * @param recurso
@@ -47,8 +64,15 @@ public class RegistroIE {
 	 * @param usuarioIngreso
 	 * @param usuarioEgreso
 	 */
-	public RegistroIE(long id, Date fechaIngreso, Date fechaEgreso, int recurso, int vehiculo, int usuarioIngreso,
+	public RegistroIE(Date fechaIngreso, Date fechaEgreso, int recurso, int vehiculo, int usuarioIngreso,
 			int usuarioEgreso) {
+
+		setFechaIngreso(fechaIngreso);
+		setFechaEgreso(fechaEgreso);
+		setRecurso(recurso);
+		setVehiculo(vehiculo);
+		setUsuarioIngreso(usuarioIngreso);
+		setUsuarioEgreso(usuarioEgreso);
 
 	}
 
@@ -64,7 +88,7 @@ public class RegistroIE {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id) {
+	private void setId(long id) {
 		this.id = id;
 	}
 
@@ -80,7 +104,7 @@ public class RegistroIE {
 	 * 
 	 * @param fechaIngreso
 	 */
-	public void setFechaIngreso(Date fechaIngreso) {
+	private void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 
@@ -96,7 +120,7 @@ public class RegistroIE {
 	 * 
 	 * @param fechaEgreso
 	 */
-	public void setFechaEgreso(Date fechaEgreso) {
+	private void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
 
@@ -112,7 +136,7 @@ public class RegistroIE {
 	 * 
 	 * @param recurso
 	 */
-	public void setRecurso(int recurso) {
+	private void setRecurso(int recurso) {
 		this.recurso = recurso;
 	}
 
@@ -128,7 +152,7 @@ public class RegistroIE {
 	 * 
 	 * @param vehiculo
 	 */
-	public void setVehiculo(int vehiculo) {
+	private void setVehiculo(int vehiculo) {
 		this.vehiculo = vehiculo;
 	}
 
@@ -144,7 +168,7 @@ public class RegistroIE {
 	 * 
 	 * @param usuarioIngreso
 	 */
-	public void setUsuarioIngreso(int usuarioIngreso) {
+	private void setUsuarioIngreso(int usuarioIngreso) {
 		this.usuarioIngreso = usuarioIngreso;
 	}
 
@@ -160,56 +184,8 @@ public class RegistroIE {
 	 * 
 	 * @param usuarioEgreso
 	 */
-	public void setUsuarioEgreso(int usuarioEgreso) {
+	private void setUsuarioEgreso(int usuarioEgreso) {
 		this.usuarioEgreso = usuarioEgreso;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public RegistroIE selectById(long id) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param fecha
-	 */
-	public List<RegistroIE> selectByDate(Date fecha) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param mes
-	 */
-	public List<RegistroIE> selectByMonth(Month mes) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param fechaInicial
-	 * @param fechaFinal
-	 */
-	public List<RegistroIE> selectByRange(Date fechaInicial, Date fechaFinal) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param registroIE
-	 */
-	public boolean insert(RegistroIE registroIE) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param registroIE
-	 */
-	public boolean update(RegistroIE registroIE) {
-		return false;
-	}
 }// end RegistroIE
