@@ -1,25 +1,35 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
+@Entity
+@Table(name = "SISTEMA_EXTERNO")
 public class SistemaExterno {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private int id;
+	
+	@Column(name = "IP")
 	private String ip;
+	
+	@Column(name = "NOMBRE")
 	private String nombre;
+	
+	@Column(name = "CONTRASENA")
 	private String contrasena;
 
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
 
 	/**
 	 * Constructor por defecto
@@ -29,27 +39,19 @@ public class SistemaExterno {
 	}
 
 	/**
-	 * Constructor que inicializa todos los atributos menos el id
+	 * Constructor que inicializa todos los atributos
 	 * 
 	 * @param ip
 	 * @param nombre
 	 * @param contrasena
 	 */
 	public SistemaExterno(String ip, String nombre, String contrasena) {
-
+		
+		setIp(ip);
+		setNombre(nombre);
+		setcontrasena(contrasena);
 	}
 
-	/**
-	 * Constructor que inicializa todos los atributos
-	 * 
-	 * @param id
-	 * @param ip
-	 * @param nombre
-	 * @param contrasena
-	 */
-	public SistemaExterno(int id, String ip, String nombre, String contrasena) {
-
-	}
 
 	/**
 	 * 
@@ -63,7 +65,7 @@ public class SistemaExterno {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	private void setId(int id) {
 		this.id = id;
 	}
 
@@ -79,7 +81,7 @@ public class SistemaExterno {
 	 * 
 	 * @param ip
 	 */
-	public void setIp(String ip) {
+	private void setIp(String ip) {
 		this.ip = ip;
 	}
 
@@ -95,7 +97,7 @@ public class SistemaExterno {
 	 * 
 	 * @param nombre
 	 */
-	public void setNombre(String nombre) {
+	private void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -111,39 +113,9 @@ public class SistemaExterno {
 	 * 
 	 * @param contrasena
 	 */
-	public void setcontrasena(String contrasena) {
+	private void setcontrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public SistemaExterno selectById(int id) {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public List<SistemaExterno> selectAll() {
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param sistemaExterno
-	 */
-	public boolean insert(SistemaExterno sistemaExterno) {
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param sistemaExterno
-	 */
-	public boolean update(SistemaExterno sistemaExterno) {
-		return false;
-	}
+	
 }// end SistemaExterno

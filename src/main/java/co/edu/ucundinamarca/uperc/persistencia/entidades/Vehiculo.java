@@ -1,42 +1,57 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
+ * 
+ * Guarda los datos de los vehículos que han ingresado al parqueadero.
+ * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:29
  */
+@Entity
+@Table(name = "VEHICULO")
 public class Vehiculo {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private long id;
+
+	@Column(name = "PLACA")
 	private String placa;
+
+	@Column(name = "MARCA")
 	private String marca;
+
+	@Column(name = "COLOR")
 	private String color;
+
+	@Column(name = "MODELO")
 	private String modelo;
+
+	@Column(name = "CLASE")
 	private String clase;
+
+	@Column(name = "TIPO_SERVICIO")
 	private String tipoServicio;
 
-
-
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
-	
 	/**
 	 * Constructor por defecto
 	 */
-	public Vehiculo(){
+	public Vehiculo() {
 
 	}
 
 	/**
-	 * Constructor por defecto
+	 * Constructor que inicializa todos los atributos
 	 * 
-	 * @param id
 	 * @param placa
 	 * @param marca
 	 * @param color
@@ -44,15 +59,22 @@ public class Vehiculo {
 	 * @param clase
 	 * @param tipoServicio
 	 */
-	public Vehiculo(long id, String placa, String marca, String color, String modelo, String clase, String tipoServicio){
+	public Vehiculo(String placa, String marca, String color, String modelo, String clase,
+			String tipoServicio) {
 
+		setPlaca(placa);
+		setMarca(marca);
+		setColor(color);
+		setModelo(modelo);
+		setClase(clase);
+		setTipoServicio(tipoServicio);
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public long getId(){
+	public long getId() {
 		return this.id;
 	}
 
@@ -60,7 +82,7 @@ public class Vehiculo {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id){
+	private void setId(long id) {
 		this.id = id;
 	}
 
@@ -68,7 +90,7 @@ public class Vehiculo {
 	 * 
 	 * @return
 	 */
-	public String getPlaca(){
+	public String getPlaca() {
 		return this.placa;
 	}
 
@@ -76,7 +98,7 @@ public class Vehiculo {
 	 * 
 	 * @param placa
 	 */
-	public void setPlaca(String placa){
+	private void setPlaca(String placa) {
 		this.placa = placa;
 	}
 
@@ -84,7 +106,7 @@ public class Vehiculo {
 	 * 
 	 * @return
 	 */
-	public String getMarca(){
+	public String getMarca() {
 		return this.marca;
 	}
 
@@ -92,7 +114,7 @@ public class Vehiculo {
 	 * 
 	 * @param marca
 	 */
-	public void setMarca(String marca){
+	private void setMarca(String marca) {
 		this.marca = marca;
 	}
 
@@ -100,7 +122,7 @@ public class Vehiculo {
 	 * 
 	 * @return
 	 */
-	public String getColor(){
+	public String getColor() {
 		return this.color;
 	}
 
@@ -108,7 +130,7 @@ public class Vehiculo {
 	 * 
 	 * @param color
 	 */
-	public void setColor(String color){
+	private void setColor(String color) {
 		this.color = color;
 	}
 
@@ -116,7 +138,7 @@ public class Vehiculo {
 	 * 
 	 * @return
 	 */
-	public String getModelo(){
+	public String getModelo() {
 		return this.modelo;
 	}
 
@@ -124,7 +146,7 @@ public class Vehiculo {
 	 * 
 	 * @param modelo
 	 */
-	public void setModelo(String modelo){
+	private void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
@@ -132,7 +154,7 @@ public class Vehiculo {
 	 * 
 	 * @return
 	 */
-	public String getClase(){
+	public String getClase() {
 		return this.clase;
 	}
 
@@ -140,7 +162,7 @@ public class Vehiculo {
 	 * 
 	 * @param clase
 	 */
-	public void setClase(String clase){
+	private void setClase(String clase) {
 		this.clase = clase;
 	}
 
@@ -148,7 +170,7 @@ public class Vehiculo {
 	 * 
 	 * @return
 	 */
-	public String getTipoServicio(){
+	public String getTipoServicio() {
 		return this.tipoServicio;
 	}
 
@@ -156,55 +178,9 @@ public class Vehiculo {
 	 * 
 	 * @param tipoServicio
 	 */
-	public void settipoServicio(String tipoServicio){
+	private void setTipoServicio(String tipoServicio) {
 		this.tipoServicio = tipoServicio;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public Vehiculo selectById(long id){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param placa
-	 */
-	public Vehiculo selectByPlaca(String placa){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param marca
-	 */
-	public List<Vehiculo> selectByMarca(String marca){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Vehiculo> selectAll(){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param vehiculo
-	 */
-	public boolean insert(Vehiculo vehiculo){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param vehiculo
-	 */
-	public boolean update(Vehiculo vehiculo){
-		return false;
-	}
-}//end Vehiculo
+	
+}// end Vehiculo

@@ -1,64 +1,85 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
- * @author Mario Roberto Samudio Martinez
+ * 
+ * Guarda los mensajes que envían los usuarios que posean el rol de supervisión.
+ * - El campo ESTADO indica si el mensaje se encuentra activo o inactivo. - el
+ * campo FECHA indica el momento de tiempo en que el mensaje fué creado o
+ * modificado. - El campo TIPO indica si el mensaje es una alerta o un aviso.
+ * 
+ * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
+@Entity
+@Table(name = "SUPERVISION")
 public class Supervision {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
 	private long id;
+
+	@Column(name = "MENSAJE")
 	private String mensaje;
+
+	@Column(name = "ESTADO")
 	private boolean estado;
+
+	@Column(name = "FECHA")
 	private Date fecha;
+
 	/**
 	 * <ul>
-	 * 	<li>ALERTA - TRUE</li>
-	 * 	<li>AVISOS - FLASE</li>
+	 * <li>ALERTA - TRUE</li>
+	 * <li>AVISOS - FLASE</li>
 	 * </ul>
 	 */
+	@Column(name = "TIPO")
 	private boolean tipo;
+
+	@Column(name = "USUARIO")
 	private long usuario;
-	public Usuario m_Usuario;
 
-
-
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
-	
 	/**
 	 * Constructor por defecto
 	 */
-	public Supervision(){
+	public Supervision() {
 
 	}
 
 	/**
 	 * Constructor que inicializa todos loa atributos
 	 * 
-	 * @param id
 	 * @param mensaje
 	 * @param estado
 	 * @param fecha
 	 * @param tipo
 	 * @param usuario
 	 */
-	public Supervision(long id, String mensaje, boolean estado, Date fecha, boolean tipo, long usuario){
-
+	public Supervision(String mensaje, boolean estado, Date fecha, boolean tipo, long usuario) {
+		
+		setMensaje(mensaje);
+		setEstado(estado);
+		setFecha(fecha);
+		setTipo(tipo);
+		setUsuario(usuario);
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public long getId(){
+	public long getId() {
 		return this.id;
 	}
 
@@ -66,7 +87,7 @@ public class Supervision {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id){
+	private void setId(long id) {
 		this.id = id;
 	}
 
@@ -74,7 +95,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public String getMensaje(){
+	public String getMensaje() {
 		return this.mensaje;
 	}
 
@@ -82,7 +103,7 @@ public class Supervision {
 	 * 
 	 * @param mensaje
 	 */
-	public void setMensaje(String mensaje){
+	private void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
 
@@ -90,7 +111,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public boolean isEstado(){
+	public boolean isEstado() {
 		return this.estado;
 	}
 
@@ -98,7 +119,7 @@ public class Supervision {
 	 * 
 	 * @param estado
 	 */
-	public void setEstado(boolean estado){
+	private void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -106,7 +127,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public Date getFecha(){
+	public Date getFecha() {
 		return this.fecha;
 	}
 
@@ -114,7 +135,7 @@ public class Supervision {
 	 * 
 	 * @param fecha
 	 */
-	public void setFecha(Date fecha){
+	private void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
@@ -122,7 +143,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public boolean isTipo(){
+	public boolean isTipo() {
 		return this.tipo;
 	}
 
@@ -130,7 +151,7 @@ public class Supervision {
 	 * 
 	 * @param tipo
 	 */
-	public void setTipo(boolean tipo){
+	private void setTipo(boolean tipo) {
 		this.tipo = tipo;
 	}
 
@@ -138,7 +159,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public long getUsuario(){
+	public long getUsuario() {
 		return this.usuario;
 	}
 
@@ -146,55 +167,9 @@ public class Supervision {
 	 * 
 	 * @param usuario
 	 */
-	public void setUsuario(long usuario){
+	private void setUsuario(long usuario) {
 		this.usuario = usuario;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public Supervision selectById(long id){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Supervision> selectAll(){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param supervision
-	 */
-	public boolean insert(Supervision supervision){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param supervision
-	 */
-	public boolean update(Supervision supervision){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean activate(long id){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean deactivate(long id){
-		return false;
-	}
-}//end Supervision
+	
+}// end Supervision

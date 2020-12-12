@@ -1,65 +1,97 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Date;
-import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
+ * 
+ * Guarda los usuarios registrados en el sistema. - El campo NOMBRES registra
+ * los nombres del usuario - El campo APELLIDOS registra los apellidos del
+ * usuario - El campo TIPOID registra el tipo de documento del usuario. - El
+ * campo NUMID registra el número de documento del usuario. - El campo FECHAREG
+ * guarda la fecha en que se registró el usuario. - El campo ESTADO registra si
+ * el usuario se encuentra activo o inactivo. - El campo PERFIL registra el tipo
+ * de perfil de usuario asignado al usuario. - El campo ROL registra el rol que
+ * tiene asignado el usuario
+ * 
+ * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
+@Entity
+@Table(name = "USUARIO")
 public class Usuario {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "")
 	private long id;
+
 	/**
 	 * Los nombres del usuario
 	 */
-	private String nombre;
+	@Column(name = "NOMBRES")
+	private String nombres;
+
 	/**
 	 * Los apellidos del usuario
 	 */
-	private String apellido;
+	@Column(name = "APELLIDOS")
+	private String apellidos;
+
 	/**
-	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad, "E"
-	 * cédula de extranjería
+	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad,
+	 * "E" cédula de extranjería
 	 */
+	@Column(name = "TIPOID")
 	private char tipoId;
+
 	/**
 	 * Número de identificación, no se requieren operaciones con esta variable
 	 */
+	@Column(name = "NUMID")
 	private String numId;
+
+	@Column(name = "CONTRASENA")
 	private String contrasena;
+
+	@Column(name = "CORREO")
 	private String correo;
+
+	@Column(name = "FECHANAC")
 	private Date fechaNac;
+
+	@Column(name = "FECHAREG")
 	private Date fechaReg;
+
+	@Column(name = "ESTADO")
 	private boolean estado;
+
+	@Column(name = "PERFIL")
 	private int perfil;
+
+	@Column(name = "ROL")
 	private int rol;
-	public Rol m_Rol;
-	public PerfilUsuario m_PerfilUsuario;
 
-
-
-	/**
-	 * 
-	 */
-	public void finalize() throws Throwable {
-
-	}
-	
 	/**
 	 * Constructor por defecto
 	 */
-	public Usuario(){
+	public Usuario() {
 
 	}
 
 	/**
 	 * Constructor por defecto
 	 * 
-	 * @param id
-	 * @param nombre
-	 * @param apellido
+	 * @param nombres
+	 * @param apellidos
 	 * @param tipoId
 	 * @param numid
 	 * @param contrasena
@@ -70,15 +102,27 @@ public class Usuario {
 	 * @param perfil
 	 * @param rol
 	 */
-	public Usuario(long id, String nombre, String apellido, char tipoId, String numid, String contrasena, String correo, Date fechaNac, Date fechaReg, boolean estado, int perfil, int rol){
-
+	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
+			Date fechaNac, Date fechaReg, boolean estado, int perfil, int rol) {
+		
+		setNombres(nombres);
+		setApellidos(apellidos);
+		setTipoId(tipoId);
+		setNumId(numid);
+		setContrasena(contrasena);
+		setCorreo(correo);
+		setFechaNac(fechaNac);
+		setFechaReg(fechaReg);
+		setEstado(estado);
+		setPerfil(perfil);
+		setRol(rol);
 	}
 
 	/**
 	 * 
 	 * @return
 	 */
-	public long getId(){
+	public long getId() {
 		return this.id;
 	}
 
@@ -86,64 +130,66 @@ public class Usuario {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id){
+	private void setId(long id) {
 		this.id = id;
 	}
 
 	/**
 	 * Los nombres del usuario
+	 * 
+	 * @return
 	 */
-	public String getNombre(){
-		return this.nombre;
+	public String getNombres() {
+		return this.nombres;
 	}
 
 	/**
 	 * Los nombres del usuario
 	 * 
-	 * @param nombre
+	 * @param nombres
 	 */
-	public void setNombre(String nombre){
-		this.nombre = nombre;
+	private void setNombres(String nombres) {
+		this.nombres = nombres;
 	}
 
 	/**
 	 * Los apellidos del usuario
 	 */
-	public String getApellido(){
-		return this.apellido;
+	public String getApellidos() {
+		return this.apellidos;
 	}
 
 	/**
 	 * Los apellidos del usuario
 	 * 
-	 * @param apellido
+	 * @param apellidos
 	 */
-	public void setApellido(String apellido){
-		this.apellido = apellido;
+	private void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
 	}
 
 	/**
-	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad, "E"
-	 * cédula de extranjería
+	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad,
+	 * "E" cédula de extranjería
 	 */
-	public char getTipoId(){
+	public char getTipoId() {
 		return this.tipoId;
 	}
 
 	/**
-	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad, "E"
-	 * cédula de extranjería
+	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad,
+	 * "E" cédula de extranjería
 	 * 
 	 * @param tipoId
 	 */
-	public void setTipoId(char tipoId){
+	private void setTipoId(char tipoId) {
 		this.tipoId = tipoId;
 	}
 
 	/**
 	 * Número de identificación, no se requieren operaciones con esta variable
 	 */
-	public String getNumId(){
+	public String getNumId() {
 		return this.numId;
 	}
 
@@ -152,11 +198,11 @@ public class Usuario {
 	 * 
 	 * @param numId
 	 */
-	public void setNumId(String numId){
+	private void setNumId(String numId) {
 		this.numId = numId;
 	}
 
-	public String getContrasena(){
+	public String getContrasena() {
 		return this.contrasena;
 	}
 
@@ -164,7 +210,7 @@ public class Usuario {
 	 * 
 	 * @param contrasena
 	 */
-	public void setContrasena(String contrasena){
+	private void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
 
@@ -172,7 +218,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public String getCorreo(){
+	public String getCorreo() {
 		return this.correo;
 	}
 
@@ -180,7 +226,7 @@ public class Usuario {
 	 * 
 	 * @param correo
 	 */
-	public void setCorreo(String correo){
+	private void setCorreo(String correo) {
 		this.correo = correo;
 	}
 
@@ -188,7 +234,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public Date getFechaNac(){
+	public Date getFechaNac() {
 		return this.fechaNac;
 	}
 
@@ -196,7 +242,7 @@ public class Usuario {
 	 * 
 	 * @param fechaNac
 	 */
-	public void setFechaNac(Date fechaNac){
+	private void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
@@ -204,7 +250,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public Date getFechaReg(){
+	public Date getFechaReg() {
 		return this.fechaReg;
 	}
 
@@ -212,7 +258,7 @@ public class Usuario {
 	 * 
 	 * @param fechaReg
 	 */
-	public void setFechaReg(Date fechaReg){
+	private void setFechaReg(Date fechaReg) {
 		this.fechaReg = fechaReg;
 	}
 
@@ -220,7 +266,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public boolean isEstado(){
+	public boolean isEstado() {
 		return this.estado;
 	}
 
@@ -228,7 +274,7 @@ public class Usuario {
 	 * 
 	 * @param estado
 	 */
-	public void setEstado(boolean estado){
+	private void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -236,7 +282,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public int getPerfil(){
+	public int getPerfil() {
 		return this.perfil;
 	}
 
@@ -244,7 +290,7 @@ public class Usuario {
 	 * 
 	 * @param perfil
 	 */
-	public void setPerfil(int perfil){
+	private void setPerfil(int perfil) {
 		this.perfil = perfil;
 	}
 
@@ -252,7 +298,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public int getRol(){
+	public int getRol() {
 		return this.rol;
 	}
 
@@ -260,55 +306,8 @@ public class Usuario {
 	 * 
 	 * @param rol
 	 */
-	public void setRol(int rol){
+	private void setRol(int rol) {
 		this.rol = rol;
 	}
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public Usuario selectById(long id){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
-	public List<Usuario> selectAll(){
-		return null;
-	}
-
-	/**
-	 * 
-	 * @param usuario
-	 */
-	public boolean insert(Usuario usuario){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param usuario
-	 */
-	public boolean update(Usuario usuario){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean activate(long id){
-		return false;
-	}
-
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean deactivate(long id){
-		return false;
-	}
-}//end Usuario
+}// end Usuario
