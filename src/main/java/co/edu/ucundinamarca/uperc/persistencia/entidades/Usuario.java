@@ -1,12 +1,19 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -74,12 +81,28 @@ public class Usuario {
 	@Column(name = "ESTADO")
 	private boolean estado;
 
-	@Column(name = "PERFIL")
-	private int perfil;
+	
+	@ManyToOne
+	@JoinColumn(name = "PERFIL", referencedColumnName = "ID")
+//	@Column(name = "PERFIL") Nota. no es posiBle agregar perfiles o roles desde usuario, son tablas catalogo
+	private PerfilUsuario perfil;
 
-	@Column(name = "ROL")
-	private int rol;
+	@ManyToOne
+	@JoinColumn(name = "ROL", referencedColumnName = "ID")
+//	@Column(name = "ROL")
+	private Rol rol;
 
+	
+//	TODO: modificar relacion de uno a uno en modelo bd
+	@OneToOne(mappedBy = "USUARIO")
+	private Configuracion configuracion;
+
+//	Listas de muchos a uno
+//	TODO: verificar en el modelo
+	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<Supervision> supervisiones;
+	
+	
 	/**
 	 * Constructor por defecto
 	 */
@@ -88,7 +111,7 @@ public class Usuario {
 	}
 
 	/**
-	 * Constructor por defecto
+	 * Constructor que carga todos los atributos
 	 * 
 	 * @param nombres
 	 * @param apellidos
@@ -101,10 +124,11 @@ public class Usuario {
 	 * @param estado
 	 * @param perfil
 	 * @param rol
+	 * @param configuracion
 	 */
 	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
-			Date fechaNac, Date fechaReg, boolean estado, int perfil, int rol) {
-		
+			Date fechaNac, Date fechaReg, boolean estado, PerfilUsuario perfil, Rol rol, Configuracion configuracion) {
+
 		setNombres(nombres);
 		setApellidos(apellidos);
 		setTipoId(tipoId);
@@ -116,6 +140,26 @@ public class Usuario {
 		setEstado(estado);
 		setPerfil(perfil);
 		setRol(rol);
+		setConfiguracion(configuracion);
+	}
+
+	/**
+	 * Agregar una configuración al usuario
+	 * 
+	 * @param configuracion
+	 */
+	public void agregarConfig(Configuracion configuracion) {
+		this.configuracion.setUsuario(this);
+	}
+	
+	/**
+	 * 
+	 * @param supervision
+	 */
+	public void agregarMensajesSuper(Supervision supervision) {
+		this.supervisiones.add(supervision);
+		//Vinculacion efectiva de la entidad supervision
+		supervision.setUsuario(this);
 	}
 
 	/**
@@ -282,7 +326,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public int getPerfil() {
+	public PerfilUsuario getPerfil() {
 		return this.perfil;
 	}
 
@@ -290,7 +334,7 @@ public class Usuario {
 	 * 
 	 * @param perfil
 	 */
-	private void setPerfil(int perfil) {
+	private void setPerfil(PerfilUsuario perfil) {
 		this.perfil = perfil;
 	}
 
@@ -298,7 +342,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public int getRol() {
+	public Rol getRol() {
 		return this.rol;
 	}
 
@@ -306,8 +350,22 @@ public class Usuario {
 	 * 
 	 * @param rol
 	 */
-	private void setRol(int rol) {
+	private void setRol(Rol rol) {
 		this.rol = rol;
+	}
+
+	/**
+	 * @return the configuracion
+	 */
+	public Configuracion getConfiguracion() {
+		return configuracion;
+	}
+
+	/**
+	 * @param configuracion la configuracion to set
+	 */
+	public void setConfiguracion(Configuracion configuracion) {
+		this.configuracion = configuracion;
 	}
 
 }// end Usuario

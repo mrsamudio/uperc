@@ -1,13 +1,32 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
+ * 
+ * ReqF-08 Roles El sistema deberá permitir la gestión de roles para asignar los
+ * permisos y visualizaciones de funcionalidades dependiendo del tipo de rol.
+ * 
+ * 
+ * ReqF-08.01 Administrativo 
+ * ReqF-08.02 Docente 
+ * ReqF-08.03 Graduado 
+ * ReqF-08.04 Estudiante 
+ * ReqF-08.05 Visitante 
+ * ReqF-08.06 Supervisión 
+ * ReqF-08.07 Administrador
+ * 
+ * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
@@ -26,6 +45,10 @@ public class Rol {
 
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
+	
+//	TODO: verificar en el modelo
+	@OneToMany(mappedBy = "ROL", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<Usuario> usuarios;
 
 	/**
 	 * Constructor por defecto
@@ -49,10 +72,11 @@ public class Rol {
 	 * @param id
 	 * @param nombre
 	 */
-	public Rol(String nombre, String descripcion) {
-		
+	public Rol(String nombre, String descripcion, List<Usuario> usuarios) {
+
 		setNombre(nombre);
 		setDescripcion(descripcion);
+		setUsuarios(usuarios);
 	}
 
 	/**
@@ -99,6 +123,20 @@ public class Rol {
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	/**
+	 * @return the usuarios
+	 */
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	/**
+	 * @param usuarios the usuarios to set
+	 */
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }// end Rol

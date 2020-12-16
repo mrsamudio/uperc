@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -47,8 +49,10 @@ public class Supervision {
 	@Column(name = "TIPO")
 	private boolean tipo;
 
-	@Column(name = "USUARIO")
-	private long usuario;
+	@ManyToOne
+	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+//	@Column(name = "USUARIO")
+	private Usuario usuario;
 
 	/**
 	 * Constructor por defecto
@@ -66,7 +70,7 @@ public class Supervision {
 	 * @param tipo
 	 * @param usuario
 	 */
-	public Supervision(String mensaje, boolean estado, Date fecha, boolean tipo, long usuario) {
+	public Supervision(String mensaje, boolean estado, Date fecha, boolean tipo, Usuario usuario) {
 		
 		setMensaje(mensaje);
 		setEstado(estado);
@@ -87,7 +91,7 @@ public class Supervision {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -159,7 +163,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public long getUsuario() {
+	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
@@ -167,7 +171,7 @@ public class Supervision {
 	 * 
 	 * @param usuario
 	 */
-	private void setUsuario(long usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 

@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,12 +42,9 @@ public class Configuracion {
 	@Column(name = "FECHA_GUARDADO")
 	private Date fechaGuardado;
 
-	@Column(name = "USUARIO")
-	private int usuario;
-
-	// TODO: comprobar columna Y AGREGARLA A MODELO BD
-	@Column(name = "ESTADO")
-	private boolean estado;
+	@OneToOne
+	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+	private Usuario usuario;
 
 	/**
 	 * Constructor por defecto
@@ -52,7 +52,6 @@ public class Configuracion {
 	public Configuracion() {
 
 	}
-
 
 	/**
 	 * Constructor que carga todos los atributos
@@ -62,21 +61,17 @@ public class Configuracion {
 	 * @param maxAdmin
 	 * @param fechaGuardado
 	 * @param usuario
-	 * @param estado
+	 * 
 	 */
-	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, int usuario,
-			boolean estado) {
+	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
 
 		setIntentosFallidos(intentosFallidos);
 		setCaducidadContrasena(caducidadPass);
 		setMaxAdmin(maxAdmin);
 		setFechaGuardado(fechaGuardado);
 		setUsuario(usuario);
-		setEstado(estado);
 
 	}
-
-
 
 	/**
 	 * Obtiene el id
@@ -172,37 +167,19 @@ public class Configuracion {
 	/**
 	 * Obtiene el usuario
 	 * 
-	 * @return el usuario
+	 * @return the usuario
 	 */
-	public int getUsuario() {
-		return this.usuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
 	/**
-	 * TODO: especificar para que usuario Guarda el usuario
+	 * Inicializa el atributo usuario
 	 * 
-	 * @param usuario
+	 * @param usuario the usuario to set
 	 */
-	private void setUsuario(int usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	/**
-	 * Obtiene el estado de la configuración
-	 * 
-	 * @return el estado Activo(true) o inactivo(false)
-	 */
-	public boolean isEstado() {
-		return this.estado;
-	}
-
-	/**
-	 * Guarda el estado de la configuración
-	 * 
-	 * @param estado
-	 */
-	private void setEstado(boolean estado) {
-		this.estado = estado;
 	}
 
 }// end Configuracion
