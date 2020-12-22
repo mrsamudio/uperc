@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -33,8 +35,15 @@ public class Informe {
 	@Column(name = "ID")
 	private long id;
 
-	@Column(name = "USUARIO")
-	private long usuario;
+	@ManyToOne
+	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+//	@Column(name = "USUARIO")
+	private Usuario usuario;
+
+	@ManyToOne
+	@JoinColumn(name = "REG_SERVICIO", referencedColumnName = "ID")
+//	@Column(name = "REG_SERVICIO")
+	private RegServicio regServicio;
 
 	@Column(name = "FECHA_GENERADO")
 	private Date fechaGenerado;
@@ -95,12 +104,10 @@ public class Informe {
 	}
 
 	/**
-	 * Constructor que inicializa todos los atributos de la clase con excepción del
-	 * id
-	 * 
 	 * @param usuario
-	 * @param fechaGen
-	 * @param fechaIni
+	 * @param regServicio
+	 * @param fechaGenerado
+	 * @param fechaInicio
 	 * @param fechaFin
 	 * @param disponibilidad
 	 * @param reservasOk
@@ -111,13 +118,14 @@ public class Informe {
 	 * @param ingresosTotal
 	 * @param egresosTotal
 	 */
-	public Informe(long usuario, Date fechaGen, Date fechaIni, Date fechaFin, double disponibilidad, double reservasOk,
-			double reservasFail, double recogOk, double recogFail, int recogTotal, int ingresosTotal,
-			int egresosTotal) {
+	public Informe(Usuario usuario, RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
+			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
+			int recogTotal, int ingresosTotal, int egresosTotal) {
 
 		setUsuario(usuario);
-		setFechaGenerado(fechaGen);
-		setFechaInicio(fechaIni);
+		setRegServicio(regServicio);
+		setFechaGenerado(fechaGenerado);
+		setFechaInicio(fechaInicio);
 		setFechaFin(fechaFin);
 		setDisponibilidad(disponibilidad);
 		setReservasOk(reservasOk);
@@ -141,7 +149,7 @@ public class Informe {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -149,7 +157,7 @@ public class Informe {
 	 * 
 	 * @return
 	 */
-	public long getUsuario() {
+	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
@@ -157,8 +165,23 @@ public class Informe {
 	 * 
 	 * @param usuario
 	 */
-	private void setUsuario(long usuario) {
+	protected void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+//	
+	/**
+	 * @return the regServicio
+	 */
+	public RegServicio getRegServicio() {
+		return this.regServicio;
+	}
+
+	/**
+	 * @param regServicio the regServicio to set
+	 */
+	protected void setRegServicio(RegServicio regServicio) {
+		this.regServicio = regServicio;
 	}
 
 	/**
@@ -173,7 +196,7 @@ public class Informe {
 	 * 
 	 * @param fechaGenerado
 	 */
-	private void setFechaGenerado(Date fechaGenerado) {
+	protected void setFechaGenerado(Date fechaGenerado) {
 		this.fechaGenerado = fechaGenerado;
 	}
 
@@ -189,7 +212,7 @@ public class Informe {
 	 * 
 	 * @param fechaInicio
 	 */
-	private void setFechaInicio(Date fechaInicio) {
+	protected void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
@@ -205,7 +228,7 @@ public class Informe {
 	 * 
 	 * @param fechaFin
 	 */
-	private void setFechaFin(Date fechaFin) {
+	protected void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -221,7 +244,7 @@ public class Informe {
 	 * 
 	 * @param disponibilidad
 	 */
-	private void setDisponibilidad(double disponibilidad) {
+	protected void setDisponibilidad(double disponibilidad) {
 		this.disponibilidad = disponibilidad;
 	}
 
@@ -237,7 +260,7 @@ public class Informe {
 	 * 
 	 * @param reservasOk
 	 */
-	private void setReservasOk(double reservasOk) {
+	protected void setReservasOk(double reservasOk) {
 		this.reservasOk = reservasOk;
 	}
 
@@ -253,7 +276,7 @@ public class Informe {
 	 * 
 	 * @param reservasFail
 	 */
-	private void setReservasFail(double reservasFail) {
+	protected void setReservasFail(double reservasFail) {
 		this.reservasFail = reservasFail;
 	}
 
@@ -269,7 +292,7 @@ public class Informe {
 	 * 
 	 * @param recogOk
 	 */
-	private void setRecogOk(double recogOk) {
+	protected void setRecogOk(double recogOk) {
 		this.recogOk = recogOk;
 	}
 
@@ -285,7 +308,7 @@ public class Informe {
 	 * 
 	 * @param recogFail
 	 */
-	private void setRecogFail(double recogFail) {
+	protected void setRecogFail(double recogFail) {
 		this.recogFail = recogFail;
 	}
 
@@ -301,7 +324,7 @@ public class Informe {
 	 * 
 	 * @param recogTotal
 	 */
-	private void setRecogTotal(int recogTotal) {
+	protected void setRecogTotal(int recogTotal) {
 		this.recogTotal = recogTotal;
 	}
 
@@ -317,7 +340,7 @@ public class Informe {
 	 * 
 	 * @param ingresosTotal
 	 */
-	private void setIngresosTotal(int ingresosTotal) {
+	protected void setIngresosTotal(int ingresosTotal) {
 		this.ingresosTotal = ingresosTotal;
 	}
 
@@ -333,7 +356,7 @@ public class Informe {
 	 * 
 	 * @param egresosTotal
 	 */
-	private void setEgresosTotal(int egresosTotal) {
+	protected void setEgresosTotal(int egresosTotal) {
 		this.egresosTotal = egresosTotal;
 	}
 

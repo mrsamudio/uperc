@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +22,9 @@ import javax.persistence.Table;
  * que el vehiculo ingrese al parqueadero de la universidad para ocupar el
  * espacio reservado. - El campo FECHA_FIN registra el momento en que finaliza
  * la reserva. - El campo CANCELADA registra si la reserva fue cancelada o no
+ * 
+ * Nota. solo se permite una reserva activa por usuario(restriccion. el usuario
+ * no puede tener varias reservas activas)
  * 
  * @author mrsamudio
  * @version 1.0
@@ -40,8 +45,10 @@ public class Reserva {
 	@Column(name = "ESTADO")
 	private boolean estado;
 
-	@Column(name = "NUM_ESTACION")
-	private int numEstacion;
+	@ManyToOne
+	@JoinColumn(name = "ESPACIO_PARQUEO", referencedColumnName = "ID")
+//	@Column(name = "ESPACIO_PARQUEO")
+	private EspacioParqueo espacioParqueo;
 
 	@Column(name = "FECHA_RESERVA")
 	private Date fechaReserva;
@@ -52,8 +59,10 @@ public class Reserva {
 	@Column(name = "CANCELADA")
 	private boolean cancelada;
 
-	@Column(name = "USUARIO")
-	private int usuario;
+	@ManyToOne
+	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+//	@Column(name = "USUARIO")
+	private Usuario usuario;
 
 	/**
 	 * Constructor por defecto
@@ -67,18 +76,18 @@ public class Reserva {
 	 * 
 	 * @param fechaSolicitud
 	 * @param estado
-	 * @param numEstacion
+	 * @param espacioParqueo
 	 * @param fechaReserva
 	 * @param fechaFin
 	 * @param cancelada
 	 * @param usuario
 	 */
-	public Reserva(Date fechaSolicitud, boolean estado, int numEstacion, Date fechaReserva, Date fechaFin,
-			boolean cancelada, int usuario) {
+	public Reserva(Date fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo, Date fechaReserva, Date fechaFin,
+			boolean cancelada, Usuario usuario) {
 
 		setFechaSolicitud(fechaSolicitud);
 		setEstado(estado);
-		setNumEstacion(numEstacion);
+		setEspacioParqueo(espacioParqueo);
 		setFechaReserva(fechaReserva);
 		setFechaFin(fechaFin);
 		setCancelada(cancelada);
@@ -97,7 +106,7 @@ public class Reserva {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -113,7 +122,7 @@ public class Reserva {
 	 * 
 	 * @param fechaSolicitud
 	 */
-	private void setFechaSolicitud(Date fechaSolicitud) {
+	protected void setFechaSolicitud(Date fechaSolicitud) {
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
@@ -129,7 +138,7 @@ public class Reserva {
 	 * 
 	 * @param estado
 	 */
-	private void setEstado(boolean estado) {
+	protected void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -137,16 +146,16 @@ public class Reserva {
 	 * 
 	 * @return
 	 */
-	public int getNumEstacion() {
-		return this.numEstacion;
+	public EspacioParqueo getEspacioParqueo() {
+		return this.espacioParqueo;
 	}
 
 	/**
 	 * 
-	 * @param numEstacion
+	 * @param espacioParqueo
 	 */
-	private void setNumEstacion(int numEstacion) {
-		this.numEstacion = numEstacion;
+	protected void setEspacioParqueo(EspacioParqueo espacioParqueo) {
+		this.espacioParqueo = espacioParqueo;
 	}
 
 	/**
@@ -161,7 +170,7 @@ public class Reserva {
 	 * 
 	 * @param fechaReserva
 	 */
-	private void setFechaReserva(Date fechaReserva) {
+	protected void setFechaReserva(Date fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
 
@@ -177,7 +186,7 @@ public class Reserva {
 	 * 
 	 * @param fechaFin
 	 */
-	private void setFechaFin(Date fechaFin) {
+	protected void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 
@@ -193,7 +202,7 @@ public class Reserva {
 	 * 
 	 * @param cancelada
 	 */
-	private void setCancelada(boolean cancelada) {
+	protected void setCancelada(boolean cancelada) {
 		this.cancelada = cancelada;
 	}
 
@@ -201,7 +210,7 @@ public class Reserva {
 	 * 
 	 * @return
 	 */
-	public int getUsuario() {
+	public Usuario getUsuario() {
 		return this.usuario;
 	}
 
@@ -209,7 +218,7 @@ public class Reserva {
 	 * 
 	 * @param usuario
 	 */
-	private void setUsuario(int usuario) {
+	protected void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 

@@ -28,7 +28,7 @@ public class Configuracion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
-	private int id;
+	private long id;
 
 	@Column(name = "INTENTOS_FALLIDOS")
 	private int intentosFallidos;
@@ -78,7 +78,7 @@ public class Configuracion {
 	 * 
 	 * @return id
 	 */
-	public int getId() {
+	public long getId() {
 		return this.id;
 	}
 
@@ -87,7 +87,7 @@ public class Configuracion {
 	 * 
 	 * @param id
 	 */
-	private void setId(int id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -105,7 +105,7 @@ public class Configuracion {
 	 * 
 	 * @param intentosFallidos
 	 */
-	private void setIntentosFallidos(int intentosFallidos) {
+	protected void setIntentosFallidos(int intentosFallidos) {
 		this.intentosFallidos = intentosFallidos;
 	}
 
@@ -124,7 +124,7 @@ public class Configuracion {
 	 * 
 	 * @param caducidadContrasena
 	 */
-	private void setCaducidadContrasena(int caducidadContrasena) {
+	protected void setCaducidadContrasena(int caducidadContrasena) {
 		this.caducidadContrasena = caducidadContrasena;
 	}
 
@@ -142,7 +142,7 @@ public class Configuracion {
 	 * 
 	 * @param maxAdmin
 	 */
-	private void setMaxAdmin(int maxAdmin) {
+	protected void setMaxAdmin(int maxAdmin) {
 		this.maxAdmin = maxAdmin;
 	}
 
@@ -160,7 +160,7 @@ public class Configuracion {
 	 * 
 	 * @param fechaGuardado
 	 */
-	private void setFechaGuardado(Date fechaGuardado) {
+	protected void setFechaGuardado(Date fechaGuardado) {
 		this.fechaGuardado = fechaGuardado;
 	}
 
@@ -178,7 +178,7 @@ public class Configuracion {
 	 * 
 	 * @param usuario the usuario to set
 	 */
-	public void setUsuario(Usuario usuario) {
+	protected void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 

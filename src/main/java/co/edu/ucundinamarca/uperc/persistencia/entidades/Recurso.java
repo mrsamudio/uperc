@@ -1,12 +1,16 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -68,6 +72,10 @@ public class Recurso {
 	@Column(name = "ESTADO")
 	private boolean estado;
 
+//	Listas
+	@OneToMany(mappedBy = "RECURSO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<RegistroIE> registrosIE;
+
 	/**
 	 * Constructor por defecto
 	 */
@@ -88,9 +96,10 @@ public class Recurso {
 	 * @param fechaRegistro
 	 * @param urlFabricante
 	 * @param estado
+	 * @param registrosIE
 	 */
-	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac,
-			String protocolo, Date fechaRegistro, String urlFabricante, boolean estado) {
+	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
+			Date fechaRegistro, String urlFabricante, boolean estado, List<RegistroIE> registrosIE) {
 
 		setNombre(nombre);
 		setMarca(marca);
@@ -99,9 +108,20 @@ public class Recurso {
 		setPuerto(puerto);
 		setMac(mac);
 		setProtocolo(protocolo);
-		setfechaRegistro(fechaRegistro);
+		setFechaRegistro(fechaRegistro);
 		setUrlFabricante(urlFabricante);
 		setEstado(estado);
+		setRegistrosIE(registrosIE);
+	}
+
+	/**
+	 * Listas de registros de ingreso y egreso desde vehículos
+	 * 
+	 * @param registrosIE
+	 */
+	public void agregarRegitrosIE(RegistroIE registrosIE) {
+		this.registrosIE.add(registrosIE);
+		registrosIE.setRecurso(this);
 	}
 
 	/**
@@ -116,7 +136,7 @@ public class Recurso {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -132,7 +152,7 @@ public class Recurso {
 	 * 
 	 * @param nombre
 	 */
-	private void setNombre(String nombre) {
+	protected void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -148,7 +168,7 @@ public class Recurso {
 	 * 
 	 * @param marca
 	 */
-	private void setMarca(String marca) {
+	protected void setMarca(String marca) {
 		this.marca = marca;
 	}
 
@@ -164,7 +184,7 @@ public class Recurso {
 	 * 
 	 * @param tipo
 	 */
-	private void setTipo(String tipo) {
+	protected void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
@@ -180,7 +200,7 @@ public class Recurso {
 	 * 
 	 * @param ip
 	 */
-	private void setIp(String ip) {
+	protected void setIp(String ip) {
 		this.ip = ip;
 	}
 
@@ -196,7 +216,7 @@ public class Recurso {
 	 * 
 	 * @param puerto
 	 */
-	private void setPuerto(int puerto) {
+	protected void setPuerto(int puerto) {
 		this.puerto = puerto;
 	}
 
@@ -212,7 +232,7 @@ public class Recurso {
 	 * 
 	 * @param mac
 	 */
-	private void setMac(String mac) {
+	protected void setMac(String mac) {
 		this.mac = mac;
 	}
 
@@ -227,7 +247,7 @@ public class Recurso {
 	 * 
 	 * @param protocolo
 	 */
-	private void setProtocolo(String protocolo) {
+	protected void setProtocolo(String protocolo) {
 		this.protocolo = protocolo;
 	}
 
@@ -243,7 +263,7 @@ public class Recurso {
 	 * 
 	 * @param fechaRegistro
 	 */
-	private void setfechaRegistro(Date fechaRegistro) {
+	protected void setFechaRegistro(Date fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 
@@ -259,7 +279,7 @@ public class Recurso {
 	 * 
 	 * @param urlFabricante
 	 */
-	private void setUrlFabricante(String urlFabricante) {
+	protected void setUrlFabricante(String urlFabricante) {
 		this.urlFabricante = urlFabricante;
 	}
 
@@ -275,8 +295,22 @@ public class Recurso {
 	 * 
 	 * @param estado
 	 */
-	private void setEstado(boolean estado) {
+	protected void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	/**
+	 * @return the registrosIE
+	 */
+	public List<RegistroIE> getRegistrosIE() {
+		return registrosIE;
+	}
+
+	/**
+	 * @param registrosIE the registrosIE to set
+	 */
+	protected void setRegistrosIE(List<RegistroIE> registrosIE) {
+		this.registrosIE = registrosIE;
 	}
 
 }// end Recurso

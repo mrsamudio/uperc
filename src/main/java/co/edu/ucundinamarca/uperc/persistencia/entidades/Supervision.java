@@ -91,7 +91,7 @@ public class Supervision {
 	 * 
 	 * @param id
 	 */
-	public void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -107,7 +107,7 @@ public class Supervision {
 	 * 
 	 * @param mensaje
 	 */
-	private void setMensaje(String mensaje) {
+	protected void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
 	}
 
@@ -123,7 +123,7 @@ public class Supervision {
 	 * 
 	 * @param estado
 	 */
-	private void setEstado(boolean estado) {
+	protected void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -139,7 +139,7 @@ public class Supervision {
 	 * 
 	 * @param fecha
 	 */
-	private void setFecha(Date fecha) {
+	protected void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 
@@ -155,7 +155,7 @@ public class Supervision {
 	 * 
 	 * @param tipo
 	 */
-	private void setTipo(boolean tipo) {
+	protected void setTipo(boolean tipo) {
 		this.tipo = tipo;
 	}
 
@@ -171,7 +171,7 @@ public class Supervision {
 	 * 
 	 * @param usuario
 	 */
-	public void setUsuario(Usuario usuario) {
+	protected void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 

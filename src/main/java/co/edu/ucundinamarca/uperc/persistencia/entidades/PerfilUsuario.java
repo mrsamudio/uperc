@@ -43,7 +43,7 @@ public class PerfilUsuario {
 	
 //	TODO: verificar en el modelo
 	@OneToMany(mappedBy = "PERFIL_USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Usuario> usuarios;
+	private List<Rol> roles;
 
 
 
@@ -68,12 +68,23 @@ public class PerfilUsuario {
 	 * 
 	 * @param nombre
 	 */
-	public PerfilUsuario(String nombre, String descripcion, List<Usuario> usuarios) {
+	public PerfilUsuario(String nombre, String descripcion, List<Rol> roles) {
 
 		setNombre(nombre);
 		setDescripcion(descripcion);
-		setUsuarios(usuarios);
+		setRoles(roles);
 	}
+	
+	
+	/**
+	 * 
+	 * @param rol
+	 */
+	public void agregarRoles(Rol rol) {
+		this.roles.add(rol);
+		rol.setPerfilUsuario(this);
+	}
+
 
 	/**
 	 * 
@@ -87,7 +98,7 @@ public class PerfilUsuario {
 	 * 
 	 * @param id
 	 */
-	private void setId(int id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -103,7 +114,7 @@ public class PerfilUsuario {
 	 * 
 	 * @param nombre
 	 */
-	private void setNombre(String nombre) {
+	protected void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -117,22 +128,22 @@ public class PerfilUsuario {
 	/**
 	 * @param descripcion the descripción to set
 	 */
-	private void setDescripcion(String descripcion) {
+	protected void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 	
 	/**
-	 * @return the usuarios
+	 * @return the roles
 	 */
-	public List<Usuario> getUsuarios() {
-		return usuarios;
+	public List<Rol> getRoles() {
+		return roles;
 	}
 
 	/**
-	 * @param usuarios the usuarios to set
+	 * @param roles the roles to set
 	 */
-	public void setUsuarios(List<Usuario> usuarios) {
-		this.usuarios = usuarios;
+	protected void setRoles(List<Rol> usuarios) {
+		this.roles = usuarios;
 	}
 	
 	

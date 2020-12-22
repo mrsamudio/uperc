@@ -1,10 +1,15 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -41,6 +46,10 @@ public class Vehiculo {
 
 	@Column(name = "TIPO_SERVICIO")
 	private String tipoServicio;
+	
+//	Listas
+	@OneToMany(mappedBy = "VEHICULO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<RegistroIE> registrosIE;
 
 	/**
 	 * Constructor por defecto
@@ -58,9 +67,10 @@ public class Vehiculo {
 	 * @param modelo
 	 * @param clase
 	 * @param tipoServicio
+	 * @param registrosIE
 	 */
 	public Vehiculo(String placa, String marca, String color, String modelo, String clase,
-			String tipoServicio) {
+			String tipoServicio, List<RegistroIE> registrosIE) {
 
 		setPlaca(placa);
 		setMarca(marca);
@@ -68,6 +78,16 @@ public class Vehiculo {
 		setModelo(modelo);
 		setClase(clase);
 		setTipoServicio(tipoServicio);
+		setRegistrosIE(registrosIE);
+	}
+	
+	/**
+	 * Listas de registros de ingreso y egreso desde vehículos
+	 * @param registrosIE
+	 */
+	public void agregarRegitrosIE(RegistroIE registrosIE) {
+		this.registrosIE.add(registrosIE);
+		registrosIE.setVehiculo(this);
 	}
 
 	/**
@@ -82,7 +102,7 @@ public class Vehiculo {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -98,7 +118,7 @@ public class Vehiculo {
 	 * 
 	 * @param placa
 	 */
-	private void setPlaca(String placa) {
+	protected void setPlaca(String placa) {
 		this.placa = placa;
 	}
 
@@ -114,7 +134,7 @@ public class Vehiculo {
 	 * 
 	 * @param marca
 	 */
-	private void setMarca(String marca) {
+	protected void setMarca(String marca) {
 		this.marca = marca;
 	}
 
@@ -130,7 +150,7 @@ public class Vehiculo {
 	 * 
 	 * @param color
 	 */
-	private void setColor(String color) {
+	protected void setColor(String color) {
 		this.color = color;
 	}
 
@@ -146,7 +166,7 @@ public class Vehiculo {
 	 * 
 	 * @param modelo
 	 */
-	private void setModelo(String modelo) {
+	protected void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
 
@@ -162,7 +182,7 @@ public class Vehiculo {
 	 * 
 	 * @param clase
 	 */
-	private void setClase(String clase) {
+	protected void setClase(String clase) {
 		this.clase = clase;
 	}
 
@@ -178,9 +198,25 @@ public class Vehiculo {
 	 * 
 	 * @param tipoServicio
 	 */
-	private void setTipoServicio(String tipoServicio) {
+	protected void setTipoServicio(String tipoServicio) {
 		this.tipoServicio = tipoServicio;
 	}
+
+	/**
+	 * @return the registrosIE
+	 */
+	public List<RegistroIE> getRegistrosIE() {
+		return registrosIE;
+	}
+
+	/**
+	 * @param registrosIE the registrosIE to set
+	 */
+	protected void setRegistrosIE(List<RegistroIE> registrosIE) {
+		this.registrosIE = registrosIE;
+	}
+	
+	
 
 	
 }// end Vehiculo

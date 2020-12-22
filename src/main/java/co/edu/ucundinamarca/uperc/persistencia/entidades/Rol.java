@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -18,13 +20,28 @@ import javax.persistence.Table;
  * permisos y visualizaciones de funcionalidades dependiendo del tipo de rol.
  * 
  * 
- * ReqF-08.01 Administrativo 
- * ReqF-08.02 Docente 
- * ReqF-08.03 Graduado 
- * ReqF-08.04 Estudiante 
- * ReqF-08.05 Visitante 
- * ReqF-08.06 Supervisión 
- * ReqF-08.07 Administrador
+ * ReqF-08.01 Administrativo ReqF-08.02 Docente ReqF-08.03 Graduado ReqF-08.04
+ * Estudiante
+ * 
+ * ReqF-08.05 Visitante ReqF-08.06 Supervisión ReqF-08.07 Administrador
+ * 
+ * 
+ * ReqF-07 Perfiles de usuario ReqF-07.01 Perfil Administrador ReqF-08.07 Rol
+ * Administrador
+ * 
+ * ReqF-07.02 Perfil Supervisor ReqF-08.06 Rol Supervisión
+ * 
+ * ReqF-07.03 Perfil Usuario general ReqF-08.01 Rol Administrativo ReqF-08.02
+ * Rol Docente ReqF-08.03 Rol Graduado ReqF-08.04 Rol Estudiante
+ * 
+ * ReqF-07.04 Perfil Visitante ReqF-08.05 Rol Visitante
+ * 
+ * ReqF-08.01 Administrativo ReqF-08.02 Docente ReqF-08.03 Graduado ReqF-08.04
+ * Estudiante
+ * 
+ * 
+ * 
+ * 
  * 
  * 
  * @author mrsamudio
@@ -45,7 +62,12 @@ public class Rol {
 
 	@Column(name = "DESCRIPCION")
 	private String descripcion;
-	
+
+	@ManyToOne
+//	@Column(name = "PERFIL")
+	@JoinColumn(name = "PERFIL", referencedColumnName = "ID")
+	private PerfilUsuario perfilUsuario;
+
 //	TODO: verificar en el modelo
 	@OneToMany(mappedBy = "ROL", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private List<Usuario> usuarios;
@@ -69,13 +91,16 @@ public class Rol {
 	/**
 	 * Constructor que inicializa todos los atributos
 	 * 
-	 * @param id
 	 * @param nombre
+	 * @param descripcion
+	 * @param perfilUsuario
+	 * @param usuarios
 	 */
-	public Rol(String nombre, String descripcion, List<Usuario> usuarios) {
+	public Rol(String nombre, String descripcion, PerfilUsuario perfilUsuario, List<Usuario> usuarios) {
 
 		setNombre(nombre);
 		setDescripcion(descripcion);
+		setPerfilUsuario(perfilUsuario);
 		setUsuarios(usuarios);
 	}
 
@@ -91,7 +116,7 @@ public class Rol {
 	 * 
 	 * @param id
 	 */
-	public void setId(int id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -107,7 +132,7 @@ public class Rol {
 	 * 
 	 * @param nombre
 	 */
-	public void setNombre(String nombre) {
+	protected void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -121,10 +146,24 @@ public class Rol {
 	/**
 	 * @param descripcion the descripcion to set
 	 */
-	public void setDescripcion(String descripcion) {
+	protected void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
+
+	/**
+	 * @return the perfilUsuario
+	 */
+	public PerfilUsuario getPerfilUsuario() {
+		return perfilUsuario;
+	}
+
+	/**
+	 * @param perfilUsuario the perfilUsuario to set
+	 */
+	protected void setPerfilUsuario(PerfilUsuario perfilUsuario) {
+		this.perfilUsuario = perfilUsuario;
+	}
+
 	/**
 	 * @return the usuarios
 	 */
@@ -135,7 +174,7 @@ public class Rol {
 	/**
 	 * @param usuarios the usuarios to set
 	 */
-	public void setUsuarios(List<Usuario> usuarios) {
+	protected void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

@@ -38,7 +38,7 @@ public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "")
+	@Column(name = "ID")
 	private long id;
 
 	/**
@@ -81,28 +81,30 @@ public class Usuario {
 	@Column(name = "ESTADO")
 	private boolean estado;
 
-	
-	@ManyToOne
-	@JoinColumn(name = "PERFIL", referencedColumnName = "ID")
-//	@Column(name = "PERFIL") Nota. no es posiBle agregar perfiles o roles desde usuario, son tablas catalogo
-	private PerfilUsuario perfil;
-
 	@ManyToOne
 	@JoinColumn(name = "ROL", referencedColumnName = "ID")
 //	@Column(name = "ROL")
 	private Rol rol;
 
-	
-//	TODO: modificar relacion de uno a uno en modelo bd
 	@OneToOne(mappedBy = "USUARIO")
 	private Configuracion configuracion;
 
 //	Listas de muchos a uno
-//	TODO: verificar en el modelo
 	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private List<Supervision> supervisiones;
-	
-	
+
+	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<Reserva> reservas;
+
+	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<Informe> informes;
+
+	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<RegistroIE> registrosIE;
+
+	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<Permiso> permisos;
+
 	/**
 	 * Constructor por defecto
 	 */
@@ -122,12 +124,18 @@ public class Usuario {
 	 * @param fechaNac
 	 * @param fechaReg
 	 * @param estado
-	 * @param perfil
 	 * @param rol
 	 * @param configuracion
+	 * @param supervisiones
+	 * @param reservas
+	 * @param informes
+	 * @param registrosIE
+	 * @param permisos
 	 */
 	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
-			Date fechaNac, Date fechaReg, boolean estado, PerfilUsuario perfil, Rol rol, Configuracion configuracion) {
+			Date fechaNac, Date fechaReg, boolean estado, Rol rol, Configuracion configuracion,
+			List<Supervision> supervisiones, List<Reserva> reservas, List<Informe> informes,
+			List<RegistroIE> registrosIE, List<Permiso> permisos) {
 
 		setNombres(nombres);
 		setApellidos(apellidos);
@@ -138,9 +146,15 @@ public class Usuario {
 		setFechaNac(fechaNac);
 		setFechaReg(fechaReg);
 		setEstado(estado);
-		setPerfil(perfil);
 		setRol(rol);
+
 		setConfiguracion(configuracion);
+		setSupervisiones(supervisiones);
+		setReservas(reservas);
+		setInformes(informes);
+		setRegistrosIE(registrosIE);
+		setPermisos(permisos);
+
 	}
 
 	/**
@@ -151,15 +165,64 @@ public class Usuario {
 	public void agregarConfig(Configuracion configuracion) {
 		this.configuracion.setUsuario(this);
 	}
-	
+
 	/**
 	 * 
 	 * @param supervision
 	 */
 	public void agregarMensajesSuper(Supervision supervision) {
 		this.supervisiones.add(supervision);
-		//Vinculacion efectiva de la entidad supervision
+		// Vinculación efectiva de la entidad supervision
 		supervision.setUsuario(this);
+	}
+
+	/**
+	 * 
+	 * @param reserva
+	 */
+	public void agregarReservas(Reserva reserva) {
+		this.reservas.add(reserva);
+		reserva.setUsuario(this);
+	}
+
+	/**
+	 * Listas de informes generados por usuarios o sistemas externos?
+	 * 
+	 * @param informe
+	 */
+	public void agregarInformes(Informe informe) {
+		this.informes.add(informe);
+		informe.setUsuario(this);
+	}
+
+	/**
+	 * lista de usuarios que ingresan del parqueadero
+	 * 
+	 * @param registro
+	 */
+	public void agregarRegistrosI(RegistroIE registro) {
+		this.registrosIE.add(registro);
+		registro.setUsuarioIngreso(this);
+	}
+
+	/**
+	 * lista de usuarios que salen del parqueadero
+	 * 
+	 * @param registro
+	 */
+	public void agregarRegistrosE(RegistroIE registro) {
+		this.registrosIE.add(registro);
+		registro.setUsuarioEgreso(this);
+	}
+
+	/**
+	 * Lista de permisos dados por los usuarios
+	 * 
+	 * @param permiso
+	 */
+	public void agregarPermisos(Permiso permiso) {
+		this.permisos.add(permiso);
+		permiso.setUsuario(this);
 	}
 
 	/**
@@ -174,7 +237,7 @@ public class Usuario {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -326,22 +389,6 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public PerfilUsuario getPerfil() {
-		return this.perfil;
-	}
-
-	/**
-	 * 
-	 * @param perfil
-	 */
-	private void setPerfil(PerfilUsuario perfil) {
-		this.perfil = perfil;
-	}
-
-	/**
-	 * 
-	 * @return
-	 */
 	public Rol getRol() {
 		return this.rol;
 	}
@@ -366,6 +413,76 @@ public class Usuario {
 	 */
 	public void setConfiguracion(Configuracion configuracion) {
 		this.configuracion = configuracion;
+	}
+
+	/**
+	 * @return the supervisiones
+	 */
+	public List<Supervision> getSupervisiones() {
+		return supervisiones;
+	}
+
+	/**
+	 * @param supervisiones the supervisiones to set
+	 */
+	public void setSupervisiones(List<Supervision> supervisiones) {
+		this.supervisiones = supervisiones;
+	}
+
+	/**
+	 * @return the reservas
+	 */
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	/**
+	 * @param reservas the reservas to set
+	 */
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	/**
+	 * @return the informes
+	 */
+	public List<Informe> getInformes() {
+		return informes;
+	}
+
+	/**
+	 * @param informes the informes to set
+	 */
+	public void setInformes(List<Informe> informes) {
+		this.informes = informes;
+	}
+
+	/**
+	 * @return the registrosIE
+	 */
+	public List<RegistroIE> getRegistrosIE() {
+		return registrosIE;
+	}
+
+	/**
+	 * @param registrosIE the registrosIE to set
+	 */
+	public void setRegistrosIE(List<RegistroIE> registrosIE) {
+		this.registrosIE = registrosIE;
+	}
+
+	/**
+	 * @return the permisos
+	 */
+	public List<Permiso> getPermisos() {
+		return permisos;
+	}
+
+	/**
+	 * @param permisos the permisos to set
+	 */
+	public void setPermisos(List<Permiso> permisos) {
+		this.permisos = permisos;
 	}
 
 }// end Usuario

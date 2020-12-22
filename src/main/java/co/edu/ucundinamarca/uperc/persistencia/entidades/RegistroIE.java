@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -15,6 +18,10 @@ import javax.persistence.Table;
  * 
  * Guarda el momento en que los recursos(dispositivos de captura) registran el
  * ingreso o egreso al parqueadero de los usuarios y vehículos.
+ * 
+ * TODO: req-f El usuario que egresa debe tener permiso para salir con un
+ * Por medio de ticket_id
+ * vehículo diferente
  * 
  * @author mrsamudio
  * @version 1.0
@@ -35,17 +42,32 @@ public class RegistroIE {
 	@Column(name = "FECHA_EGRESO")
 	private Date fechaEgreso;
 
-	@Column(name = "RECURSO")
-	private int recurso;
+	@ManyToOne
+	@JoinColumn(name = "RECURSO", referencedColumnName = "ID")
+//	@Column(name = "RECURSO")
+	private Recurso recurso;
 
-	@Column(name = "VEHICULO")
-	private int vehiculo;
+	@ManyToOne
+	@JoinColumn(name = "VEHICULO", referencedColumnName = "ID")
+//	@Column(name = "VEHICULO")
+	private Vehiculo vehiculo;
 
-	@Column(name = "USUARIO_INGRESO")
-	private int usuarioIngreso;
+	@ManyToOne
+	@JoinColumn(name = "USUARIO_INGRESO", referencedColumnName = "ID")
+//	@Column(name = "USUARIO_INGRESO")
+	private Usuario usuarioIngreso;
 
-	@Column(name = "USUARIO_EGRESO")
-	private int usuarioEgreso;
+	@ManyToOne
+	@JoinColumn(name = "USUARIO_EGRESO", referencedColumnName = "ID")
+//	@Column(name = "USUARIO_EGRESO")
+	private Usuario usuarioEgreso;
+	
+	@OneToOne
+	@JoinColumn(name = "PERMISO", referencedColumnName = "ID")
+	private Permiso permiso;
+	
+	@Column(name = "TICKET_ID")
+	private String ticketId;
 
 	/**
 	 * Constructor por defecto
@@ -63,9 +85,11 @@ public class RegistroIE {
 	 * @param vehiculo
 	 * @param usuarioIngreso
 	 * @param usuarioEgreso
+	 * @param permiso
+	 * @param ticketId
 	 */
-	public RegistroIE(Date fechaIngreso, Date fechaEgreso, int recurso, int vehiculo, int usuarioIngreso,
-			int usuarioEgreso) {
+	public RegistroIE(Date fechaIngreso, Date fechaEgreso, Recurso recurso, Vehiculo vehiculo, Usuario usuarioIngreso,
+			Usuario usuarioEgreso, Permiso permiso, String ticketId) {
 
 		setFechaIngreso(fechaIngreso);
 		setFechaEgreso(fechaEgreso);
@@ -73,7 +97,8 @@ public class RegistroIE {
 		setVehiculo(vehiculo);
 		setUsuarioIngreso(usuarioIngreso);
 		setUsuarioEgreso(usuarioEgreso);
-
+		setPermiso(permiso);
+		setTicketId(ticketId);
 	}
 
 	/**
@@ -88,7 +113,7 @@ public class RegistroIE {
 	 * 
 	 * @param id
 	 */
-	private void setId(long id) {
+	protected void setId(long id) {
 		this.id = id;
 	}
 
@@ -104,7 +129,7 @@ public class RegistroIE {
 	 * 
 	 * @param fechaIngreso
 	 */
-	private void setFechaIngreso(Date fechaIngreso) {
+	protected void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 
@@ -120,7 +145,7 @@ public class RegistroIE {
 	 * 
 	 * @param fechaEgreso
 	 */
-	private void setFechaEgreso(Date fechaEgreso) {
+	protected void setFechaEgreso(Date fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
 
@@ -128,7 +153,7 @@ public class RegistroIE {
 	 * 
 	 * @return
 	 */
-	public int getRecurso() {
+	public Recurso getRecurso() {
 		return this.recurso;
 	}
 
@@ -136,7 +161,7 @@ public class RegistroIE {
 	 * 
 	 * @param recurso
 	 */
-	private void setRecurso(int recurso) {
+	protected void setRecurso(Recurso recurso) {
 		this.recurso = recurso;
 	}
 
@@ -144,7 +169,7 @@ public class RegistroIE {
 	 * 
 	 * @return
 	 */
-	public int getVehiculo() {
+	public Vehiculo getVehiculo() {
 		return this.vehiculo;
 	}
 
@@ -152,7 +177,7 @@ public class RegistroIE {
 	 * 
 	 * @param vehiculo
 	 */
-	private void setVehiculo(int vehiculo) {
+	protected void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
 
@@ -160,7 +185,7 @@ public class RegistroIE {
 	 * 
 	 * @return
 	 */
-	public int getUsuarioIngreso() {
+	public Usuario getUsuarioIngreso() {
 		return this.usuarioIngreso;
 	}
 
@@ -168,7 +193,7 @@ public class RegistroIE {
 	 * 
 	 * @param usuarioIngreso
 	 */
-	private void setUsuarioIngreso(int usuarioIngreso) {
+	protected void setUsuarioIngreso(Usuario usuarioIngreso) {
 		this.usuarioIngreso = usuarioIngreso;
 	}
 
@@ -176,7 +201,7 @@ public class RegistroIE {
 	 * 
 	 * @return
 	 */
-	public int getUsuarioEgreso() {
+	public Usuario getUsuarioEgreso() {
 		return this.usuarioEgreso;
 	}
 
@@ -184,8 +209,38 @@ public class RegistroIE {
 	 * 
 	 * @param usuarioEgreso
 	 */
-	private void setUsuarioEgreso(int usuarioEgreso) {
+	protected void setUsuarioEgreso(Usuario usuarioEgreso) {
 		this.usuarioEgreso = usuarioEgreso;
 	}
+
+	/**
+	 * @return the permiso
+	 */
+	public Permiso getPermiso() {
+		return permiso;
+	}
+
+	/**
+	 * @param permiso the permiso to set
+	 */
+	protected void setPermiso(Permiso permiso) {
+		this.permiso = permiso;
+	}
+
+	/**
+	 * @return the ticketId
+	 */
+	public String getTicketId() {
+		return ticketId;
+	}
+
+	/**
+	 * @param ticketId the ticketId to set
+	 */
+	protected void setTicketId(String ticketId) {
+		this.ticketId = ticketId;
+	}
+	
+	
 
 }// end RegistroIE

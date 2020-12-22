@@ -1,13 +1,20 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
+ * Guarda los datos de acceso del sistema externo al sistema.
+ * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
@@ -20,16 +27,19 @@ public class SistemaExterno {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	
+
 	@Column(name = "IP")
 	private String ip;
-	
+
 	@Column(name = "NOMBRE")
 	private String nombre;
-	
+
 	@Column(name = "CONTRASENA")
 	private String contrasena;
 
+//	Listas 
+	@OneToMany(mappedBy = "SISTEMA_EXTERNO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private List<RegServicio> regServicios;
 
 	/**
 	 * Constructor por defecto
@@ -44,14 +54,25 @@ public class SistemaExterno {
 	 * @param ip
 	 * @param nombre
 	 * @param contrasena
+	 * @param regServicios
 	 */
-	public SistemaExterno(String ip, String nombre, String contrasena) {
-		
+	public SistemaExterno(String ip, String nombre, String contrasena, List<RegServicio> regServicios) {
+
 		setIp(ip);
 		setNombre(nombre);
-		setcontrasena(contrasena);
+		setContrasena(contrasena);
+		setRegServicios(regServicios);
 	}
 
+	/**
+	 * Listas de informes generados por sistemas externos?
+	 * 
+	 * @param informe
+	 */
+	public void agregarRegServicios(RegServicio regServicios) {
+		this.regServicios.add(regServicios);
+		regServicios.setSistemaExterno(this);
+	}
 
 	/**
 	 * 
@@ -65,7 +86,7 @@ public class SistemaExterno {
 	 * 
 	 * @param id
 	 */
-	private void setId(int id) {
+	protected void setId(int id) {
 		this.id = id;
 	}
 
@@ -81,7 +102,7 @@ public class SistemaExterno {
 	 * 
 	 * @param ip
 	 */
-	private void setIp(String ip) {
+	protected void setIp(String ip) {
 		this.ip = ip;
 	}
 
@@ -97,7 +118,7 @@ public class SistemaExterno {
 	 * 
 	 * @param nombre
 	 */
-	private void setNombre(String nombre) {
+	protected void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -110,12 +131,27 @@ public class SistemaExterno {
 	}
 
 	/**
-	 * 
-	 * @param contrasena
+	 * @param contrasena the contrasena to set
 	 */
-	private void setcontrasena(String contrasena) {
+	protected void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
+
+	/**
+	 * @return the regServicios
+	 */
+	public List<RegServicio> getRegServicios() {
+		return regServicios;
+	}
+
+	/**
+	 * @param regServicios the regServicios to set
+	 */
+	protected void setRegServicios(List<RegServicio> regServicios) {
+		this.regServicios = regServicios;
+	}
+
+	
 
 	
 }// end SistemaExterno
