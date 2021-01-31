@@ -28,45 +28,47 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "REGISTRO_IE")
+@Table(name = "registroie")
 public class RegistroIE {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
-	@Column(name = "FECHA_INGRESO")
+	@Column(name = "fechaingreso")
 	private Date fechaIngreso;
 
-	@Column(name = "FECHA_EGRESO")
+	@Column(name = "fechaegreso")
 	private Date fechaEgreso;
 
 	@ManyToOne
-	@JoinColumn(name = "RECURSO", referencedColumnName = "ID")
+	@JoinColumn(name = "recurso", referencedColumnName = "ID")
 //	@Column(name = "RECURSO")
 	private Recurso recurso;
 
 	@ManyToOne
-	@JoinColumn(name = "VEHICULO", referencedColumnName = "ID")
+	@JoinColumn(name = "vehiculo", referencedColumnName = "ID")
 //	@Column(name = "VEHICULO")
 	private Vehiculo vehiculo;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO_INGRESO", referencedColumnName = "ID")
+//	@JoinColumn(name = "usuarioIngreso")
+	@JoinColumn(name = "usuarioingreso", referencedColumnName = "id")
 //	@Column(name = "USUARIO_INGRESO")
 	private Usuario usuarioIngreso;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO_EGRESO", referencedColumnName = "ID")
+//	@JoinColumn(name = "usuarioEgreso")
+	@JoinColumn(name = "usuarioegreso", referencedColumnName = "id")
 //	@Column(name = "USUARIO_EGRESO")
 	private Usuario usuarioEgreso;
 	
 	@OneToOne
-	@JoinColumn(name = "PERMISO", referencedColumnName = "ID")
+	@JoinColumn(name = "permiso", referencedColumnName = "id")
 	private Permiso permiso;
 	
-	@Column(name = "TICKET_ID")
+	@Column(name = "ticketid")
 	private String ticketId;
 
 	/**

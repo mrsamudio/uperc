@@ -1,6 +1,7 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,26 +21,27 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "SISTEMA_EXTERNO")
+@Table(name = "sistemaexterno")
 public class SistemaExterno {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
 
-	@Column(name = "IP")
+	@Column(name = "ip")
 	private String ip;
 
-	@Column(name = "NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
 
-	@Column(name = "CONTRASENA")
+	@Column(name = "contrasena")
 	private String contrasena;
 
 //	Listas 
-	@OneToMany(mappedBy = "SISTEMA_EXTERNO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<RegServicio> regServicios;
+//	@OneToMany(mappedBy = "SISTEMA_EXTERNO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<RegServicio> regServicios;
 
 	/**
 	 * Constructor por defecto
@@ -56,7 +58,7 @@ public class SistemaExterno {
 	 * @param contrasena
 	 * @param regServicios
 	 */
-	public SistemaExterno(String ip, String nombre, String contrasena, List<RegServicio> regServicios) {
+	public SistemaExterno(String ip, String nombre, String contrasena, Set<RegServicio> regServicios) {
 
 		setIp(ip);
 		setNombre(nombre);
@@ -140,14 +142,14 @@ public class SistemaExterno {
 	/**
 	 * @return the regServicios
 	 */
-	public List<RegServicio> getRegServicios() {
+	public Set<RegServicio> getRegServicios() {
 		return regServicios;
 	}
 
 	/**
 	 * @param regServicios the regServicios to set
 	 */
-	protected void setRegServicios(List<RegServicio> regServicios) {
+	protected void setRegServicios(Set<RegServicio> regServicios) {
 		this.regServicios = regServicios;
 	}
 

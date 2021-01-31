@@ -1,6 +1,7 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,23 +28,26 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:27
  */
 @Entity
-@Table(name = "PERFIL_USUARIO")
+@Table(name = "perfilusuario")
 public class PerfilUsuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
 
-	@Column(name = "NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
 
-	@Column(name = "DESCRIPCION")
+	@Column(name = "descripcion")
 	private String descripcion;
 	
 //	TODO: verificar en el modelo
-	@OneToMany(mappedBy = "PERFIL_USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Rol> roles;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilUsuario")
+//	@OneToMany(mappedBy = "perfilusuario",  targetEntity = Rol.class)
+//	@OneToMany(mappedBy = "perfilusuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<Rol> roles;
 
 
 
@@ -68,7 +72,7 @@ public class PerfilUsuario {
 	 * 
 	 * @param nombre
 	 */
-	public PerfilUsuario(String nombre, String descripcion, List<Rol> roles) {
+	public PerfilUsuario(String nombre, String descripcion, Set<Rol> roles) {
 
 		setNombre(nombre);
 		setDescripcion(descripcion);
@@ -135,14 +139,14 @@ public class PerfilUsuario {
 	/**
 	 * @return the roles
 	 */
-	public List<Rol> getRoles() {
+	public Set<Rol> getRoles() {
 		return roles;
 	}
 
 	/**
 	 * @param roles the roles to set
 	 */
-	protected void setRoles(List<Rol> usuarios) {
+	protected void setRoles(Set<Rol> usuarios) {
 		this.roles = usuarios;
 	}
 	

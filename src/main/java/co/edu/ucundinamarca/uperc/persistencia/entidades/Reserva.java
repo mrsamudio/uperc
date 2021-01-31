@@ -36,32 +36,33 @@ public class Reserva {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
-	@Column(name = "FECHA_SOLICITUD")
+	@Column(name = "fechasolicitud")
 	private Date fechaSolicitud;
 
-	@Column(name = "ESTADO")
+	@Column(name = "estado")
 	private boolean estado;
 
 	@ManyToOne
-	@JoinColumn(name = "ESPACIO_PARQUEO", referencedColumnName = "ID")
+	@JoinColumn(name = "espacioparqueo", referencedColumnName = "ID")
 //	@Column(name = "ESPACIO_PARQUEO")
 	private EspacioParqueo espacioParqueo;
 
-	@Column(name = "FECHA_RESERVA")
+	@Column(name = "fechareserva")
 	private Date fechaReserva;
 
-	@Column(name = "FECHA_FIN")
+	@Column(name = "fechafin")
 	private Date fechaFin;
 
-	@Column(name = "CANCELADA")
+	@Column(name = "cancelada")
 	private boolean cancelada;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
-//	@Column(name = "USUARIO")
+//	@Column(name = "usuario")
+	@JoinColumn(name = "usuario")
+//	@JoinColumn(name = "usuario", referencedColumnName = "ID")
 	private Usuario usuario;
 
 	/**

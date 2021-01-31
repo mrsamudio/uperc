@@ -3,8 +3,8 @@
  */
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.awt.geom.Point2D;
-import java.util.List;
+import java.awt.Point;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,29 +21,30 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "UBICACION")
+@Table(name = "ubicacion")
 public class Ubicacion {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
 
-	@Column(name = "NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
 
-	@Column(name = "DIRECCION")
+	@Column(name = "direccion")
 	private String direccion;
 
-	@Column(name = "COORDENADAS")
-	private Point2D coordenadas;
+	@Column(name = "coordenadas", columnDefinition="Point")
+	private Point coordenadas;
 
-	@Column(name = "TELEFONO")
+	@Column(name = "telefono")
 	private String telefono;
 
 //	Listas
-	@OneToMany(mappedBy = "UBICACION", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<EspacioParqueo> espaciosParqueo;
+	@OneToMany(mappedBy = "ubicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<EspacioParqueo> espaciosParqueo;
 
 	/**
 	 * 
@@ -59,7 +60,7 @@ public class Ubicacion {
 	 * @param telefono
 	 * @param espaciosParqueo
 	 */
-	public Ubicacion(String nombre, String direccion, Point2D coordenadas, String telefono, List<EspacioParqueo> espaciosParqueo) {
+	public Ubicacion(String nombre, String direccion, Point coordenadas, String telefono, Set<EspacioParqueo> espaciosParqueo) {
 
 		setNombre(nombre);
 		setDireccion(direccion);
@@ -122,14 +123,14 @@ public class Ubicacion {
 	/**
 	 * @return the coordenadas
 	 */
-	public Point2D getCoordenadas() {
+	public Point getCoordenadas() {
 		return coordenadas;
 	}
 
 	/**
 	 * @param coordenadas the coordenadas to set
 	 */
-	public void setCoordenadas(Point2D coordenadas) {
+	public void setCoordenadas(Point coordenadas) {
 		this.coordenadas = coordenadas;
 	}
 
@@ -150,14 +151,14 @@ public class Ubicacion {
 	/**
 	 * @return the espaciosParqueo
 	 */
-	public List<EspacioParqueo> getEspaciosParqueo() {
+	public Set<EspacioParqueo> getEspaciosParqueo() {
 		return espaciosParqueo;
 	}
 
 	/**
 	 * @param espaciosParqueo the espaciosParqueo to set
 	 */
-	protected void setEspaciosParqueo(List<EspacioParqueo> espaciosParqueo) {
+	protected void setEspaciosParqueo(Set<EspacioParqueo> espaciosParqueo) {
 		this.espaciosParqueo = espaciosParqueo;
 	}
 

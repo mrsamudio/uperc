@@ -15,33 +15,41 @@ import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.ucundinamarca.uperc.persistencia.dao.InformeDAO;
-import co.edu.ucundinamarca.uperc.persistencia.dao.PerfilUsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
+import co.edu.ucundinamarca.uperc.persistencia.dao.ReservaDAO;
+import co.edu.ucundinamarca.uperc.persistencia.dao.RolDAO;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.PerfilUsuario;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Rol;
 
 /**
  * @author mrsamudio
  *
  */
+//@Repository("RolDAO")
 @Repository
-//@Repository("PerfilUsuarioDAO")
-public class PerfilUsuarioDAOImpl implements PerfilUsuarioDAO {
+public class RolDAOImpl implements RolDAO {
+	
 
-	private SessionFactory sessionFactory;
+		private SessionFactory sessionFactory;
 
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
+		public SessionFactory getSessionFactory() {
+			return sessionFactory;
+		}
 
-	@Resource(name = "factoriaSesion")
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+		@Resource(name = "factoriaSesion")
+		public void setSessionFactory(SessionFactory sessionFactory) {
+			this.sessionFactory = sessionFactory;
+		}
+
+	/**
+	 * 
+	 */
+	public RolDAOImpl() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	@Transactional
-	public PerfilUsuario selectById(int id) {
+	public Rol selectById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -49,25 +57,27 @@ public class PerfilUsuarioDAOImpl implements PerfilUsuarioDAO {
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
 	@Transactional
-	public List<PerfilUsuario> selectAll() {
+	public List<Rol> selectAll() {
+		
 		return sessionFactory.getCurrentSession()
 
-				.createSQLQuery("select * from perfil_usuario")
+				.createSQLQuery("select * from rol")
 				.addScalar("id", new IntegerType())
 				.addScalar("nombre", new StringType())
 				.addScalar("descripcion", new StringType())
-//				.addScalar("roles", new IntegerType())
-				.setResultTransformer(Transformers.aliasToBean(PerfilUsuario.class)).list();
+//				.addScalar("perfilUsuario", new PerfilUsuario())
+//				.addScalar("usuarios", new Set<Usuario>)
+				.setResultTransformer(Transformers.aliasToBean(Rol.class)).list();
 	}
 
 	@Override
-	public boolean insert(PerfilUsuario perfilUsuario) {
+	public boolean insert(Rol rol) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(PerfilUsuario perfilUsuario) {
+	public boolean update(Rol rol) {
 		// TODO Auto-generated method stub
 		return false;
 	}

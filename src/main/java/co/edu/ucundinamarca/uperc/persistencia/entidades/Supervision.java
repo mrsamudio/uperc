@@ -23,21 +23,21 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "SUPERVISION")
+@Table(name = "supervision")
 public class Supervision {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
-	@Column(name = "MENSAJE")
+	@Column(name = "mensaje")
 	private String mensaje;
 
-	@Column(name = "ESTADO")
+	@Column(name = "estado")
 	private boolean estado;
 
-	@Column(name = "FECHA")
+	@Column(name = "fecha")
 	private Date fecha;
 
 	/**
@@ -46,11 +46,11 @@ public class Supervision {
 	 * <li>AVISOS - FLASE</li>
 	 * </ul>
 	 */
-	@Column(name = "TIPO")
+	@Column(name = "tipo")
 	private boolean tipo;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+	@JoinColumn(name = "usuario", referencedColumnName = "id")
 //	@Column(name = "USUARIO")
 	private Usuario usuario;
 

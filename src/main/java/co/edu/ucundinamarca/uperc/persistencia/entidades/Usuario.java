@@ -1,7 +1,8 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -33,77 +34,104 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "USUARIO")
-public class Usuario {
+@Table(name = "usuario")
+public class Usuario implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 0L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
 	/**
 	 * Los nombres del usuario
 	 */
-	@Column(name = "NOMBRES")
+	@Column(name = "nombres")
 	private String nombres;
 
 	/**
 	 * Los apellidos del usuario
 	 */
-	@Column(name = "APELLIDOS")
+	@Column(name = "apellidos")
 	private String apellidos;
 
 	/**
 	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad,
 	 * "E" cédula de extranjería
 	 */
-	@Column(name = "TIPOID")
+	@Column(name = "tipoid")
 	private char tipoId;
 
 	/**
 	 * Número de identificación, no se requieren operaciones con esta variable
 	 */
-	@Column(name = "NUMID")
+	@Column(name = "numid")
 	private String numId;
 
-	@Column(name = "CONTRASENA")
+	@Column(name = "contrasena")
 	private String contrasena;
 
-	@Column(name = "CORREO")
+	@Column(name = "correo")
 	private String correo;
 
-	@Column(name = "FECHANAC")
+	@Column(name = "fechanac")
 	private Date fechaNac;
 
-	@Column(name = "FECHAREG")
-	private Date fechaReg;
+	@Column(name = "fechareg")
+	private String fechaReg;
 
-	@Column(name = "ESTADO")
+	@Column(name = "estado")
 	private boolean estado;
 
-	@ManyToOne
-	@JoinColumn(name = "ROL", referencedColumnName = "ID")
+	@ManyToOne(targetEntity = Rol.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "rol")
+//	@JoinColumn(name = "rol", referencedColumnName = "id")
 //	@Column(name = "ROL")
 	private Rol rol;
 
-	@OneToOne(mappedBy = "USUARIO")
+//	@OneToOne
+	@OneToOne(mappedBy = "usuario")
 	private Configuracion configuracion;
 
 //	Listas de muchos a uno
-	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Supervision> supervisiones;
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	private List<Supervision> supervisiones;
+	private Set<Supervision> supervisiones;
 
-	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Reserva> reservas;
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<Reserva> reservas;
+//	private List<Reserva> reservas;
 
-	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Informe> informes;
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<Informe> informes;
+//	private List<Informe> informes;
 
-	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<RegistroIE> registrosIE;
+	@OneToMany(mappedBy = "usuarioIngreso")
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<RegistroIE> registrosI;
+	
+	@OneToMany(mappedBy = "usuarioEgreso")
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<RegistroIE> registrosE;
+//	private List<RegistroIE> registrosIE;
 
-	@OneToMany(mappedBy = "USUARIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Permiso> permisos;
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<Permiso> permisos;
+//	private List<Permiso> permisos;
 
 	/**
 	 * Constructor por defecto
@@ -129,13 +157,14 @@ public class Usuario {
 	 * @param supervisiones
 	 * @param reservas
 	 * @param informes
-	 * @param registrosIE
+	 * @param registrosI
+	 * @param registrosE
 	 * @param permisos
 	 */
 	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
-			Date fechaNac, Date fechaReg, boolean estado, Rol rol, Configuracion configuracion,
-			List<Supervision> supervisiones, List<Reserva> reservas, List<Informe> informes,
-			List<RegistroIE> registrosIE, List<Permiso> permisos) {
+			Date fechaNac, String fechaReg, boolean estado, Rol rol, Configuracion configuracion,
+			Set<Supervision> supervisiones, Set<Reserva> reservas, Set<Informe> informes,
+			Set<RegistroIE> registrosI, Set<RegistroIE> registrosE, Set<Permiso> permisos) {
 
 		setNombres(nombres);
 		setApellidos(apellidos);
@@ -152,7 +181,8 @@ public class Usuario {
 		setSupervisiones(supervisiones);
 		setReservas(reservas);
 		setInformes(informes);
-		setRegistrosIE(registrosIE);
+		setRegistrosI(registrosI);
+		setRegistrosE(registrosE);
 		setPermisos(permisos);
 
 	}
@@ -201,7 +231,7 @@ public class Usuario {
 	 * @param registro
 	 */
 	public void agregarRegistrosI(RegistroIE registro) {
-		this.registrosIE.add(registro);
+		this.registrosI.add(registro);
 		registro.setUsuarioIngreso(this);
 	}
 
@@ -211,7 +241,7 @@ public class Usuario {
 	 * @param registro
 	 */
 	public void agregarRegistrosE(RegistroIE registro) {
-		this.registrosIE.add(registro);
+		this.registrosE.add(registro);
 		registro.setUsuarioEgreso(this);
 	}
 
@@ -357,7 +387,7 @@ public class Usuario {
 	 * 
 	 * @return
 	 */
-	public Date getFechaReg() {
+	public String getFechaReg() {
 		return this.fechaReg;
 	}
 
@@ -365,7 +395,7 @@ public class Usuario {
 	 * 
 	 * @param fechaReg
 	 */
-	private void setFechaReg(Date fechaReg) {
+	private void setFechaReg(String fechaReg) {
 		this.fechaReg = fechaReg;
 	}
 
@@ -418,70 +448,89 @@ public class Usuario {
 	/**
 	 * @return the supervisiones
 	 */
-	public List<Supervision> getSupervisiones() {
+	public Set<Supervision> getSupervisiones() {
 		return supervisiones;
 	}
 
 	/**
 	 * @param supervisiones the supervisiones to set
 	 */
-	public void setSupervisiones(List<Supervision> supervisiones) {
+	public void setSupervisiones(Set<Supervision> supervisiones) {
 		this.supervisiones = supervisiones;
 	}
 
 	/**
 	 * @return the reservas
 	 */
-	public List<Reserva> getReservas() {
+	public Set<Reserva> getReservas() {
 		return reservas;
 	}
 
 	/**
 	 * @param reservas the reservas to set
 	 */
-	public void setReservas(List<Reserva> reservas) {
+	public void setReservas(Set<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 
 	/**
 	 * @return the informes
 	 */
-	public List<Informe> getInformes() {
+	public Set<Informe> getInformes() {
 		return informes;
 	}
 
 	/**
 	 * @param informes the informes to set
 	 */
-	public void setInformes(List<Informe> informes) {
+	public void setInformes(Set<Informe> informes) {
 		this.informes = informes;
 	}
 
 	/**
-	 * @return the registrosIE
+	 * 
+	 * @return
 	 */
-	public List<RegistroIE> getRegistrosIE() {
-		return registrosIE;
+	public Set<RegistroIE> getRegistrosI() {
+		return registrosI;
 	}
 
 	/**
-	 * @param registrosIE the registrosIE to set
+	 * 
+	 * @param registrosI
 	 */
-	public void setRegistrosIE(List<RegistroIE> registrosIE) {
-		this.registrosIE = registrosIE;
+	public void setRegistrosI(Set<RegistroIE> registrosI) {
+		this.registrosI = registrosI;
 	}
+	/**
+	 * 
+	 * @return
+	 */
+	public Set<RegistroIE> getRegistrosE() {
+		return registrosE;
+	}
+	
+	/**
+	 * 
+	 * @param registrosE
+	 */
+	public void setRegistrosE(Set<RegistroIE> registrosE) {
+		this.registrosE = registrosE;
+	}
+	
+	
 
 	/**
 	 * @return the permisos
 	 */
-	public List<Permiso> getPermisos() {
+	public Set<Permiso> getPermisos() {
 		return permisos;
 	}
 
 	/**
 	 * @param permisos the permisos to set
 	 */
-	public void setPermisos(List<Permiso> permisos) {
+	public void setPermisos(Set<Permiso> permisos) {
 		this.permisos = permisos;
 	}
 

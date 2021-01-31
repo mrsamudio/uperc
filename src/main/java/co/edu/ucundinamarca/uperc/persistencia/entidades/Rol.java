@@ -1,6 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -49,28 +49,32 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "ROL")
+@Table(name = "rol")
 public class Rol {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
 
-	@Column(name = "NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
 
-	@Column(name = "DESCRIPCION")
+	@Column(name = "descripcion")
 	private String descripcion;
 
-	@ManyToOne
-//	@Column(name = "PERFIL")
-	@JoinColumn(name = "PERFIL", referencedColumnName = "ID")
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//	@ManyToOne(targetEntity = PerfilUsuario.class)
+//	@JoinColumn(name = "id")
+	@JoinColumn(name = "perfilusuario", referencedColumnName = "id")
 	private PerfilUsuario perfilUsuario;
 
 //	TODO: verificar en el modelo
-	@OneToMany(mappedBy = "ROL", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Usuario> usuarios;
+	@OneToMany(targetEntity = Rol.class)
+//	@OneToMany(mappedBy = "usuario", targetEntity = Usuario.class)
+//	@OneToMany(mappedBy = "usuario", orphanRemoval = true)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<Usuario> usuarios;
 
 	/**
 	 * Constructor por defecto
@@ -96,7 +100,7 @@ public class Rol {
 	 * @param perfilUsuario
 	 * @param usuarios
 	 */
-	public Rol(String nombre, String descripcion, PerfilUsuario perfilUsuario, List<Usuario> usuarios) {
+	public Rol(String nombre, String descripcion, PerfilUsuario perfilUsuario, Set<Usuario> usuarios) {
 
 		setNombre(nombre);
 		setDescripcion(descripcion);
@@ -167,14 +171,14 @@ public class Rol {
 	/**
 	 * @return the usuarios
 	 */
-	public List<Usuario> getUsuarios() {
+	public Set<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
 	/**
 	 * @param usuarios the usuarios to set
 	 */
-	protected void setUsuarios(List<Usuario> usuarios) {
+	protected void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 

@@ -39,15 +39,32 @@ public interface RegistroIEDAO {
 	 * @param fechaFinal
 	 */
 	public List<RegistroIE> selectByRange(Date fechaInicial, Date fechaFinal);
+	
 	/**
 	 * 
-	 * @param registroIE
+	 * @param registroI
+	 * @return
 	 */
-	public boolean insert(RegistroIE registroIE);
+	public boolean insertI(RegistroIE registroI);
 
 	/**
 	 * 
-	 * @param registroIE
+	 * @param registroI
+	 * @return
 	 */
-	public boolean update(RegistroIE registroIE);
+	public boolean updateI(RegistroIE registroI);
+	
+	/**
+	 * 
+	 * @param registroE
+	 * @return
+	 */
+	public boolean insertE(RegistroIE registroE);
+	
+	/**
+	 * 
+	 * @param registroE
+	 * @return
+	 */
+	public boolean updateE(RegistroIE registroE);
 }

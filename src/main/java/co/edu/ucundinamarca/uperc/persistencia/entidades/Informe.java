@@ -27,73 +27,72 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:27
  */
 @Entity
-@Table(name = "INFORME")
+@Table(name = "informe")
 public class Informe {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
-//	@Column(name = "USUARIO")
+//	@JoinColumn(name = "usuario")
+	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "REG_SERVICIO", referencedColumnName = "ID")
-//	@Column(name = "REG_SERVICIO")
+	@JoinColumn(name = "regservicio", referencedColumnName = "id")
 	private RegServicio regServicio;
 
-	@Column(name = "FECHA_GENERADO")
+	@Column(name = "fechagenerado")
 	private Date fechaGenerado;
 
-	@Column(name = "FECHA_INICIO")
+	@Column(name = "fechainicio")
 	private Date fechaInicio;
 
-	@Column(name = "FECHA_FIN")
+	@Column(name = "fechafin")
 	private Date fechaFin;
 
 	/**
 	 * Porcentaje de disponibilidad
 	 */
-	@Column(name = "DISPONIBILIDAD")
+	@Column(name = "disponibilidad")
 	private double disponibilidad;
 
 	/**
 	 * Porcentaje de reservas exitosas
 	 */
-	@Column(name = "RESERVAS_OK")
+	@Column(name = "reservasok")
 	private double reservasOk;
 
 	/**
 	 * Porcentaje de reservas fallidas
 	 */
-	@Column(name = "RESERVAS_FAIL")
+	@Column(name = "reservasfail")
 	private double reservasFail;
 
 	/**
 	 * Porcentaje de reconocimientos exitosos
 	 */
-	@Column(name = "RECOG_OK")
+	@Column(name = "recogok")
 	private double recogOk;
 
 	/**
 	 * Porcentaje de reconocimientos fallidos
 	 */
-	@Column(name = "RECOG_FAIL")
+	@Column(name = "recogfail")
 	private double recogFail;
 
 	/**
 	 * Reconocimientos totales
 	 */
-	@Column(name = "RECOG_TOTAL")
+	@Column(name = "recogtotal")
 	private int recogTotal;
 
-	@Column(name = "INGRESOS_TOTAL")
+	@Column(name = "ingresostotal")
 	private int ingresosTotal;
 
-	@Column(name = "EGRESOS_TOTAL")
+	@Column(name = "egresostotal")
 	private int egresosTotal;
 
 	/**

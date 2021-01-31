@@ -3,6 +3,7 @@
  */
 package co.edu.ucundinamarca.uperc.persistencia.dao;
 
+import java.io.Serializable;
 import java.util.List;
 
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
@@ -20,7 +21,7 @@ public interface ConfiguracionDAO {
 	 * 
 	 * @param id
 	 */
-	public Configuracion selectById(int id);
+	public Configuracion selectById(Long id);
 
 	/**
 	 * Lista todos los registros en la entidad CONFIGURACION

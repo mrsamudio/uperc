@@ -1,14 +1,19 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -22,56 +27,70 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "CONFIGURACION")
-public class Configuracion {
+//@Entity(name = "Configuracion")
+@Table(name = "configuracion")
+//@Table(name = "configuracion", schema = "public")
+//TODO: probar con named queries
+public class Configuracion implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8071463945094328022L;
+
+	
 	@Id
+//	@SequenceGenerator(name = "configuracion_id_seq", sequenceName = "configuracion_id_seq", allocationSize = 1)
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "configuracion_id_seq")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private long id;
+	@Column(name = "id")
+//	@Column(name = "id", columnDefinition = "serial")
+	private Long id;
 
-	@Column(name = "INTENTOS_FALLIDOS")
+	@Column(name = "intentosfallidos")
 	private int intentosFallidos;
 
-	@Column(name = "CADUCIDAD_CONTRASENA")
+	@Column(name = "caducidadcontrasena")
 	private int caducidadContrasena;
 
-	@Column(name = "MAX_ADMIN")
+	@Column(name = "maxadmin")
 	private int maxAdmin;
 
-	@Column(name = "FECHA_GUARDADO")
+	@Column(name = "fechaguardado")
 	private Date fechaGuardado;
 
-	@OneToOne
-	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "usuario", referencedColumnName = "id")
+//	@JoinColumn(name = "usuario", referencedColumnName = "id")
+//	@JoinColumn(name = "usuarioId", updatable = false, insertable = false)
 	private Usuario usuario;
 
-	/**
-	 * Constructor por defecto
-	 */
-	public Configuracion() {
+//	/**
+//	 * Constructor por defecto
+//	 */
+//	public Configuracion() {
+//
+//	}
 
-	}
-
-	/**
-	 * Constructor que carga todos los atributos
-	 * 
-	 * @param intentosFallidos
-	 * @param caducidadPass
-	 * @param maxAdmin
-	 * @param fechaGuardado
-	 * @param usuario
-	 * 
-	 */
-	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
-
-		setIntentosFallidos(intentosFallidos);
-		setCaducidadContrasena(caducidadPass);
-		setMaxAdmin(maxAdmin);
-		setFechaGuardado(fechaGuardado);
-		setUsuario(usuario);
-
-	}
+//	/**
+//	 * Constructor que carga todos los atributos
+//	 * 
+//	 * @param intentosFallidos
+//	 * @param caducidadPass
+//	 * @param maxAdmin
+//	 * @param fechaGuardado
+//	 * @param usuario
+//	 * 
+//	 */
+//	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
+//
+//		setIntentosFallidos(intentosFallidos);
+//		setCaducidadContrasena(caducidadPass);
+//		setMaxAdmin(maxAdmin);
+//		setFechaGuardado(fechaGuardado);
+//		setUsuario(usuario);
+//
+//	}
 
 	/**
 	 * Obtiene el id

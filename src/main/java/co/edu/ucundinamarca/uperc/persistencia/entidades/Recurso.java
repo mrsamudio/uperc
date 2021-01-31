@@ -2,6 +2,7 @@ package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,47 +35,48 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:27
  */
 @Entity
-@Table(name = "RECURSO")
+@Table(name = "recurso")
 public class Recurso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
-	@Column(name = "NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
 
-	@Column(name = "MARCA")
+	@Column(name = "marca")
 	private String marca;
 
-	@Column(name = "TIPO")
+	@Column(name = "tipo")
 	private String tipo;
 
-	@Column(name = "IP")
+	@Column(name = "ip")
 	private String ip;
 
-	@Column(name = "PUERTO")
+	@Column(name = "puerto")
 	private int puerto;
 
-	@Column(name = "MAC")
+	@Column(name = "mac")
 	private String mac;
 
-	@Column(name = "PROTOCOLO")
+	@Column(name = "protocolo")
 	private String protocolo;
 
-	@Column(name = "FECHA_REGISTRO")
+	@Column(name = "fecharegistro")
 	private Date fechaRegistro;
 
-	@Column(name = "URL_FABRICANTE")
+	@Column(name = "urlfabricante")
 	private String urlFabricante;
 
-	@Column(name = "ESTADO")
+	@Column(name = "estado")
 	private boolean estado;
 
 //	Listas
-	@OneToMany(mappedBy = "RECURSO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<RegistroIE> registrosIE;
+//	@OneToMany(mappedBy = "RECURSO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<RegistroIE> registrosIE;
 
 	/**
 	 * Constructor por defecto
@@ -99,7 +101,7 @@ public class Recurso {
 	 * @param registrosIE
 	 */
 	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
-			Date fechaRegistro, String urlFabricante, boolean estado, List<RegistroIE> registrosIE) {
+			Date fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosIE) {
 
 		setNombre(nombre);
 		setMarca(marca);
@@ -302,14 +304,14 @@ public class Recurso {
 	/**
 	 * @return the registrosIE
 	 */
-	public List<RegistroIE> getRegistrosIE() {
+	public Set<RegistroIE> getRegistrosIE() {
 		return registrosIE;
 	}
 
 	/**
 	 * @param registrosIE the registrosIE to set
 	 */
-	protected void setRegistrosIE(List<RegistroIE> registrosIE) {
+	protected void setRegistrosIE(Set<RegistroIE> registrosIE) {
 		this.registrosIE = registrosIE;
 	}
 

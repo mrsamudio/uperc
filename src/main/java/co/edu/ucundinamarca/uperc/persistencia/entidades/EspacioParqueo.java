@@ -4,6 +4,7 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -30,19 +31,20 @@ public class EspacioParqueo {
 	@Column(name = "")
 	private long id;
 	
-	@Column(name = "NOMBRE")
+	@Column(name = "nombre")
 	private String nombre;
 	
 	@ManyToOne
-	@JoinColumn(name = "UBICACION", referencedColumnName = "ID")
+	@JoinColumn(name = "ubicacion", referencedColumnName = "ID")
 	private Ubicacion ubicacion;
 	
-	@Column(name = "OCUPADO")
+	@Column(name = "ocupado")
 	private boolean ocupado;
 	
 //	Listas
-	@OneToMany(mappedBy = "ESPACIOPARQUEO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<Reserva> reservas;
+//	@OneToMany(mappedBy = "ESPACIOPARQUEO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<Reserva> reservas;
 	
 	/**
 	 * 
@@ -57,7 +59,7 @@ public class EspacioParqueo {
 	 * @param ocupado
 	 * @param reservas
 	 */
-	public EspacioParqueo(String nombre, Ubicacion ubicacion, boolean ocupado, List<Reserva> reservas) {
+	public EspacioParqueo(String nombre, Ubicacion ubicacion, boolean ocupado, Set<Reserva> reservas) {
 //		super();
 		
 		setNombre(nombre);
@@ -134,14 +136,14 @@ public class EspacioParqueo {
 	/**
 	 * @return the reservas
 	 */
-	public List<Reserva> getReservas() {
+	public Set<Reserva> getReservas() {
 		return reservas;
 	}
 
 	/**
 	 * @param reservas the reservas to set
 	 */
-	protected void setReservas(List<Reserva> reservas) {
+	protected void setReservas(Set<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 	

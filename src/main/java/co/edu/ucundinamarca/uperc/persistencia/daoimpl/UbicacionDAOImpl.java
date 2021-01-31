@@ -15,17 +15,17 @@ import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import co.edu.ucundinamarca.uperc.persistencia.dao.UbicacionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.dao.VehiculoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Vehiculo;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Ubicacion;
 
 /**
  * @author mrsamudio
  *
  */
-@Repository("VehiculoDAO")
-public class VehiculoDAOImpl implements VehiculoDAO {
+@Repository("UbicacionDAO")
+public class UbicacionDAOImpl implements UbicacionDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -38,51 +38,43 @@ public class VehiculoDAOImpl implements VehiculoDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	@Override
-	public Vehiculo selectById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 
+	 */
+	public UbicacionDAOImpl() {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	@Transactional
-	public Vehiculo selectByPlaca(String placa) {
+	public Ubicacion selectById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	public List<Vehiculo> selectByMarca(String marca) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@SuppressWarnings({ "deprecation", "unchecked" })
-	@Override
-	public List<Vehiculo> selectAll() {
+	public List<Ubicacion> selectAll() {
 		return sessionFactory.getCurrentSession()
 
-				.createSQLQuery("select * from vehiculo")
+				.createSQLQuery("select * from ubicacion")
 				.addScalar("id", new IntegerType())
-				
-				.addScalar("placa", new StringType())
-				.addScalar("marca", new StringType())
-				.addScalar("color", new StringType())
-				.addScalar("modelo", new StringType())
-				.addScalar("clase", new StringType())
-				.addScalar("tipoServicio", new StringType())
-//				.addScalar("registrosIE", new Set<RegistroIE>)
-				.setResultTransformer(Transformers.aliasToBean(Vehiculo.class)).list();
+				.addScalar("nombre", new StringType())
+				.addScalar("direccion", new StringType())
+//				.addScalar("coordenadas", new Point())
+				.addScalar("telefono", new StringType())
+//				.addScalar("espaciosParqueo", new Set<EspacioParqueo>)
+				.setResultTransformer(Transformers.aliasToBean(Ubicacion.class)).list();
 	}
 
 	@Override
-	public boolean insert(Vehiculo vehiculo) {
+	public boolean insert(Ubicacion ubicacion) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Vehiculo vehiculo) {
+	public boolean update(Ubicacion ubicacion) {
 		// TODO Auto-generated method stub
 		return false;
 	}

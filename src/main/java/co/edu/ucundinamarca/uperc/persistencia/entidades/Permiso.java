@@ -20,20 +20,21 @@ import co.edu.ucundinamarca.uperc.persistencia.dao.RegistroIEDAO;
  *
  */
 @Entity
-@Table(name = "PERMISO")
+@Table(name = "permiso")
 public class Permiso {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
 	@ManyToOne
-	@JoinColumn(name = "USUARIO", referencedColumnName = "ID")
+	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuario;
 
-	@OneToOne(mappedBy = "PERMISO")
-	private RegistroIE registroE;
+//	@OneToOne(mappedBy = "PERMISO")
+	@OneToOne
+	private RegistroIE registroIE;
 
 	/**
 	 * 
@@ -46,9 +47,9 @@ public class Permiso {
 	 * @param usuario
 	 * @param registroE
 	 */
-	public Permiso(Usuario usuario, RegistroIE registroE) {
+	public Permiso(Usuario usuario, RegistroIE registroIE) {
 		setUsuario(usuario);
-		setRegistroE(registroE);
+		setRegistroIE(registroIE);
 	}
 
 	/**
@@ -82,15 +83,15 @@ public class Permiso {
 	/**
 	 * @return the registroE
 	 */
-	public RegistroIE getRegistroE() {
-		return registroE;
+	public RegistroIE getRegistroIE() {
+		return registroIE;
 	}
 
 	/**
 	 * @param registroE the registroE to set
 	 */
-	protected void setRegistroE(RegistroIE registroE) {
-		this.registroE = registroE;
+	protected void setRegistroIE(RegistroIE registroIE) {
+		this.registroIE = registroIE;
 	}
 	
 	

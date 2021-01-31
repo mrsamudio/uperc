@@ -1,6 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -21,35 +21,36 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:29
  */
 @Entity
-@Table(name = "VEHICULO")
+@Table(name = "vehiculo")
 public class Vehiculo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
-	@Column(name = "PLACA")
+	@Column(name = "placa")
 	private String placa;
 
-	@Column(name = "MARCA")
+	@Column(name = "marca")
 	private String marca;
 
-	@Column(name = "COLOR")
+	@Column(name = "color")
 	private String color;
 
-	@Column(name = "MODELO")
+	@Column(name = "modelo")
 	private String modelo;
 
-	@Column(name = "CLASE")
+	@Column(name = "clase")
 	private String clase;
 
-	@Column(name = "TIPO_SERVICIO")
+	@Column(name = "tiposervicio")
 	private String tipoServicio;
 	
 //	Listas
-	@OneToMany(mappedBy = "VEHICULO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	private List<RegistroIE> registrosIE;
+//	@OneToMany(mappedBy = "VEHICULO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	private Set<RegistroIE> registrosIE;
 
 	/**
 	 * Constructor por defecto
@@ -70,7 +71,7 @@ public class Vehiculo {
 	 * @param registrosIE
 	 */
 	public Vehiculo(String placa, String marca, String color, String modelo, String clase,
-			String tipoServicio, List<RegistroIE> registrosIE) {
+			String tipoServicio, Set<RegistroIE> registrosIE) {
 
 		setPlaca(placa);
 		setMarca(marca);
@@ -205,14 +206,14 @@ public class Vehiculo {
 	/**
 	 * @return the registrosIE
 	 */
-	public List<RegistroIE> getRegistrosIE() {
+	public Set<RegistroIE> getRegistrosIE() {
 		return registrosIE;
 	}
 
 	/**
 	 * @param registrosIE the registrosIE to set
 	 */
-	protected void setRegistrosIE(List<RegistroIE> registrosIE) {
+	protected void setRegistrosIE(Set<RegistroIE> registrosIE) {
 		this.registrosIE = registrosIE;
 	}
 	
