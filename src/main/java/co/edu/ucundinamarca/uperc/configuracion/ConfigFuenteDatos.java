@@ -43,7 +43,7 @@ import co.edu.ucundinamarca.uperc.persistencia.FuenteDatos;
 @Configuration
 //@ComponentScan
 @ComponentScan(basePackages = "co.edu.ucundinamarca.uperc.persistencia")
-@EnableJpaRepositories(basePackages = {"co.edu.ucundinamarca.uperc.persistencia"})
+//@EnableJpaRepositories(basePackages = {"co.edu.ucundinamarca.uperc.persistencia"})
 @EnableTransactionManagement
 public class ConfigFuenteDatos {
 

@@ -139,6 +139,10 @@ public class Usuario implements Serializable {
 	public Usuario() {
 
 	}
+	
+	public Usuario(long id) {
+		this.setId(id);
+	}
 
 	/**
 	 * Constructor que carga todos los atributos

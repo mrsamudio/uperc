@@ -12,7 +12,9 @@ import javax.annotation.Resource;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.model.source.spi.HibernateTypeSource;
 import org.hibernate.boot.spi.MetadataBuildingContext;
 import org.hibernate.mapping.OneToOne;
@@ -54,7 +56,6 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 @Repository
 //@Repository("ConfiguracionDAO")
 public class ConfiguracionDAOImpl implements ConfiguracionDAO {
-	
 
 	private SessionFactory sessionFactory;
 
@@ -75,58 +76,54 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO {
 	@Override
 	@Transactional
 	public Configuracion selectById(Long id) {
-		
-		return sessionFactory.getCurrentSession().getSession().get(Configuracion.class, id);
-//		Usuario u = sessionFactory.getCurrentSession().get(Usuario.class, id);
 
-//		return (Configuracion) sessionFactory.getCurrentSession()
-//				.createSQLQuery("select * from configuracion c, usuario u where c.id = :idconf AND c.usuario = u.id")
-//				.addEntity(Configuracion.class)
-//				.setParameter("idconf", id)
-//				.addScalar("id", new IntegerType())
-//				.addScalar("intentosFallidos", new IntegerType())
-//				.addScalar("caducidadContrasena", new IntegerType())
-//				.addScalar("maxAdmin", new IntegerType())
-//				.addScalar("fechaGuardado", new TimestampType())
-////				.addJoin("c", "c.usuario")
-////				.addEntity(Usuario.class)
-//////				.addScalar("usuario", new IntegerType())
-//				.setResultTransformer(Transformers.aliasToBean(Configuracion.class)).uniqueResult();
-//		return sessionFactory.getCurrentSession().find(Configuracion.class, id);
-//		return sessionFactory.getCurrentSession().byId(Configuracion.class).getReference(id);
+		return sessionFactory.getCurrentSession().getSession().get(Configuracion.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Transactional(readOnly = true)
 	@Override
 	public List<Configuracion> selectAll() {
-		
 
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from configuracion")
-				.addScalar("id", new IntegerType())
-				.addScalar("intentosFallidos", new IntegerType())
-				.addScalar("caducidadContrasena", new IntegerType())
-				.addScalar("maxAdmin", new IntegerType())
-				.addScalar("fechaGuardado", new DateType())
-//				.addScalar("usuario", new IntegerType())
-				.setResultTransformer(Transformers.aliasToBean(Configuracion.class)).list();
+//		TODO: probar otra sentencia sql
+//		return sessionFactory.getCurrentSession()
+//
+//				.createSQLQuery("select * from configuracion").addScalar("id", new IntegerType())
+//				.addScalar("intentosFallidos", new IntegerType()).addScalar("caducidadContrasena", new IntegerType())
+//				.addScalar("maxAdmin", new IntegerType()).addScalar("fechaGuardado", new DateType())
+////				.addScalar("usuario", new IntegerType())
+//				.setResultTransformer(Transformers.aliasToBean(Configuracion.class)).list();
+		return sessionFactory.getCurrentSession().getSession().createQuery("from " + Configuracion.class.getSimpleName()).list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Configuracion configuracion) {
+		Session session = sessionFactory.getCurrentSession();
+		Transaction tx = session.getTransaction();
+		int res = 0;
 		try {
-//			sessionFactory.getCurrentSession().getTransaction().begin();
+//			tx.begin();
 //			sessionFactory.getCurrentSession().persist(configuracion);
-//			sessionFactory.getCurrentSession().flush();
-//			sessionFactory.getCurrentSession().getTransaction().commit();
+			res = session.createSQLQuery("INSERT INTO configuracion"
+					+ "(intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario)"
+					+ " VALUES(:falla, :caduca, :maxadmin, :fechaguar, :usuario)")
+					.setParameter("falla", configuracion.getIntentosFallidos())
+					.setParameter("caduca", configuracion.getCaducidadContrasena())
+					.setParameter("maxadmin", configuracion.getMaxAdmin())
+					.setParameter("fechaguar", configuracion.getFechaGuardado())
+					.setParameter("usuario", configuracion.getUsuario().getId()).executeUpdate();
+
+//			System.out.println(res);
+//			session.save(configuracion);
+//			session.flush();
+//			tx.commit();
 			return true;
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			return false;
-		}finally {
-//			sessionFactory.getCurrentSession().close();
+		} finally {
+//			session.close();
 		}
 	}
 
@@ -141,7 +138,7 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO {
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			return false;
-		}finally {
+		} finally {
 //			sessionFactory.getCurrentSession().close();
 		}
 	}

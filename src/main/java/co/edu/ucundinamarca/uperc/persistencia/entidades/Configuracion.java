@@ -65,32 +65,32 @@ public class Configuracion implements Serializable {
 //	@JoinColumn(name = "usuarioId", updatable = false, insertable = false)
 	private Usuario usuario;
 
-//	/**
-//	 * Constructor por defecto
-//	 */
-//	public Configuracion() {
-//
-//	}
+	/**
+	 * Constructor por defecto
+	 */
+	public Configuracion() {
 
-//	/**
-//	 * Constructor que carga todos los atributos
-//	 * 
-//	 * @param intentosFallidos
-//	 * @param caducidadPass
-//	 * @param maxAdmin
-//	 * @param fechaGuardado
-//	 * @param usuario
-//	 * 
-//	 */
-//	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
-//
-//		setIntentosFallidos(intentosFallidos);
-//		setCaducidadContrasena(caducidadPass);
-//		setMaxAdmin(maxAdmin);
-//		setFechaGuardado(fechaGuardado);
-//		setUsuario(usuario);
-//
-//	}
+	}
+
+	/**
+	 * Constructor que carga todos los atributos
+	 * 
+	 * @param intentosFallidos
+	 * @param caducidadPass
+	 * @param maxAdmin
+	 * @param fechaGuardado
+	 * @param usuario
+	 * 
+	 */
+	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
+
+		setIntentosFallidos(intentosFallidos);
+		setCaducidadContrasena(caducidadPass);
+		setMaxAdmin(maxAdmin);
+		setFechaGuardado(fechaGuardado);
+		setUsuario(usuario);
+
+	}
 
 	/**
 	 * Obtiene el id

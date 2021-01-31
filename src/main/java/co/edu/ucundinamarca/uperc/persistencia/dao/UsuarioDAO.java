@@ -18,7 +18,7 @@ public interface UsuarioDAO {
 	 * @param id
 	 * @return
 	 */
-	public Usuario selectById(long id);
+	public Usuario selectById(Long id);
 
 	/**
 	 * 

@@ -5,8 +5,12 @@ package co.edu.ucundinamarca.uperc.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -35,12 +39,15 @@ import co.edu.ucundinamarca.uperc.persistencia.FuenteDatos;
 import co.edu.ucundinamarca.uperc.persistencia.FuenteDatosDev;
 import co.edu.ucundinamarca.uperc.persistencia.FuenteDatosTest;
 import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
+import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.daoimpl.ConfiguracionDAOImpl;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
+import org.hibernate.type.descriptor.java.LocalDateJavaDescriptor;
 
 /**
  * @author mrsamudio
@@ -147,6 +154,22 @@ class ConfigFuenteDatosTest {
 	    System.out.println("getMaxAdmin: " + c.getMaxAdmin()); 
 	    System.out.println("getFechaGuardado: " + c.getFechaGuardado().toString());
 	    System.out.println("Usuario: " + c.getUsuario());
+	}
+	
+//	@Test
+	public void insert() {
+		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigFuenteDatos.class);
+
+		UsuarioDAO uDao = ctx.getBean(UsuarioDAO.class);
+		ConfiguracionDAO configDao = ctx.getBean(ConfiguracionDAO.class);
+		
+		Usuario u = uDao.selectById((long) 15);
+		
+		Date d = java.sql.Date.valueOf(LocalDate.now());
+		
+		Configuracion c = new Configuracion(7, 28, 1, d, u); 
+				
+				configDao.insert(c);
 	}
 	
 	

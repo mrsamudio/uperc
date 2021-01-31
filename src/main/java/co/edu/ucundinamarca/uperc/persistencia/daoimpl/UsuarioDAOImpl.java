@@ -27,7 +27,8 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  * @author mrsamudio
  *
  */
-@Repository("UsuarioDAO")
+@Repository
+//@Repository("UsuarioDAO")
 public class UsuarioDAOImpl implements UsuarioDAO {
 
 	private SessionFactory sessionFactory;
@@ -41,15 +42,16 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional
-	public Usuario selectById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario selectById(Long id) {
+		return sessionFactory.getCurrentSession().getSession().get(Usuario.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
+	@Transactional
 	public List<Usuario> selectAll() {
 		return sessionFactory.getCurrentSession()
 
