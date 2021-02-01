@@ -17,7 +17,6 @@ import java.util.Set;
 
 import javax.sql.DataSource;
 
-
 //import org.junit.jupiter.api.AfterAll;
 //import org.junit.jupiter.api.AfterEach;
 //import org.junit.jupiter.api.BeforeAll;
@@ -61,14 +60,14 @@ import org.hibernate.type.descriptor.java.LocalDateJavaDescriptor;
 class ConfigFuenteDatosTest {
 
 	private static Logger logger = LogManager.getLogger(ConfigFuenteDatosTest.class);
-	
+
 //	@Autowired
 //	private ApplicationContext contextoApp;
-	
+
 //	@Autowired
 //	@Qualifier("ConfiguracionDAO")
 //	private ConfiguracionDAO configDao;
-	
+
 //	@Autowired
 //	FuenteDatos fuenteDatos;
 
@@ -76,24 +75,24 @@ class ConfigFuenteDatosTest {
 	public void setUp() throws Exception {
 //        configDao = (ConfiguracionDAO) context.getBean("ConfiguracionDAO");
 //        configDao = (ConfiguracionDAO) contextoApp.getBean("ConfiguracionDAO");
-    }
-	
-	@Test
+	}
+
+//	@Test
 	public void test1() {
 		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigFuenteDatos.class);
 		System.out.println(" ");
-		System.out.println(Arrays.toString(ctx.getBeanDefinitionNames()) );
+		System.out.println(Arrays.toString(ctx.getBeanDefinitionNames()));
 		System.out.println(" ");
 //		SessionFactory sessionFact = (SessionFactory) ctx.getBean("factoriaSesion");
 //		sessionFact.openSession();
-		
+
 		ConfiguracionDAO configDao = ctx.getBean(ConfiguracionDAO.class);
 //		ConfiguracionDAO configDao = (ConfiguracionDAO) ctx.getBean("configuracionDao");
 //		ConfiguracionDAO configDao = ctx.getb
 //		configDao.delete(Configuracion);
 		List<Configuracion> res = new ArrayList<Configuracion>();
-				res = configDao.selectAll();
-				
+		res = configDao.selectAll();
+
 		System.out.println("Tamaño " + res.size() + "\n");
 //		System.out.println(res.get(0));
 //		
@@ -108,71 +107,91 @@ class ConfigFuenteDatosTest {
 //		}
 		for (Configuracion configuracion : res) {
 //			Configuracion c = configuracion.getClass();
-			System.out.println("getId: " + configuracion.getId()); 
-			System.out.println("getIntentosFallidos: " + configuracion.getIntentosFallidos()); 
-			System.out.println("getCaducidadContrasena: " + configuracion.getCaducidadContrasena()); 
-		    System.out.println("getMaxAdmin: " + configuracion.getMaxAdmin()); 
-		    System.out.println("getFechaGuardado: " + configuracion.getFechaGuardado().toString());
-		    System.out.println("Usuario: " + configuracion.getUsuario());
-		    System.out.println("");
-		    System.out.println("");
+			System.out.println("getId: " + configuracion.getId());
+			System.out.println("getIntentosFallidos: " + configuracion.getIntentosFallidos());
+			System.out.println("getCaducidadContrasena: " + configuracion.getCaducidadContrasena());
+			System.out.println("getMaxAdmin: " + configuracion.getMaxAdmin());
+			System.out.println("getFechaGuardado: " + configuracion.getFechaGuardado().toString());
+			System.out.println("Usuario: " + configuracion.getUsuario());
+			System.out.println("");
+			System.out.println("");
 
 		}
-		
+
 //		listSingers(configDao.selectAll());
 //		ctx.close();
 	}
 
 	private static void listSingers(List<Configuracion> singers) {
-		    logger.info(" ---- Listing singers:");
-		    for (Configuracion singer : singers) {
-		    logger.info(singer.toString());
-		    System.out.println(singer.getCaducidadContrasena()); 
-		    System.out.println(singer.getId()); 
-		    System.out.println(singer.getIntentosFallidos()); 
-		    System.out.println(singer.getMaxAdmin()); 
-		    System.out.println(singer.getFechaGuardado()); 
-		    logger.info(singer.getUsuario());
-		    }
+		logger.info(" ---- Listing singers:");
+		for (Configuracion singer : singers) {
+			logger.info(singer.toString());
+			System.out.println(singer.getCaducidadContrasena());
+			System.out.println(singer.getId());
+			System.out.println(singer.getIntentosFallidos());
+			System.out.println(singer.getMaxAdmin());
+			System.out.println(singer.getFechaGuardado());
+			logger.info(singer.getUsuario());
+		}
 	}
-	
-	@Test
-	public void selectById() {
-		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigFuenteDatos.class);
-		System.out.println(" ");
-		System.out.println(Arrays.toString(ctx.getBeanDefinitionNames()) );
-		System.out.println(" ");
-		
-		ConfiguracionDAO configDao = ctx.getBean(ConfiguracionDAO.class);
 
-		Configuracion c = configDao.selectById( Long.parseLong("1"));
-		
-		System.out.println("prueba de selectbyid");
-		System.out.println("get123Id: " + c.getId()); 
-		System.out.println("getIntentosFallidos123: " + c.getIntentosFallidos()); 
-		System.out.println("getCaducidadContrasena: " + c.getCaducidadContrasena()); 
-	    System.out.println("getMaxAdmin: " + c.getMaxAdmin()); 
-	    System.out.println("getFechaGuardado: " + c.getFechaGuardado().toString());
-	    System.out.println("Usuario: " + c.getUsuario());
-	}
-	
+//	@Test
+//	public void selectById() {
+//		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigFuenteDatos.class);
+//		System.out.println(" ");
+//		System.out.println(Arrays.toString(ctx.getBeanDefinitionNames()) );
+//		System.out.println(" ");
+//		
+//		ConfiguracionDAO configDao = ctx.getBean(ConfiguracionDAO.class);
+//
+//		Configuracion c = configDao.selectById( Long.parseLong("1"));
+//		
+//		System.out.println("prueba de selectbyid");
+//		System.out.println("get123Id: " + c.getId()); 
+//		System.out.println("getIntentosFallidos123: " + c.getIntentosFallidos()); 
+//		System.out.println("getCaducidadContrasena: " + c.getCaducidadContrasena()); 
+//	    System.out.println("getMaxAdmin: " + c.getMaxAdmin()); 
+//	    System.out.println("getFechaGuardado: " + c.getFechaGuardado().toString());
+//	    System.out.println("Usuario: " + c.getUsuario());
+//	}
+
 //	@Test
 	public void insert() {
 		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigFuenteDatos.class);
 
 		UsuarioDAO uDao = ctx.getBean(UsuarioDAO.class);
 		ConfiguracionDAO configDao = ctx.getBean(ConfiguracionDAO.class);
-		
+
 		Usuario u = uDao.selectById((long) 15);
-		
+
 		Date d = java.sql.Date.valueOf(LocalDate.now());
-		
-		Configuracion c = new Configuracion(7, 28, 1, d, u); 
-				
-				configDao.insert(c);
+
+		Configuracion c = new Configuracion(7, 28, 1, d, u);
+		System.out.println(configDao.insert(c));
+//				configDao.insert(c);
 	}
 	
-	
+	@Test
+	public void update() {
+		
+		GenericApplicationContext ctx = new AnnotationConfigApplicationContext(ConfigFuenteDatos.class);
+
+		UsuarioDAO uDao = ctx.getBean(UsuarioDAO.class);
+		ConfiguracionDAO configDao = ctx.getBean(ConfiguracionDAO.class);
+
+		Usuario u = uDao.selectById((long) 1);
+
+		Date d = java.sql.Date.valueOf(LocalDate.now());
+
+		Configuracion c = new Configuracion(1, 1, 31, 3, d, u);
+		
+		
+		System.out.println(configDao.update(c));
+		System.out.println("hecho");
+//				configDao.insert(c);
+		
+	}
+
 //	@Test
 //    public void testTwo() throws SQLException {
 //        GenericApplicationContext ctx =

@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
+ * Entidad de espacios de parqueo
  * @author mrsamudio
  *
  */
@@ -28,7 +29,7 @@ public class EspacioParqueo {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "")
+	@Column(name = "id")
 	private long id;
 	
 	@Column(name = "nombre")
@@ -41,8 +42,7 @@ public class EspacioParqueo {
 	@Column(name = "ocupado")
 	private boolean ocupado;
 	
-//	Listas
-//	@OneToMany(mappedBy = "ESPACIOPARQUEO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	//TODO: Pendiente por verificar
 	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private Set<Reserva> reservas;
 	
@@ -52,6 +52,14 @@ public class EspacioParqueo {
 	public EspacioParqueo() {
 		
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 */
+	public EspacioParqueo(long id) {
+		setId(id);
+	}
 
 	/**
 	 * @param nombre
@@ -60,8 +68,24 @@ public class EspacioParqueo {
 	 * @param reservas
 	 */
 	public EspacioParqueo(String nombre, Ubicacion ubicacion, boolean ocupado, Set<Reserva> reservas) {
-//		super();
 		
+		setNombre(nombre);
+		setUbicacion(ubicacion);
+		setOcupado(ocupado);
+		setReservas(reservas);
+	}
+	
+	/**
+	 * Carga de todos los atributos
+	 * @param id
+	 * @param nombre
+	 * @param ubicacion
+	 * @param ocupado
+	 * @param reservas
+	 */
+	public EspacioParqueo(long id, String nombre, Ubicacion ubicacion, boolean ocupado, Set<Reserva> reservas) {
+		
+		setId(id);
 		setNombre(nombre);
 		setUbicacion(ubicacion);
 		setOcupado(ocupado);

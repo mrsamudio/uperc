@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
@@ -17,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.InformeDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 
 /**
@@ -25,8 +28,8 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
  */
 @Repository
 //@Repository("InformeDAO")
-public class InformeDAOImpl implements InformeDAO {
-	
+public class InformeDAOImpl extends PersistenciaUtil implements InformeDAO {
+
 	private SessionFactory sessionFactory;
 
 	public SessionFactory getSessionFactory() {
@@ -39,52 +42,122 @@ public class InformeDAOImpl implements InformeDAO {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Informe selectById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(Informe.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Transactional(readOnly = true)
 	@Override
 	public List<Informe> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from informe")
-				.addScalar("id", new IntegerType())
-//				.addScalar("usuario", new IntegerType())
-//				.addScalar("regServicio", new IntegerType())
-				.addScalar("fechaGenerado", new DateType())
-				.addScalar("fechaInicio", new DateType())
-				.addScalar("fechaFin", new DateType())
-				.addScalar("disponibilidad", new DoubleType())
-				.addScalar("reservasOk", new DoubleType())
-				.addScalar("reservasFail", new DoubleType())
-				.addScalar("recogOk", new DoubleType())
-				.addScalar("recogFail", new DoubleType())
-				.addScalar("recogTotal", new IntegerType())
-				.addScalar("ingresosTotal", new IntegerType())
-				.addScalar("egresosTotal", new IntegerType())
-				.setResultTransformer(Transformers.aliasToBean(Informe.class)).list();
+		return sessionFactory.getCurrentSession().getSession().createQuery("from " + Informe.class.getSimpleName())
+				.list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Informe informe) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + Informe.class.getSimpleName()
+							+ "(usuario, regServicio, fechaGenerado, fechaInicio, fechaFin,"
+							+ " disponibilidad, reservasOk, reservasFail, recogOk, recogFail,"
+							+ " recogTotal, ingresosTotal, egresosTotal)"
+							+ " VALUES("
+							+ " usuario = :usuario, regServicio = :regServicio,"
+							+ " fechaGenerado = :fechaGenerado, fechaInicio = :fechaInicio,"
+							+ " fechaFin = :fechaFin, disponibilidad = :disponibilidad,"
+							+ " reservasOk = :reservasOk, reservasFail = :reservasFail,"
+							+ " recogOk = :recogOk, recogFail = :recogFail, recogTotal = :recogTotal,"
+							+ " ingresosTotal = :ingresosTotal, egresosTotal = :egresosTotal"
+							+ ")")
+
+							.setParameter("usuario", informe.getUsuario() )
+							.setParameter("regServicio", informe.getRegServicio() )
+							.setParameter("fechaGenerado", informe.getFechaGenerado() )
+							.setParameter("fechaInicio", informe.getFechaInicio() )
+							.setParameter("fechaFin", informe.getFechaFin() )
+							.setParameter("disponibilidad", informe.getDisponibilidad() )
+							.setParameter("reservasOk", informe.getReservasOk() )
+							.setParameter("reservasFail", informe.getReservasFail() )
+							.setParameter("recogOk", informe.getRecogOk() )
+							.setParameter("recogFail", informe.getRecogFail() )
+							.setParameter("recogTotal", informe.getRecogTotal() )
+							.setParameter("ingresosTotal", informe.getIngresosTotal() )
+							.setParameter("egresosTotal", informe.getEgresosTotal() )
+							.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Informe informe) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Informe.class.getSimpleName() 
+							+ " SET"
+							+ " usuario = :usuario, regServicio = :regServicio,"
+							+ " fechaGenerado = :fechaGenerado, fechaInicio = :fechaInicio,"
+							+ " fechaFin = :fechaFin, disponibilidad = :disponibilidad,"
+							+ " reservasOk = :reservasOk, reservasFail = :reservasFail,"
+							+ " recogOk = :recogOk, recogFail = :recogFail, recogTotal = :recogTotal,"
+							+ " ingresosTotal = :ingresosTotal, egresosTotal = :egresosTotal"
+							+ " WHERE id = :idconf")
+					
+					.setParameter("idconf", informe.getId())
+					.setParameter("usuario", informe.getUsuario() )
+					.setParameter("regServicio", informe.getRegServicio() )
+					.setParameter("fechaGenerado", informe.getFechaGenerado() )
+					.setParameter("fechaInicio", informe.getFechaInicio() )
+					.setParameter("fechaFin", informe.getFechaFin() )
+					.setParameter("disponibilidad", informe.getDisponibilidad() )
+					.setParameter("reservasOk", informe.getReservasOk() )
+					.setParameter("reservasFail", informe.getReservasFail() )
+					.setParameter("recogOk", informe.getRecogOk() )
+					.setParameter("recogFail", informe.getRecogFail() )
+					.setParameter("recogTotal", informe.getRecogTotal() )
+					.setParameter("ingresosTotal", informe.getIngresosTotal() )
+					.setParameter("egresosTotal", informe.getEgresosTotal() )
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean delete(Informe informe) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("DELETE FROM " + Informe.class.getSimpleName() 
+							+ " WHERE id = :idconf")
+					.setParameter("idconf", informe.getId())
+					
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

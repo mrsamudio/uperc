@@ -50,12 +50,9 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  * @author mrsamudio
  *
  */
-//@SuppressWarnings("unchecked")
-//@Service
-
 @Repository
 //@Repository("ConfiguracionDAO")
-public class ConfiguracionDAOImpl implements ConfiguracionDAO {
+public class ConfiguracionDAOImpl extends PersistenciaUtil implements ConfiguracionDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -74,9 +71,8 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO {
 	 */
 	@SuppressWarnings("deprecation")
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Configuracion selectById(Long id) {
-
 		return sessionFactory.getCurrentSession().getSession().get(Configuracion.class, id);
 	}
 
@@ -84,75 +80,57 @@ public class ConfiguracionDAOImpl implements ConfiguracionDAO {
 	@Transactional(readOnly = true)
 	@Override
 	public List<Configuracion> selectAll() {
-
-//		TODO: probar otra sentencia sql
-//		return sessionFactory.getCurrentSession()
-//
-//				.createSQLQuery("select * from configuracion").addScalar("id", new IntegerType())
-//				.addScalar("intentosFallidos", new IntegerType()).addScalar("caducidadContrasena", new IntegerType())
-//				.addScalar("maxAdmin", new IntegerType()).addScalar("fechaGuardado", new DateType())
-////				.addScalar("usuario", new IntegerType())
-//				.setResultTransformer(Transformers.aliasToBean(Configuracion.class)).list();
-		return sessionFactory.getCurrentSession().getSession().createQuery("from " + Configuracion.class.getSimpleName()).list();
+		return sessionFactory.getCurrentSession().getSession()
+				.createQuery("from " + Configuracion.class.getSimpleName()).list();
 	}
 
 	@Override
 	@Transactional
 	public boolean insert(Configuracion configuracion) {
 		Session session = sessionFactory.getCurrentSession();
-		Transaction tx = session.getTransaction();
 		int res = 0;
 		try {
-//			tx.begin();
-//			sessionFactory.getCurrentSession().persist(configuracion);
-			res = session.createSQLQuery("INSERT INTO configuracion"
-					+ "(intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario)"
-					+ " VALUES(:falla, :caduca, :maxadmin, :fechaguar, :usuario)")
+			res = session
+					.createSQLQuery("INSERT INTO configuracion"
+							+ "(intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario)"
+							+ " VALUES(:falla, :caduca, :maxadmin, :fechaguar, :usuario)")
 					.setParameter("falla", configuracion.getIntentosFallidos())
 					.setParameter("caduca", configuracion.getCaducidadContrasena())
 					.setParameter("maxadmin", configuracion.getMaxAdmin())
 					.setParameter("fechaguar", configuracion.getFechaGuardado())
 					.setParameter("usuario", configuracion.getUsuario().getId()).executeUpdate();
 
-//			System.out.println(res);
-//			session.save(configuracion);
-//			session.flush();
-//			tx.commit();
-			return true;
+			return isResultado(res);
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			return false;
-		} finally {
-//			session.close();
 		}
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Configuracion configuracion) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
 		try {
-			sessionFactory.getCurrentSession().getTransaction().begin();
-			sessionFactory.getCurrentSession().merge(configuracion);
-			sessionFactory.getCurrentSession().flush();
-			sessionFactory.getCurrentSession().getTransaction().commit();
-			return true;
+
+			res = session
+					.createSQLQuery("UPDATE configuracion" + " SET"
+							+ " intentosfallidos = :falla, caducidadcontrasena = :caduca,"
+							+ " maxadmin = :maxadmin, fechaguardado = :fechaguar, usuario = :usuario"
+							+ " WHERE id = :idconf")
+					.setParameter("idconf", configuracion.getId())
+					.setParameter("falla", configuracion.getIntentosFallidos())
+					.setParameter("caduca", configuracion.getCaducidadContrasena())
+					.setParameter("maxadmin", configuracion.getMaxAdmin())
+					.setParameter("fechaguar", configuracion.getFechaGuardado())
+					.setParameter("usuario", configuracion.getUsuario().getId()).executeUpdate();
+
+			return isResultado(res);
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			return false;
-		} finally {
-//			sessionFactory.getCurrentSession().close();
 		}
-	}
-
-	@Override
-	public boolean deactivate(int id) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean activate(int id) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

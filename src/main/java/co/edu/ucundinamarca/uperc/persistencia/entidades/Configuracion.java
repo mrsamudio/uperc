@@ -45,7 +45,7 @@ public class Configuracion implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 //	@Column(name = "id", columnDefinition = "serial")
-	private Long id;
+	private long id;
 
 	@Column(name = "intentosfallidos")
 	private int intentosFallidos;
@@ -73,7 +73,15 @@ public class Configuracion implements Serializable {
 	}
 
 	/**
-	 * Constructor que carga todos los atributos
+	 * Carga solamente id
+	 * @param id
+	 */
+	public Configuracion(long id) {
+		setId(id);
+	}
+
+	/**
+	 * todos los atributos sin el atribudo id
 	 * 
 	 * @param intentosFallidos
 	 * @param caducidadPass
@@ -90,6 +98,26 @@ public class Configuracion implements Serializable {
 		setFechaGuardado(fechaGuardado);
 		setUsuario(usuario);
 
+	}
+	
+	/**
+	 * Constructor que carga todos los atributos
+	 * @param id
+	 * @param intentosFallidos
+	 * @param caducidadPass
+	 * @param maxAdmin
+	 * @param fechaGuardado
+	 * @param usuario
+	 */
+	public Configuracion(long id, int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
+		
+		setId(id);
+		setIntentosFallidos(intentosFallidos);
+		setCaducidadContrasena(caducidadPass);
+		setMaxAdmin(maxAdmin);
+		setFechaGuardado(fechaGuardado);
+		setUsuario(usuario);
+		
 	}
 
 	/**

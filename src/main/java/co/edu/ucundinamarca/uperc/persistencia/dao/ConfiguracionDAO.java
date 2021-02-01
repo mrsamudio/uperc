@@ -32,26 +32,16 @@ public interface ConfiguracionDAO {
 
 	/**
 	 * Inserta un registro de configuración
+	 * 
 	 * @param configuracion
 	 */
 	public boolean insert(Configuracion configuracion);
 
 	/**
 	 * Actualiza un registro de configuración
+	 * 
 	 * @param configuracion
 	 */
 	public boolean update(Configuracion configuracion);
-
-	/**
-	 * Desactiva una configuración
-	 * @param id
-	 */
-	public boolean deactivate(int id);
-
-	/**
-	 * Activa una configuración
-	 * @param id
-	 */
-	public boolean activate(int id);
 
 }

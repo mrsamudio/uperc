@@ -1,5 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -28,7 +29,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "informe")
-public class Informe {
+public class Informe implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6120282131434078221L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -103,6 +109,13 @@ public class Informe {
 	}
 
 	/**
+	 * carga de solo id
+	 */
+	public Informe(long id) {
+		setId(id);
+	}
+
+	/**
 	 * @param usuario
 	 * @param regServicio
 	 * @param fechaGenerado
@@ -121,6 +134,42 @@ public class Informe {
 			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
 			int recogTotal, int ingresosTotal, int egresosTotal) {
 
+		setUsuario(usuario);
+		setRegServicio(regServicio);
+		setFechaGenerado(fechaGenerado);
+		setFechaInicio(fechaInicio);
+		setFechaFin(fechaFin);
+		setDisponibilidad(disponibilidad);
+		setReservasOk(reservasOk);
+		setReservasFail(reservasFail);
+		setRecogOk(recogOk);
+		setRecogFail(recogFail);
+		setRecogTotal(recogTotal);
+		setIngresosTotal(ingresosTotal);
+		setEgresosTotal(egresosTotal);
+	}
+	
+	/**
+	 * carga de todos los atributos
+	 * @param id
+	 * @param usuario
+	 * @param regServicio
+	 * @param fechaGenerado
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @param disponibilidad
+	 * @param reservasOk
+	 * @param reservasFail
+	 * @param recogOk
+	 * @param recogFail
+	 * @param recogTotal
+	 * @param ingresosTotal
+	 * @param egresosTotal
+	 */
+	public Informe(long id, Usuario usuario, RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
+			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
+			int recogTotal, int ingresosTotal, int egresosTotal) {
+		setId(id);
 		setUsuario(usuario);
 		setRegServicio(regServicio);
 		setFechaGenerado(fechaGenerado);
