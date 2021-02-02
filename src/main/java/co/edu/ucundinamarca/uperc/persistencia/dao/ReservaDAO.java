@@ -51,6 +51,12 @@ public interface ReservaDAO {
 	 * @return
 	 */
 	public List<Reserva> selectAll();
+	
+	/**
+	 * 
+	 * @param reserva
+	 */
+	public boolean insert(Reserva reserva);
 
 	/**
 	 * 
@@ -58,11 +64,6 @@ public interface ReservaDAO {
 	 */
 	public boolean update(Reserva reserva);
 
-	/**
-	 * 
-	 * @param reserva
-	 */
-	public boolean insert(Reserva reserva);
 
 	/**
 	 * 

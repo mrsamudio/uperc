@@ -41,6 +41,7 @@ import org.springframework.stereotype.Service;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 /**
@@ -91,14 +92,17 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 		int res = 0;
 		try {
 			res = session
-					.createSQLQuery("INSERT INTO configuracion"
+					.createSQLQuery("INSERT INTO " + Configuracion.class.getSimpleName() 
 							+ "(intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario)"
-							+ " VALUES(:falla, :caduca, :maxadmin, :fechaguar, :usuario)")
+							+ " VALUES("
+							+ ":falla, :caduca, :maxadmin, :fechaguar, :usuario)"
+							+ "")
 					.setParameter("falla", configuracion.getIntentosFallidos())
 					.setParameter("caduca", configuracion.getCaducidadContrasena())
 					.setParameter("maxadmin", configuracion.getMaxAdmin())
 					.setParameter("fechaguar", configuracion.getFechaGuardado())
-					.setParameter("usuario", configuracion.getUsuario().getId()).executeUpdate();
+					.setParameter("usuario", configuracion.getUsuario().getId())
+					.executeUpdate();
 
 			return isResultado(res);
 		} catch (HibernateException e) {
@@ -115,7 +119,8 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 		try {
 
 			res = session
-					.createSQLQuery("UPDATE configuracion" + " SET"
+					.createSQLQuery("UPDATE " + Configuracion.class.getSimpleName() 
+							+ " SET"
 							+ " intentosfallidos = :falla, caducidadcontrasena = :caduca,"
 							+ " maxadmin = :maxadmin, fechaguardado = :fechaguar, usuario = :usuario"
 							+ " WHERE id = :idconf")
@@ -124,7 +129,8 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 					.setParameter("caduca", configuracion.getCaducidadContrasena())
 					.setParameter("maxadmin", configuracion.getMaxAdmin())
 					.setParameter("fechaguar", configuracion.getFechaGuardado())
-					.setParameter("usuario", configuracion.getUsuario().getId()).executeUpdate();
+					.setParameter("usuario", configuracion.getUsuario().getId())
+					.executeUpdate();
 
 			return isResultado(res);
 		} catch (HibernateException e) {

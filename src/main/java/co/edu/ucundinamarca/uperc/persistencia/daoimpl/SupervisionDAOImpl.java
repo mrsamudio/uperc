@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.BooleanType;
@@ -28,7 +30,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  */
 //@Repository("SupervisionDAO")
 @Repository
-public class SupervisionDAOImpl implements SupervisionDAO {
+public class SupervisionDAOImpl extends PersistenciaUtil implements SupervisionDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -42,46 +44,81 @@ public class SupervisionDAOImpl implements SupervisionDAO {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Supervision selectById(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(Supervision.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Supervision> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from supervision")
-				.addScalar("id", new IntegerType())
-				.addScalar("mensaje", new StringType())
-				.addScalar("estado", new BooleanType())
-				.addScalar("fecha", new DateType())
-				.addScalar("tipo", new BooleanType())
-//				.addScalar("usuario", new Usuario())
-				.setResultTransformer(Transformers.aliasToBean(Supervision.class)).list();
+		return sessionFactory.getCurrentSession().getSession()
+				.createQuery("from " + Supervision.class.getSimpleName()).list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Supervision supervision) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + Supervision.class.getSimpleName() 
+							+ "(usuario, tipo, fecha, estado, mensaje)"
+							+ " VALUES("
+							+ ":usuario, :tipo, :fecha, :estado, :mensaje"
+							+ ")")
+					.setParameter("usuario", supervision.getUsuario().getId())
+					.setParameter("tipo", supervision.isTipo())
+					.setParameter("fecha", supervision.getFecha())
+					.setParameter("estado", supervision.isEstado())
+					.setParameter("mensaje", supervision.getMensaje())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Supervision supervision) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Supervision.class.getSimpleName() 
+							+ " SET"
+							+ " usuario = :usuario, tipo = :tipo, fecha = :fecha, estado = :estado, mensaje = :mensaje"
+							+ " WHERE id = :idconf")
+					.setParameter("idconf", supervision.getId())
+					.setParameter("usuario", supervision.getUsuario().getId())
+					.setParameter("tipo", supervision.isTipo())
+					.setParameter("fecha", supervision.getFecha())
+					.setParameter("estado", supervision.isEstado())
+					.setParameter("mensaje", supervision.getMensaje())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean activate(long id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
+	@Transactional
 	public boolean deactivate(long id) {
 		// TODO Auto-generated method stub
 		return false;

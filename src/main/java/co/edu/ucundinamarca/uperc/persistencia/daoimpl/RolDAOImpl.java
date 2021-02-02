@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
@@ -27,7 +29,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Rol;
  */
 //@Repository("RolDAO")
 @Repository
-public class RolDAOImpl implements RolDAO {
+public class RolDAOImpl extends PersistenciaUtil implements RolDAO {
 	
 
 		private SessionFactory sessionFactory;
@@ -41,45 +43,70 @@ public class RolDAOImpl implements RolDAO {
 			this.sessionFactory = sessionFactory;
 		}
 
-	/**
-	 * 
-	 */
-	public RolDAOImpl() {
-		// TODO Auto-generated constructor stub
-	}
 
+	@SuppressWarnings("deprecation")
 	@Override
+	@Transactional(readOnly = true)
 	public Rol selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(Rol.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Rol> selectAll() {
-		
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from rol")
-				.addScalar("id", new IntegerType())
-				.addScalar("nombre", new StringType())
-				.addScalar("descripcion", new StringType())
-//				.addScalar("perfilUsuario", new PerfilUsuario())
-//				.addScalar("usuarios", new Set<Usuario>)
-				.setResultTransformer(Transformers.aliasToBean(Rol.class)).list();
+		return sessionFactory.getCurrentSession().getSession()
+				.createQuery("from " + Rol.class.getSimpleName()).list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Rol rol) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + Rol.class.getSimpleName() 
+							+ "(nombre, descripcion, perfil)"
+							+ " VALUES("
+							+ ":nombre, :descripcion, :perfil"
+							+ ")")
+					.setParameter("nombre", rol.getNombre())
+					.setParameter("descripcion", rol.getDescripcion())
+					.setParameter("perfil", rol.getPerfilUsuario().getId())
+//					.setParameter("usuario", rol.getUsuarios())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Rol rol) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Rol.class.getSimpleName() 
+							+ " SET"
+							+ "nombre = :nombre, descripcion = :descripcion, perfil = :perfil"
+							+ " WHERE id = :idconf")
+					.setParameter("idConf", rol.getId())
+					.setParameter("nombre", rol.getNombre())
+					.setParameter("descripcion", rol.getDescripcion())
+					.setParameter("perfil", rol.getPerfilUsuario().getId())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

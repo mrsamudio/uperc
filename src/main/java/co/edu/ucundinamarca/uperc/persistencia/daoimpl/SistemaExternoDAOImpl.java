@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
@@ -25,7 +27,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.SistemaExterno;
  *
  */
 @Repository("SistemaExternoDAO")
-public class SistemaExternoDAOImpl implements SistemaExternoDAO {
+public class SistemaExternoDAOImpl extends PersistenciaUtil implements SistemaExternoDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -39,36 +41,67 @@ public class SistemaExternoDAOImpl implements SistemaExternoDAO {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public SistemaExterno selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(SistemaExterno.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
+	@Transactional(readOnly = true)
 	public List<SistemaExterno> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from sistema_externo")
-				.addScalar("id", new IntegerType())
-				.addScalar("ip", new StringType())
-				.addScalar("nombre", new StringType())
-				.addScalar("contrasena", new StringType())
-//				.addScalar("regServicios", new Set<RegServicio>)
-				.setResultTransformer(Transformers.aliasToBean(SistemaExterno.class)).list();
+		return sessionFactory.getCurrentSession().getSession()
+				.createQuery("from " + SistemaExterno.class.getSimpleName()).list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(SistemaExterno sistemaExterno) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + SistemaExterno.class.getSimpleName() 
+							+ "( ip, nombre, contrasena)"
+							+ " VALUES("
+							+ ":ip, :nombre, :contrasena"
+							+ ")")
+					.setParameter("ip", sistemaExterno.getIp())
+					.setParameter("nombre", sistemaExterno.getNombre())
+					.setParameter("contrasena", sistemaExterno.getContrasena())
+//					.setParameter("idConf", sistemaExterno.getId())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean update(SistemaExterno sistemaExterno) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + SistemaExterno.class.getSimpleName() 
+							+ " SET"
+							+ " ip = :ip, nombre = :nombre, contrasena = :contrasena"
+							+ " WHERE id = :idconf")
+					.setParameter("idConf", sistemaExterno.getId())
+					.setParameter("ip", sistemaExterno.getIp())
+					.setParameter("nombre", sistemaExterno.getNombre())
+					.setParameter("contrasena", sistemaExterno.getContrasena())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
