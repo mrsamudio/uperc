@@ -43,12 +43,12 @@ public class RegistroIE {
 	private Date fechaEgreso;
 
 	@ManyToOne
-	@JoinColumn(name = "recurso", referencedColumnName = "ID")
+	@JoinColumn(name = "recurso", referencedColumnName = "id")
 //	@Column(name = "RECURSO")
 	private Recurso recurso;
 
 	@ManyToOne
-	@JoinColumn(name = "vehiculo", referencedColumnName = "ID")
+	@JoinColumn(name = "vehiculo", referencedColumnName = "id")
 //	@Column(name = "VEHICULO")
 	private Vehiculo vehiculo;
 
@@ -68,7 +68,7 @@ public class RegistroIE {
 	@JoinColumn(name = "permiso", referencedColumnName = "id")
 	private Permiso permiso;
 	
-	@Column(name = "ticketid")
+	@Column(name = "ticketid")//tipo uuid postgresql
 	private String ticketId;
 
 	/**

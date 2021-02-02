@@ -5,14 +5,20 @@ package co.edu.ucundinamarca.uperc.persistencia.daoimpl;
 
 import java.util.List;
 
+import javax.annotation.Resource;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
 import org.hibernate.type.IntegerType;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.PermisoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Permiso;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
@@ -22,7 +28,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  *
  */
 @Repository
-public class PermisoDAOImpl implements PermisoDAO {
+public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -30,42 +36,74 @@ public class PermisoDAOImpl implements PermisoDAO {
 		return sessionFactory;
 	}
 
-	/**
-	 * 
-	 */
-	public PermisoDAOImpl() {
-		// TODO Auto-generated constructor stub
+	@Resource(name = "factoriaSesion")
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 
+
 	@Override
+	@Transactional(readOnly = true)
 	public Permiso selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(Permiso.class, id);
 	}
 
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
+	@Transactional(readOnly = true)
 	public List<Permiso> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from permiso")
-				.addScalar("id", new IntegerType())
-				
-//				.addScalar("usuario", new Usuario())
-//				.addScalar("registroIE", new RegistroIE())
-				.setResultTransformer(Transformers.aliasToBean(Permiso.class)).list();
+		return sessionFactory.getCurrentSession().getSession().createQuery("from " + Permiso.class.getSimpleName())
+				.list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Permiso perfilUsuario) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + Permiso.class.getSimpleName()
+							+ "(usuario, registroie)"
+							+ " VALUES("
+							+ " usuario = :usuario, registroie = :registroie"
+							+ ")")
+
+							.setParameter("usuario", perfilUsuario.getUsuario().getId() )
+							.setParameter("regServicio", perfilUsuario.getRegistroIE().getId() )
+							.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Permiso perfilUsuario) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Informe.class.getSimpleName() 
+							+ " SET"
+							+ " usuario = :usuario, registroie = :registroie"
+							+ " WHERE id = :idconf")
+					
+					.setParameter("idconf", perfilUsuario.getId())
+					.setParameter("usuario", perfilUsuario.getUsuario().getId() )
+					.setParameter("regServicio", perfilUsuario.getRegistroIE().getId() )
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

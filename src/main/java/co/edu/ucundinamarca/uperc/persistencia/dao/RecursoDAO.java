@@ -41,12 +41,12 @@ public interface RecursoDAO {
 	 * 
 	 * @param id
 	 */
-	public boolean activate(long id);
+	public boolean activate(Recurso recurso);
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public boolean deactivate(long id);
+	public boolean deactivate(Recurso recurso);
 
 }

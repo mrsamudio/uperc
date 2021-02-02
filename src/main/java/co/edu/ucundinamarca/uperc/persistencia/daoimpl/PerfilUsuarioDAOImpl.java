@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.transform.Transformers;
 import org.hibernate.type.DateType;
@@ -26,7 +28,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.PerfilUsuario;
  */
 @Repository
 //@Repository("PerfilUsuarioDAO")
-public class PerfilUsuarioDAOImpl implements PerfilUsuarioDAO {
+public class PerfilUsuarioDAOImpl extends PersistenciaUtil implements PerfilUsuarioDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -39,37 +41,68 @@ public class PerfilUsuarioDAOImpl implements PerfilUsuarioDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public PerfilUsuario selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(PerfilUsuario.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<PerfilUsuario> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from perfil_usuario")
-				.addScalar("id", new IntegerType())
-				.addScalar("nombre", new StringType())
-				.addScalar("descripcion", new StringType())
-//				.addScalar("roles", new IntegerType())
-				.setResultTransformer(Transformers.aliasToBean(PerfilUsuario.class)).list();
+		return sessionFactory.getCurrentSession().getSession().createQuery("from " + PerfilUsuario.class.getSimpleName())
+				.list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(PerfilUsuario perfilUsuario) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + PerfilUsuario.class.getSimpleName()
+							+ "(nombre, descripcion)"
+							+ " VALUES("
+							+ " nombre = :nombre, descripcion = :descripcion"
+							+ ")")
+
+							.setParameter("nombre", perfilUsuario.getNombre() )
+							.setParameter("descripcion", perfilUsuario.getDescripcion() )
+							.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
+	@Transactional
 	@Override
 	public boolean update(PerfilUsuario perfilUsuario) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + PerfilUsuario.class.getSimpleName() 
+							+ " SET"
+							+ " nombre = :nombre, descripcion = :descripcion"
+							+ " WHERE id = :idconf")
+					
+					.setParameter("idconf", perfilUsuario.getId())
+					.setParameter("nombre", perfilUsuario.getNombre() )
+					.setParameter("descripcion", perfilUsuario.getDescripcion() )
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

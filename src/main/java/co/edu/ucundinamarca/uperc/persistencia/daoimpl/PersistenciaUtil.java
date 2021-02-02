@@ -1,5 +1,9 @@
 package co.edu.ucundinamarca.uperc.persistencia.daoimpl;
 
+import javax.annotation.Resource;
+
+import org.hibernate.SessionFactory;
+
 /**
  * Utilidades relacionadas con persistencia
  * 
@@ -11,6 +15,19 @@ public class PersistenciaUtil {
 	public PersistenciaUtil() {
 		super();
 	}
+	
+	
+//	private SessionFactory sessionFactory;
+//
+//	public SessionFactory getSessionFactory() {
+//		return sessionFactory;
+//	}
+//
+//	@Resource(name = "factoriaSesion")
+//	public void setSessionFactory(SessionFactory sessionFactory) {
+//		this.sessionFactory = sessionFactory;
+//	}
+	
 
 	/**
 	 * Comprobacion resultado

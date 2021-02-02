@@ -7,6 +7,7 @@ import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 
 /**
@@ -42,29 +43,23 @@ public interface RegistroIEDAO {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public List<RegistroIE> selectAll();
+	
+	/**
+	 * 
 	 * @param registroI
 	 * @return
 	 */
 	public boolean insertI(RegistroIE registroI);
+	
 
 	/**
 	 * 
 	 * @param registroI
 	 * @return
 	 */
-	public boolean updateI(RegistroIE registroI);
+	public boolean updateIE(RegistroIE registroI);
 	
-	/**
-	 * 
-	 * @param registroE
-	 * @return
-	 */
-	public boolean insertE(RegistroIE registroE);
-	
-	/**
-	 * 
-	 * @param registroE
-	 * @return
-	 */
-	public boolean updateE(RegistroIE registroE);
 }
