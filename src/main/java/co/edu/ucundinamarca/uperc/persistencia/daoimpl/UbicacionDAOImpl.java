@@ -7,17 +7,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.UbicacionDAO;
-import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Ubicacion;
 
 /**
@@ -25,7 +21,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Ubicacion;
  *
  */
 @Repository("UbicacionDAO")
-public class UbicacionDAOImpl implements UbicacionDAO {
+public class UbicacionDAOImpl extends PersistenciaUtil implements UbicacionDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -38,45 +34,72 @@ public class UbicacionDAOImpl implements UbicacionDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
-	/**
-	 * 
-	 */
-	public UbicacionDAOImpl() {
-		// TODO Auto-generated constructor stub
-	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Ubicacion selectById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return sessionFactory.getCurrentSession().getSession().get(Ubicacion.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
+	@Transactional(readOnly = true)
 	public List<Ubicacion> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from ubicacion")
-				.addScalar("id", new IntegerType())
-				.addScalar("nombre", new StringType())
-				.addScalar("direccion", new StringType())
-//				.addScalar("coordenadas", new Point())
-				.addScalar("telefono", new StringType())
-//				.addScalar("espaciosParqueo", new Set<EspacioParqueo>)
-				.setResultTransformer(Transformers.aliasToBean(Ubicacion.class)).list();
+		return sessionFactory.getCurrentSession().getSession()
+				.createQuery("from " + Ubicacion.class.getSimpleName()).list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Ubicacion ubicacion) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + Ubicacion.class.getSimpleName() 
+							+ "(telefono, coordenadas, direccion, nombre)"
+							+ " VALUES("
+							+ ":telefono, :coordenadas, :direccion, :nombre"
+							+ ")")
+					.setParameter("telefono", ubicacion.getTelefono())
+					.setParameter("coordenadas", ubicacion.getCoordenadas())
+					.setParameter("direccion", ubicacion.getDireccion())
+					.setParameter("nombre", ubicacion.getNombre())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Ubicacion ubicacion) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Ubicacion.class.getSimpleName() 
+							+ " SET"
+							+ "telefono, coordenadas, direccion, nombre"
+							+ "telefono = :telefono, coordenadas = :coordenadas, direccion = :direccion, nombre = :nombre"
+							+ " WHERE id = :idconf")
+					.setParameter("idconf", ubicacion.getId())
+					.setParameter("telefono", ubicacion.getTelefono())
+					.setParameter("coordenadas", ubicacion.getCoordenadas())
+					.setParameter("direccion", ubicacion.getDireccion())
+					.setParameter("nombre", ubicacion.getNombre())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

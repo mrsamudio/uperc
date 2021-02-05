@@ -10,19 +10,11 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.ucundinamarca.uperc.persistencia.dao.SistemaExternoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.SupervisionDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Supervision;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 /**
  * @author mrsamudio
@@ -43,6 +35,7 @@ public class SupervisionDAOImpl extends PersistenciaUtil implements SupervisionD
 		this.sessionFactory = sessionFactory;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
 	public Supervision selectById(long id) {
@@ -112,16 +105,49 @@ public class SupervisionDAOImpl extends PersistenciaUtil implements SupervisionD
 
 	@Override
 	@Transactional
-	public boolean activate(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean activate(Supervision supervision) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Supervision.class.getSimpleName() 
+							+ " SET estado = :estado"
+							+ " WHERE id = :idconf"
+							+ "")
+					.setParameter("idconf", supervision.getId())
+					.setParameter("estado", true)
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
 	@Transactional
-	public boolean deactivate(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deactivate(Supervision supervision) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Supervision.class.getSimpleName() 
+							+ " SET estado = :estado"
+							+ " WHERE id = :idconf"
+							+ "")
+					.setParameter("idconf", supervision.getId())
+					.setParameter("estado", false)
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			//TODO: verificar resultado
+			return false;
+		}
 	}
 
 }

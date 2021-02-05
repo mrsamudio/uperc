@@ -45,13 +45,13 @@ public interface SupervisionDAO {
 	 * @param id
 	 * @return
 	 */
-	public boolean activate(long id);
+	public boolean activate(Supervision supervision);
 
 	/**
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public boolean deactivate(long id);
+	public boolean deactivate(Supervision supervision);
 
 }

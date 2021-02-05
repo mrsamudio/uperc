@@ -10,16 +10,10 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.ucundinamarca.uperc.persistencia.dao.InformeDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.PerfilUsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.PerfilUsuario;
 
 /**

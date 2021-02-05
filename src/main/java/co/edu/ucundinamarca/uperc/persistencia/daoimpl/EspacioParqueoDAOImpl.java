@@ -7,18 +7,11 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.EspacioParqueoDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Ubicacion;
 
 @Repository
 public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioParqueoDAO {
@@ -34,6 +27,7 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 		this.sessionFactory = sessionFactory;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
 	public EspacioParqueo selectById(int id) {
@@ -56,10 +50,11 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 		try {
 			res = session
 					.createSQLQuery("INSERT INTO " + EspacioParqueo.class.getSimpleName()
-							//FIXME: QUITAR LOS ID PARA INSERCIONES 
-							+ "(id, nombre, ubicacion, ocupado)"
-							+ " VALUES(:idconf, :nombre, :ubicacion, :ocupado)")
-					.setParameter("idconf", espacioParqueo.getId())
+							+ "("
+							+ "nombre, ubicacion, ocupado"
+							+ ")"
+							+ " VALUES("
+							+ ":nombre, :ubicacion, :ocupado)")
 					.setParameter("nombre", espacioParqueo.getNombre())
 					.setParameter("ubicacion", espacioParqueo.getUbicacion().getId())
 					.setParameter("ocupado", espacioParqueo.isOcupado())
@@ -82,8 +77,10 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 
 			res = session
 					.createSQLQuery("UPDATE " + EspacioParqueo.class.getSimpleName() 
-							+ " SET nombre = :nombre, ubicacion = :ubicacion, ocupado = :ocupado"
-							+ " WHERE id = :idconf")
+							+ " SET"
+							+ " nombre = :nombre, ubicacion = :ubicacion, ocupado = :ocupado"
+							+ " WHERE id = :idconf"
+							+ "")
 					.setParameter("idconf", espacioParqueo.getId())
 					.setParameter("nombre", espacioParqueo.getNombre())
 					.setParameter("ubicacion", espacioParqueo.getUbicacion().getId())
@@ -109,11 +106,8 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 					.createSQLQuery("UPDATE " + EspacioParqueo.class.getSimpleName() 
 							+ " SET ocupado = :ocupado"
 							+ " WHERE id = :idconf"
-							+ " AND nombre = :nombre"
-							+ " AND ubicacion = :ubicacion")
+							+ "")
 					.setParameter("idconf", espacioParqueo.getId())
-					.setParameter("nombre", espacioParqueo.getNombre())
-					.setParameter("ubicacion", espacioParqueo.getUbicacion().getId())
 					.setParameter("ocupado", true)
 					.executeUpdate();
 
@@ -126,6 +120,7 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 
 	@Override
 	@Transactional
+//	public boolean setCupo(EspacioParqueo espacioParqueo, boolean ocupado) {
 	public boolean deActivate(EspacioParqueo espacioParqueo) {
 		Session session = sessionFactory.getCurrentSession();
 		int res = 0;
@@ -135,11 +130,8 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 					.createSQLQuery("UPDATE " + EspacioParqueo.class.getSimpleName() 
 							+ " SET ocupado = :ocupado"
 							+ " WHERE id = :idconf"
-							+ " AND nombre = :nombre"
-							+ " AND ubicacion = :ubicacion")
+							+ "")
 					.setParameter("idconf", espacioParqueo.getId())
-					.setParameter("nombre", espacioParqueo.getNombre())
-					.setParameter("ubicacion", espacioParqueo.getUbicacion().getId())
 					.setParameter("ocupado", false)
 					.executeUpdate();
 
@@ -147,7 +139,7 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			//TODO: verificar resultado
-			return true;
+			return false;
 		}
 	}
 

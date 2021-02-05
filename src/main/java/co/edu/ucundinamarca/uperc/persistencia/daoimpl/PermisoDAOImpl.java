@@ -10,18 +10,11 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.PermisoDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Permiso;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 /**
  * @author mrsamudio
@@ -42,6 +35,7 @@ public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 	}
 
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
 	public Permiso selectById(int id) {
@@ -69,9 +63,9 @@ public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 							+ " usuario = :usuario, registroie = :registroie"
 							+ ")")
 
-							.setParameter("usuario", perfilUsuario.getUsuario().getId() )
-							.setParameter("regServicio", perfilUsuario.getRegistroIE().getId() )
-							.executeUpdate();
+					.setParameter("usuario", perfilUsuario.getUsuario().getId() )
+					.setParameter("regServicio", perfilUsuario.getRegistroIE().getId() )
+					.executeUpdate();
 
 			return isResultado(res);
 		} catch (HibernateException e) {
@@ -89,7 +83,7 @@ public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 		try {
 
 			res = session
-					.createSQLQuery("UPDATE " + Informe.class.getSimpleName() 
+					.createSQLQuery("UPDATE " + Permiso.class.getSimpleName() 
 							+ " SET"
 							+ " usuario = :usuario, registroie = :registroie"
 							+ " WHERE id = :idconf")

@@ -45,13 +45,13 @@ public interface UsuarioDAO {
 	 * @param id
 	 * @return
 	 */
-	public boolean activate(long id);
+	public boolean activate(Usuario usuario);
 
 	/**
 	 * 
 	 * @param id
 	 * @return
 	 */
-	public boolean deactivate(long id);
+	public boolean deactivate(Usuario usuario);
 
 }

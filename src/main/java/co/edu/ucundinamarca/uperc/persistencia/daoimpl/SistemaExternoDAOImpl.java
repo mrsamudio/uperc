@@ -10,16 +10,10 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.ucundinamarca.uperc.persistencia.dao.ReservaDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.SistemaExternoDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.SistemaExterno;
 
 /**
@@ -40,6 +34,7 @@ public class SistemaExternoDAOImpl extends PersistenciaUtil implements SistemaEx
 		this.sessionFactory = sessionFactory;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
 	public SistemaExterno selectById(int id) {
@@ -69,7 +64,6 @@ public class SistemaExternoDAOImpl extends PersistenciaUtil implements SistemaEx
 					.setParameter("ip", sistemaExterno.getIp())
 					.setParameter("nombre", sistemaExterno.getNombre())
 					.setParameter("contrasena", sistemaExterno.getContrasena())
-//					.setParameter("idConf", sistemaExterno.getId())
 					.executeUpdate();
 
 			return isResultado(res);

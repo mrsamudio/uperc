@@ -7,20 +7,13 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.BooleanType;
-import org.hibernate.type.CharacterType;
-import org.hibernate.type.DateType;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.StringType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import co.edu.ucundinamarca.uperc.persistencia.dao.SupervisionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Rol;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 /**
@@ -29,7 +22,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  */
 @Repository
 //@Repository("UsuarioDAO")
-public class UsuarioDAOImpl implements UsuarioDAO {
+public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 
 	private SessionFactory sessionFactory;
 
@@ -44,61 +37,140 @@ public class UsuarioDAOImpl implements UsuarioDAO {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public Usuario selectById(Long id) {
 		return sessionFactory.getCurrentSession().getSession().get(Usuario.class, id);
 	}
 
 	@SuppressWarnings({ "unchecked", "deprecation" })
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Usuario> selectAll() {
-		return sessionFactory.getCurrentSession()
-
-				.createSQLQuery("select * from usuario")
-				.addScalar("id", new IntegerType())
-				
-				.addScalar("nombres", new StringType())
-				.addScalar("apellidos", new StringType())
-				.addScalar("tipoId", new CharacterType())
-				.addScalar("numId", new StringType())
-				.addScalar("contrasena", new StringType())
-				.addScalar("correo", new StringType())
-				.addScalar("fechaNac", new DateType())
-				.addScalar("fechaReg", new DateType())
-				.addScalar("estado", new BooleanType())
-//				.addScalar("rol", new Rol())
-//				.addScalar("configuracion", new Configuracion())
-//				.addScalar("supervisiones", new Set<Supervision>)
-//				.addScalar("reservas", new Set<Reserva>)
-//				.addScalar("informes", new Set<Informe>)
-//				.addScalar("registrosIE", new Set<RegistroIE>)
-//				.addScalar("permisos", new Set<Permiso>)
-				.setResultTransformer(Transformers.aliasToBean(Usuario.class)).list();
+		return sessionFactory.getCurrentSession().getSession()
+				.createQuery("from " + Usuario.class.getSimpleName()).list();
 	}
 
 	@Override
+	@Transactional
 	public boolean insert(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+			res = session
+					.createSQLQuery("INSERT INTO " + Usuario.class.getSimpleName() 
+							+ "("
+							+ "rol, estado, fechareg, fechanac, correo"
+							+ ", contrasena, numid, tipoid, apellidos"
+							+ ", nombres"
+							+ ")"
+							+ " VALUES("
+							+ ":rol, :estado, :fechareg, :fechanac, :correo"
+							+ ", :contrasena, :numid, :tipoid, :apellidos"
+							+ ", :nombres"
+							+ ")")
+					.setParameter("rol", usuario.getRol().getId())
+					.setParameter("estado", usuario.isEstado())
+					.setParameter("fechareg", usuario.getFechaReg())
+					.setParameter("fechanac", usuario.getFechaNac())
+					.setParameter("correo", usuario.getCorreo())
+					.setParameter("contrasena", usuario.getContrasena())
+					.setParameter("numid", usuario.getNumId())
+					.setParameter("tipoid", usuario.getTipoId())
+					.setParameter("apellidos", usuario.getApellidos())
+					.setParameter("nombres", usuario.getNombres())
+					
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
+	@Transactional
 	public boolean update(Usuario usuario) {
-		// TODO Auto-generated method stub
-		return false;
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Usuario.class.getSimpleName() 
+							+ " SET"
+							+ " rol = :rol, estado = :estado, fechareg = :fechareg"
+							+ ", fechanac = :fechanac, correo = :correo"
+							+ ", contrasena = :contrasena, numid = :numid"
+							+ ", tipoid = :tipoid, apellidos = :apellidos"
+							+ ", nombres = :nombres"
+							+ " WHERE id = :idconf")
+					.setParameter("idconf", usuario.getId())
+					.setParameter("rol", usuario.getRol().getId())
+					.setParameter("estado", usuario.isEstado())
+					.setParameter("fechareg", usuario.getFechaReg())
+					.setParameter("fechanac", usuario.getFechaNac())
+					.setParameter("correo", usuario.getCorreo())
+					.setParameter("contrasena", usuario.getContrasena())
+					.setParameter("numid", usuario.getNumId())
+					.setParameter("tipoid", usuario.getTipoId())
+					.setParameter("apellidos", usuario.getApellidos())
+					.setParameter("nombres", usuario.getNombres())
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public boolean activate(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean activate(Usuario usuario) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Usuario.class.getSimpleName() 
+							+ " SET estado = :estado"
+							+ " WHERE id = :idconf"
+							+ "")
+					.setParameter("idconf", usuario.getId())
+					.setParameter("estado", true)
+					
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public boolean deactivate(long id) {
-		// TODO Auto-generated method stub
-		return false;
+	@Transactional
+	public boolean deactivate(Usuario usuario) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Usuario.class.getSimpleName() 
+							+ " SET estado = :estado"
+							+ " WHERE id = :idconf"
+							+ "")
+					.setParameter("idconf", usuario.getId())
+					.setParameter("estado", false)
+					
+					.executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			//TODO: verificar resultado
+			return false;
+		}
 	}
 
 }

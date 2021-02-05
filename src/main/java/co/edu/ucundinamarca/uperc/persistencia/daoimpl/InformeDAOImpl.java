@@ -10,16 +10,10 @@ import javax.annotation.Resource;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.DateType;
-import org.hibernate.type.DoubleType;
-import org.hibernate.type.IntegerType;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.InformeDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 
 /**
@@ -41,6 +35,7 @@ public class InformeDAOImpl extends PersistenciaUtil implements InformeDAO {
 		this.sessionFactory = sessionFactory;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
 	public Informe selectById(long id) {
@@ -75,8 +70,8 @@ public class InformeDAOImpl extends PersistenciaUtil implements InformeDAO {
 							+ " ingresosTotal = :ingresosTotal, egresosTotal = :egresosTotal"
 							+ ")")
 
-							.setParameter("usuario", informe.getUsuario() )
-							.setParameter("regServicio", informe.getRegServicio() )
+							.setParameter("usuario", informe.getUsuario().getId() )
+							.setParameter("regServicio", informe.getRegServicio().getId() )
 							.setParameter("fechaGenerado", informe.getFechaGenerado() )
 							.setParameter("fechaInicio", informe.getFechaInicio() )
 							.setParameter("fechaFin", informe.getFechaFin() )
@@ -117,8 +112,8 @@ public class InformeDAOImpl extends PersistenciaUtil implements InformeDAO {
 							+ " WHERE id = :idconf")
 					
 					.setParameter("idconf", informe.getId())
-					.setParameter("usuario", informe.getUsuario() )
-					.setParameter("regServicio", informe.getRegServicio() )
+					.setParameter("usuario", informe.getUsuario().getId() )
+					.setParameter("regServicio", informe.getRegServicio().getId() )
 					.setParameter("fechaGenerado", informe.getFechaGenerado() )
 					.setParameter("fechaInicio", informe.getFechaInicio() )
 					.setParameter("fechaFin", informe.getFechaFin() )

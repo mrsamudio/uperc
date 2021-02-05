@@ -3,46 +3,18 @@
  */
 package co.edu.ucundinamarca.uperc.persistencia.daoimpl;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.transaction.annotation.Transactional;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.boot.model.source.spi.HibernateTypeSource;
-import org.hibernate.boot.spi.MetadataBuildingContext;
-import org.hibernate.mapping.OneToOne;
-import org.hibernate.mapping.Table;
-import org.hibernate.transform.Transformers;
-import org.hibernate.type.AnyType;
-import org.hibernate.type.ClassType;
-import org.hibernate.type.CustomType;
-import org.hibernate.type.DateType;
-import org.hibernate.type.ForeignKeyDirection;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.OneToOneType;
-import org.hibernate.type.SerializableType;
-import org.hibernate.type.TimestampType;
-import org.hibernate.type.Type;
-import org.hibernate.type.TypeFactory.TypeScope;
-import org.hibernate.usertype.UserType;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 /**
  * Implementación de la interfaz para el acceso a datos por objetos de la
@@ -66,10 +38,7 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 		this.sessionFactory = sessionFactory;
 	}
 
-	/**
-	 * @implNote asdlfkj
-	 * @since 1.0
-	 */
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
@@ -93,7 +62,9 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 		try {
 			res = session
 					.createSQLQuery("INSERT INTO " + Configuracion.class.getSimpleName() 
-							+ "(intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario)"
+							+ "("
+							+ "intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario"
+							+ ")"
 							+ " VALUES("
 							+ ":falla, :caduca, :maxadmin, :fechaguar, :usuario)"
 							+ "")

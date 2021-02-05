@@ -30,10 +30,10 @@ public class PersistenciaUtil {
 	
 
 	/**
-	 * Comprobacion resultado
+	 * Comprobacion resultado de la consulta a base de datos
 	 * 
 	 * @param res
-	 * @return
+	 * @return true or false
 	 */
 	protected boolean isResultado(int res) {
 		if (res != 0)

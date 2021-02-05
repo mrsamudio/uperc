@@ -69,11 +69,11 @@ public interface ReservaDAO {
 	 * 
 	 * @param id
 	 */
-	public boolean activate(long id);
+	public boolean activate(Reserva reserva);
 
 	/**
 	 * 
 	 * @param id
 	 */
-	public boolean deactivate(long id);
+	public boolean deactivate(Reserva reserva);
 }
