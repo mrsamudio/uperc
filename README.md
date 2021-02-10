@@ -18,3 +18,18 @@ Pasos para usar el modelo de entidad relacion en  la base de datos de postgresql
 
 4. ejecutar script sql
 `psql -U msamudio -h 192.168.100.183 -f MFBD.sql upercfinaltest`
+
+
+## Utilitarios
+
+* verficar el tipo de codificación del archivo que contiene las sentencias sql
+`file 'Modelo fisico de base de datos.sql'` 
+
+* descomentar locales en /etc/locale.gen
+generar `locale-gen`
+
+* backup 
+`pg_dump -U usuario -W -h host basename > basename.sql`
+
+* restauracion
+`psql -U username -W -h host basename < basename.sql`
