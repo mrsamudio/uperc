@@ -1,7 +1,8 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -82,54 +84,72 @@ public class Usuario implements Serializable {
 	private Date fechaNac;
 
 	@Column(name = "fechareg")
-	private String fechaReg;
+	private Timestamp fechaReg;
 
 	@Column(name = "estado")
 	private boolean estado;
 
-	@ManyToOne(targetEntity = Rol.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "rol")
-//	@JoinColumn(name = "rol", referencedColumnName = "id")
-//	@Column(name = "ROL")
+	@ManyToOne // Foreign key
+	@Column(name = "rol")
 	private Rol rol;
 
-//	@OneToOne
-	@OneToOne(mappedBy = "usuario")
-	private Configuracion configuracion;
+	@OneToOne(cascade = { CascadeType.ALL }) // Dueño de relacion
+	@PrimaryKeyJoinColumn //
+	private Configuracion configuracion = new Configuracion();
 
 //	Listas de muchos a uno
-	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario")
 //	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 //	private List<Supervision> supervisiones;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+																												// de
+																												// relacion
 	private Set<Supervision> supervisiones;
 
-	@OneToMany(mappedBy = "usuario")
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(mappedBy = "usuario")
+////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+																												// de
+																												// relacion
 	private Set<Reserva> reservas;
 //	private List<Reserva> reservas;
 
-	@OneToMany(mappedBy = "usuario")
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(mappedBy = "usuario")
+////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+																												// de
+																												// relacion
 	private Set<Informe> informes;
 //	private List<Informe> informes;
 
-	@OneToMany(mappedBy = "usuarioIngreso")
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(mappedBy = "usuarioIngreso")
+////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true)//dueño de relacion
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioingreso", orphanRemoval = true) // dueño
+																														// de
+																														// relacion
 	private Set<RegistroIE> registrosI;
-	
-	@OneToMany(mappedBy = "usuarioEgreso")
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+
+//	@OneToMany(mappedBy = "usuarioEgreso")
+////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true)//dueño de relacion
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioegreso", orphanRemoval = true) // dueño
+																														// de
+																														// relacion
 	private Set<RegistroIE> registrosE;
 //	private List<RegistroIE> registrosIE;
 
-	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario")
 //	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+																												// de
+																												// relacion
 	private Set<Permiso> permisos;
 //	private List<Permiso> permisos;
 
@@ -139,13 +159,42 @@ public class Usuario implements Serializable {
 	public Usuario() {
 
 	}
-	
+
 	public Usuario(long id) {
 		this.setId(id);
 	}
 
 	/**
-	 * Constructor que carga todos los atributos
+	 * Constructor que carga todos los atributos de la entidad
+	 * 
+	 * @param nombres
+	 * @param apellidos
+	 * @param tipoId
+	 * @param numid
+	 * @param contrasena
+	 * @param correo
+	 * @param fechaNac
+	 * @param fechaReg
+	 * @param estado
+	 * @param rol
+	 */
+	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
+			Date fechaNac, Timestamp fechaReg, boolean estado, Rol rol) {
+		
+		setNombres(nombres);
+		setApellidos(apellidos);
+		setTipoId(tipoId);
+		setNumId(numid);
+		setContrasena(contrasena);
+		setCorreo(correo);
+		setFechaNac(fechaNac);
+		setFechaReg(fechaReg);
+		setEstado(estado);
+		setRol(rol);
+	}
+	
+	/**
+	 * Constructor que carga todos los atributos y listas
 	 * 
 	 * @param nombres
 	 * @param apellidos
@@ -166,9 +215,9 @@ public class Usuario implements Serializable {
 	 * @param permisos
 	 */
 	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
-			Date fechaNac, String fechaReg, boolean estado, Rol rol, Configuracion configuracion,
-			Set<Supervision> supervisiones, Set<Reserva> reservas, Set<Informe> informes,
-			Set<RegistroIE> registrosI, Set<RegistroIE> registrosE, Set<Permiso> permisos) {
+			Date fechaNac, Timestamp fechaReg, boolean estado, Rol rol, Configuracion configuracion,
+			Set<Supervision> supervisiones, Set<Reserva> reservas, Set<Informe> informes, Set<RegistroIE> registrosI,
+			Set<RegistroIE> registrosE, Set<Permiso> permisos) {
 
 		setNombres(nombres);
 		setApellidos(apellidos);
@@ -189,74 +238,6 @@ public class Usuario implements Serializable {
 		setRegistrosE(registrosE);
 		setPermisos(permisos);
 
-	}
-
-	/**
-	 * Agregar una configuración al usuario
-	 * 
-	 * @param configuracion
-	 */
-	public void agregarConfig(Configuracion configuracion) {
-		this.configuracion.setUsuario(this);
-	}
-
-	/**
-	 * 
-	 * @param supervision
-	 */
-	public void agregarMensajesSuper(Supervision supervision) {
-		this.supervisiones.add(supervision);
-		// Vinculación efectiva de la entidad supervision
-		supervision.setUsuario(this);
-	}
-
-	/**
-	 * 
-	 * @param reserva
-	 */
-	public void agregarReservas(Reserva reserva) {
-		this.reservas.add(reserva);
-		reserva.setUsuario(this);
-	}
-
-	/**
-	 * Listas de informes generados por usuarios o sistemas externos?
-	 * 
-	 * @param informe
-	 */
-	public void agregarInformes(Informe informe) {
-		this.informes.add(informe);
-		informe.setUsuario(this);
-	}
-
-	/**
-	 * lista de usuarios que ingresan del parqueadero
-	 * 
-	 * @param registro
-	 */
-	public void agregarRegistrosI(RegistroIE registro) {
-		this.registrosI.add(registro);
-		registro.setUsuarioIngreso(this);
-	}
-
-	/**
-	 * lista de usuarios que salen del parqueadero
-	 * 
-	 * @param registro
-	 */
-	public void agregarRegistrosE(RegistroIE registro) {
-		this.registrosE.add(registro);
-		registro.setUsuarioEgreso(this);
-	}
-
-	/**
-	 * Lista de permisos dados por los usuarios
-	 * 
-	 * @param permiso
-	 */
-	public void agregarPermisos(Permiso permiso) {
-		this.permisos.add(permiso);
-		permiso.setUsuario(this);
 	}
 
 	/**
@@ -310,18 +291,20 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad,
-	 * "E" cédula de extranjería
+	 * Obtiene el tipo de identificación del usuario {@link #tipoId}.
+	 * 
+	 * @return "C" cédula de ciudadanía, "I" Tarjeta de identidad, "E" cédula de
+	 *         extranjería
 	 */
 	public char getTipoId() {
 		return this.tipoId;
 	}
 
 	/**
-	 * Tipo de identificación. "C" cédula de ciudadanía, "I" Tarjeta de identidad,
-	 * "E" cédula de extranjería
+	 * define el atributo tipo de identificación {@link #tipoId}.
 	 * 
-	 * @param tipoId
+	 * @param tipoId "C" cédula de ciudadanía, "I" Tarjeta de identidad,
+	 * "E" cédula de extranjería
 	 */
 	private void setTipoId(char tipoId) {
 		this.tipoId = tipoId;
@@ -373,7 +356,7 @@ public class Usuario implements Serializable {
 
 	/**
 	 * 
-	 * @return
+	 * @return Date
 	 */
 	public Date getFechaNac() {
 		return this.fechaNac;
@@ -389,9 +372,9 @@ public class Usuario implements Serializable {
 
 	/**
 	 * 
-	 * @return
+	 * @return Timestamp
 	 */
-	public String getFechaReg() {
+	public Timestamp getFechaReg() {
 		return this.fechaReg;
 	}
 
@@ -399,7 +382,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param fechaReg
 	 */
-	private void setFechaReg(String fechaReg) {
+	private void setFechaReg(Timestamp fechaReg) {
 		this.fechaReg = fechaReg;
 	}
 
@@ -431,7 +414,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param rol
 	 */
-	private void setRol(Rol rol) {
+	protected void setRol(Rol rol) {
 		this.rol = rol;
 	}
 
@@ -506,6 +489,7 @@ public class Usuario implements Serializable {
 	public void setRegistrosI(Set<RegistroIE> registrosI) {
 		this.registrosI = registrosI;
 	}
+
 	/**
 	 * 
 	 * @return
@@ -513,7 +497,7 @@ public class Usuario implements Serializable {
 	public Set<RegistroIE> getRegistrosE() {
 		return registrosE;
 	}
-	
+
 	/**
 	 * 
 	 * @param registrosE
@@ -521,8 +505,6 @@ public class Usuario implements Serializable {
 	public void setRegistrosE(Set<RegistroIE> registrosE) {
 		this.registrosE = registrosE;
 	}
-	
-	
 
 	/**
 	 * @return the permisos
@@ -536,6 +518,74 @@ public class Usuario implements Serializable {
 	 */
 	public void setPermisos(Set<Permiso> permisos) {
 		this.permisos = permisos;
+	}
+
+//	/**
+//	 * Agregar una configuración al usuario
+//	 * 
+//	 * @param configuracion
+//	 */
+//	public void agregarConfig(Configuracion configuracion) {
+//		this.configuracion.setUsuario(this);
+//	}
+
+	/**
+	 * 
+	 * @param supervision
+	 */
+	public void agregarSupervision(Supervision supervision) {
+		this.supervisiones.add(supervision);
+		// Vinculación efectiva de la entidad supervision
+		supervision.setUsuario(this);
+	}
+
+	/**
+	 * 
+	 * @param reserva
+	 */
+	public void agregarReservas(Reserva reserva) {
+		this.reservas.add(reserva);
+		reserva.setUsuario(this);
+	}
+
+	/**
+	 * Listas de informes generados por usuarios o sistemas externos?
+	 * 
+	 * @param informe
+	 */
+	public void agregarInformes(Informe informe) {
+		this.informes.add(informe);
+		informe.setUsuario(this);
+	}
+
+	/**
+	 * lista de usuarios que ingresan del parqueadero
+	 * 
+	 * @param registro
+	 */
+	public void agregarRegistrosI(RegistroIE registro) {
+		this.registrosI.add(registro);
+		registro.setUsuarioIngreso(this);
+	}
+
+	/**
+	 * lista de usuarios que salen del parqueadero
+	 * 
+	 * @param registro
+	 */
+	public void agregarRegistrosE(RegistroIE registro) {
+		this.registrosE.add(registro);
+		registro.setUsuarioEgreso(this);
+	}
+
+	/**
+	 * Lista de permisos dados por los usuarios
+	 * 
+	 * @param permiso
+	 */
+	public void agregarPermisos(Permiso permiso) {
+		this.permisos.add(permiso);
+		permiso.setUsuario(this);
 	}
 
 }// end Usuario

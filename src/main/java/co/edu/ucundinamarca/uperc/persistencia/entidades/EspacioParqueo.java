@@ -36,14 +36,16 @@ public class EspacioParqueo {
 	private String nombre;
 	
 	@ManyToOne
-	@JoinColumn(name = "ubicacion", referencedColumnName = "ID")
+	@Column(name = "ubicacion")
+//	@JoinColumn(name = "ubicacion", referencedColumnName = "ID")
 	private Ubicacion ubicacion;
 	
 	@Column(name = "ocupado")
 	private boolean ocupado;
 	
 	//TODO: Pendiente por verificar
-	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "espacioparqueo", orphanRemoval = true)//dueño de relacion
+//	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private Set<Reserva> reservas;
 	
 	/**
@@ -171,6 +173,14 @@ public class EspacioParqueo {
 		this.reservas = reservas;
 	}
 	
+	/**
+	 * 
+	 * @param reserva
+	 */
+	public void agregarReserva(Reserva reserva) {
+		this.reservas.add(reserva);
+		reserva.setEspacioParqueo(this);
+	}
 	
 	
 	

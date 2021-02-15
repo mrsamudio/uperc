@@ -1,6 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +38,7 @@ public class Supervision {
 	private boolean estado;
 
 	@Column(name = "fecha")
-	private Date fecha;
+	private Timestamp fecha;
 
 	/**
 	 * <ul>
@@ -50,8 +50,8 @@ public class Supervision {
 	private boolean tipo;
 
 	@ManyToOne
-	@JoinColumn(name = "usuario", referencedColumnName = "id")
-//	@Column(name = "USUARIO")
+	@Column(name = "usuario")
+//	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuario;
 
 	/**
@@ -70,7 +70,7 @@ public class Supervision {
 	 * @param tipo
 	 * @param usuario
 	 */
-	public Supervision(String mensaje, boolean estado, Date fecha, boolean tipo, Usuario usuario) {
+	public Supervision(String mensaje, boolean estado, Timestamp fecha, boolean tipo, Usuario usuario) {
 		
 		setMensaje(mensaje);
 		setEstado(estado);
@@ -131,7 +131,7 @@ public class Supervision {
 	 * 
 	 * @return
 	 */
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return this.fecha;
 	}
 
@@ -139,7 +139,7 @@ public class Supervision {
 	 * 
 	 * @param fecha
 	 */
-	protected void setFecha(Date fecha) {
+	protected void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 

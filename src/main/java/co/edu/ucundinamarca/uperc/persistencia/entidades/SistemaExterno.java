@@ -21,7 +21,7 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "sistemaexterno")
+@Table(name = "sistema_externo")
 public class SistemaExterno {
 
 	@Id
@@ -38,9 +38,9 @@ public class SistemaExterno {
 	@Column(name = "contrasena")
 	private String contrasena;
 
-//	Listas 
 //	@OneToMany(mappedBy = "SISTEMA_EXTERNO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sistema_externo", orphanRemoval = true)//dueño de relacion
 	private Set<RegServicio> regServicios;
 
 	/**
@@ -153,7 +153,14 @@ public class SistemaExterno {
 		this.regServicios = regServicios;
 	}
 
-	
+	/**
+	 * 
+	 * @param regServicio
+	 */
+	public void agregarRegServicio(RegServicio regServicio) {
+		this.regServicios.add(regServicio);
+		regServicio.setSistemaExterno(this);
+	}
 
 	
 }// end SistemaExterno

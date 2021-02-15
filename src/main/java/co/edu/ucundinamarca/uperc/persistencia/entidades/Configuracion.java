@@ -1,7 +1,7 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -33,9 +34,6 @@ import javax.persistence.Table;
 //TODO: probar con named queries
 public class Configuracion implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8071463945094328022L;
 
 	
@@ -57,12 +55,9 @@ public class Configuracion implements Serializable {
 	private int maxAdmin;
 
 	@Column(name = "fechaguardado")
-	private Date fechaGuardado;
+	private Timestamp fechaGuardado;
 
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "usuario", referencedColumnName = "id")
-//	@JoinColumn(name = "usuario", referencedColumnName = "id")
-//	@JoinColumn(name = "usuarioId", updatable = false, insertable = false)
+	@OneToOne(mappedBy = "configuracion")
 	private Usuario usuario;
 
 	/**
@@ -90,7 +85,7 @@ public class Configuracion implements Serializable {
 	 * @param usuario
 	 * 
 	 */
-	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
+	public Configuracion(int intentosFallidos, int caducidadPass, int maxAdmin, Timestamp fechaGuardado, Usuario usuario) {
 
 		setIntentosFallidos(intentosFallidos);
 		setCaducidadContrasena(caducidadPass);
@@ -109,7 +104,7 @@ public class Configuracion implements Serializable {
 	 * @param fechaGuardado
 	 * @param usuario
 	 */
-	public Configuracion(long id, int intentosFallidos, int caducidadPass, int maxAdmin, Date fechaGuardado, Usuario usuario) {
+	public Configuracion(long id, int intentosFallidos, int caducidadPass, int maxAdmin, Timestamp fechaGuardado, Usuario usuario) {
 		
 		setId(id);
 		setIntentosFallidos(intentosFallidos);
@@ -198,7 +193,7 @@ public class Configuracion implements Serializable {
 	 * 
 	 * @return fecha de la configuración guardada
 	 */
-	public Date getFechaGuardado() {
+	public Timestamp getFechaGuardado() {
 		return this.fechaGuardado;
 	}
 
@@ -207,7 +202,7 @@ public class Configuracion implements Serializable {
 	 * 
 	 * @param fechaGuardado
 	 */
-	protected void setFechaGuardado(Date fechaGuardado) {
+	protected void setFechaGuardado(Timestamp fechaGuardado) {
 		this.fechaGuardado = fechaGuardado;
 	}
 
@@ -227,6 +222,7 @@ public class Configuracion implements Serializable {
 	 */
 	protected void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+		usuario.setConfiguracion(this);
 	}
 
 }// end Configuracion

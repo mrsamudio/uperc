@@ -1,7 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.Date;
-import java.util.List;
+import java.sql.Timestamp;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -65,7 +64,7 @@ public class Recurso {
 	private String protocolo;
 
 	@Column(name = "fecharegistro")
-	private Date fechaRegistro;
+	private Timestamp fechaRegistro;
 
 	@Column(name = "urlfabricante")
 	private String urlFabricante;
@@ -73,9 +72,8 @@ public class Recurso {
 	@Column(name = "estado")
 	private boolean estado;
 
-//	Listas
 //	@OneToMany(mappedBy = "RECURSO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
 	private Set<RegistroIE> registrosIE;
 
 	/**
@@ -101,7 +99,7 @@ public class Recurso {
 	 * @param registrosIE
 	 */
 	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
-			Date fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosIE) {
+			Timestamp fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosIE) {
 
 		setNombre(nombre);
 		setMarca(marca);
@@ -114,16 +112,6 @@ public class Recurso {
 		setUrlFabricante(urlFabricante);
 		setEstado(estado);
 		setRegistrosIE(registrosIE);
-	}
-
-	/**
-	 * Listas de registros de ingreso y egreso desde vehículos
-	 * 
-	 * @param registrosIE
-	 */
-	public void agregarRegitrosIE(RegistroIE registrosIE) {
-		this.registrosIE.add(registrosIE);
-		registrosIE.setRecurso(this);
 	}
 
 	/**
@@ -257,7 +245,7 @@ public class Recurso {
 	 * 
 	 * @return
 	 */
-	public Date getFechaRegistro() {
+	public Timestamp getFechaRegistro() {
 		return this.fechaRegistro;
 	}
 
@@ -265,7 +253,7 @@ public class Recurso {
 	 * 
 	 * @param fechaRegistro
 	 */
-	protected void setFechaRegistro(Date fechaRegistro) {
+	protected void setFechaRegistro(Timestamp fechaRegistro) {
 		this.fechaRegistro = fechaRegistro;
 	}
 
@@ -313,6 +301,16 @@ public class Recurso {
 	 */
 	protected void setRegistrosIE(Set<RegistroIE> registrosIE) {
 		this.registrosIE = registrosIE;
+	}
+
+	/**
+	 * Listas de registros de ingreso y egreso desde vehículos
+	 * 
+	 * @param registrosIE
+	 */
+	public void agregarRegitrosIE(RegistroIE registrosIE) {
+		this.registrosIE.add(registrosIE);
+		registrosIE.setRecurso(this);
 	}
 
 }// end Recurso

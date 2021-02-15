@@ -28,12 +28,13 @@ public class Permiso {
 	@Column(name = "id")
 	private long id;
 
+//	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	@ManyToOne
-	@JoinColumn(name = "usuario", referencedColumnName = "id")
+	@Column(name = "usuario")
 	private Usuario usuario;
 
-//	@OneToOne(mappedBy = "PERMISO")
-	@OneToOne
+//	@OneToOne
+	@OneToOne(mappedBy = "permiso")
 	private RegistroIE registroIE;
 
 	/**
@@ -92,6 +93,7 @@ public class Permiso {
 	 */
 	protected void setRegistroIE(RegistroIE registroIE) {
 		this.registroIE = registroIE;
+//		registroIE.setPermiso(this);
 	}
 	
 	

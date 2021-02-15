@@ -41,9 +41,8 @@ public class Ubicacion {
 	@Column(name = "telefono")
 	private String telefono;
 
-//	Listas
-	@OneToMany(mappedBy = "ubicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+//	@OneToMany(mappedBy = "ubicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "ubicacion", orphanRemoval = true)//dueño de relacion
 	private Set<EspacioParqueo> espaciosParqueo;
 
 	/**
@@ -144,7 +143,7 @@ public class Ubicacion {
 	/**
 	 * @param telefono the telefono to set
 	 */
-	public void setTelefono(String telefono) {
+	protected void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
@@ -160,6 +159,15 @@ public class Ubicacion {
 	 */
 	protected void setEspaciosParqueo(Set<EspacioParqueo> espaciosParqueo) {
 		this.espaciosParqueo = espaciosParqueo;
+	}
+	
+	/**
+	 * 
+	 * @param espacioParqueo
+	 */
+	public void agregarEspacioParqueo(EspacioParqueo espacioParqueo) {
+		this.espaciosParqueo.add(espacioParqueo);
+		espacioParqueo.setUbicacion(this);
 	}
 
 }

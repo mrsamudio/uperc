@@ -63,17 +63,15 @@ public class Rol {
 	@Column(name = "descripcion")
 	private String descripcion;
 
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-//	@ManyToOne(targetEntity = PerfilUsuario.class)
-//	@JoinColumn(name = "id")
-	@JoinColumn(name = "perfilusuario", referencedColumnName = "id")
+//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@JoinColumn(name = "perfilusuario", referencedColumnName = "id")
+	@ManyToOne
+	@Column(name = "perfil")
+//	@JoinColumn(name = "perfil", referencedColumnName = "id")
 	private PerfilUsuario perfilUsuario;
 
 //	TODO: verificar en el modelo
-	@OneToMany(targetEntity = Rol.class)
-//	@OneToMany(mappedBy = "usuario", targetEntity = Usuario.class)
-//	@OneToMany(mappedBy = "usuario", orphanRemoval = true)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "rol", orphanRemoval = true)//dueño de relacion
 	private Set<Usuario> usuarios;
 
 	/**
@@ -180,6 +178,16 @@ public class Rol {
 	 */
 	protected void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+	
+	/**
+	 * Agregar usuario a la colección de usuarios
+	 * @param usuario
+	 */
+	public void agregarUsuario(Usuario usuario) {
+		this.usuarios.add(usuario);
+		usuario.setRol(this);
+		
 	}
 
 }// end Rol

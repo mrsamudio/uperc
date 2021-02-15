@@ -1,7 +1,9 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -37,40 +40,45 @@ public class RegistroIE {
 	private long id;
 
 	@Column(name = "fechaingreso")
-	private Date fechaIngreso;
+	private Timestamp fechaIngreso;
 
 	@Column(name = "fechaegreso")
-	private Date fechaEgreso;
+	private Timestamp fechaEgreso;
 
 	@ManyToOne
-	@JoinColumn(name = "recurso", referencedColumnName = "id")
-//	@Column(name = "RECURSO")
+	@Column(name = "recurso")
+//	@JoinColumn(name = "recurso", referencedColumnName = "id")
 	private Recurso recurso;
 
 	@ManyToOne
-	@JoinColumn(name = "vehiculo", referencedColumnName = "id")
-//	@Column(name = "VEHICULO")
+	@Column(name = "vehiculo")
+//	@JoinColumn(name = "vehiculo", referencedColumnName = "id")
 	private Vehiculo vehiculo;
 
 	@ManyToOne
-//	@JoinColumn(name = "usuarioIngreso")
-	@JoinColumn(name = "usuarioingreso", referencedColumnName = "id")
-//	@Column(name = "USUARIO_INGRESO")
+	@JoinColumn(name = "usuarioingreso")
+	@Column(name = "usuarioingreso")
+//	@JoinColumn(name = "usuarioingreso", referencedColumnName = "id")
+////	@Column(name = "USUARIO_INGRESO")
+////	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuarioIngreso;
 
 	@ManyToOne
-//	@JoinColumn(name = "usuarioEgreso")
-	@JoinColumn(name = "usuarioegreso", referencedColumnName = "id")
-//	@Column(name = "USUARIO_EGRESO")
+	@JoinColumn(name = "usuarioegreso")
+	@Column(name = "usuarioegreso")
+//	@JoinColumn(name = "usuarioegreso", referencedColumnName = "id")
+////	@Column(name = "USUARIO_EGRESO")
 	private Usuario usuarioEgreso;
-	
-	@OneToOne
-	@JoinColumn(name = "permiso", referencedColumnName = "id")
-	private Permiso permiso;
 	
 	@Column(name = "ticketid")//tipo uuid postgresql
 	private String ticketId;
 
+//	@OneToOne
+//	@JoinColumn(name = "permiso", referencedColumnName = "id")
+	@OneToOne(cascade = {CascadeType.ALL})//Dueño de relacion
+	@PrimaryKeyJoinColumn
+	private Permiso permiso;
+	
 	/**
 	 * Constructor por defecto
 	 */
@@ -90,7 +98,7 @@ public class RegistroIE {
 	 * @param permiso
 	 * @param ticketId
 	 */
-	public RegistroIE(Date fechaIngreso, Date fechaEgreso, Recurso recurso, Vehiculo vehiculo, Usuario usuarioIngreso,
+	public RegistroIE(Timestamp fechaIngreso, Timestamp fechaEgreso, Recurso recurso, Vehiculo vehiculo, Usuario usuarioIngreso,
 			Usuario usuarioEgreso, Permiso permiso, String ticketId) {
 
 		setFechaIngreso(fechaIngreso);
@@ -123,7 +131,7 @@ public class RegistroIE {
 	 * 
 	 * @return
 	 */
-	public Date getFechaIngreso() {
+	public Timestamp getFechaIngreso() {
 		return this.fechaIngreso;
 	}
 
@@ -131,7 +139,7 @@ public class RegistroIE {
 	 * 
 	 * @param fechaIngreso
 	 */
-	protected void setFechaIngreso(Date fechaIngreso) {
+	protected void setFechaIngreso(Timestamp fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 
@@ -139,7 +147,7 @@ public class RegistroIE {
 	 * 
 	 * @return
 	 */
-	public Date getFechaEgreso() {
+	public Timestamp getFechaEgreso() {
 		return this.fechaEgreso;
 	}
 
@@ -147,7 +155,7 @@ public class RegistroIE {
 	 * 
 	 * @param fechaEgreso
 	 */
-	protected void setFechaEgreso(Date fechaEgreso) {
+	protected void setFechaEgreso(Timestamp fechaEgreso) {
 		this.fechaEgreso = fechaEgreso;
 	}
 
@@ -227,6 +235,7 @@ public class RegistroIE {
 	 */
 	protected void setPermiso(Permiso permiso) {
 		this.permiso = permiso;
+//		permiso.setRegistroIE(this);
 	}
 
 	/**

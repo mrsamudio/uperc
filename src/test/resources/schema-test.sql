@@ -44,11 +44,11 @@ CREATE TABLE INFORME
 	fechagenerado timestamp without time zone NOT NULL,
 	fechainicio date NOT NULL,
 	fechafin date NOT NULL,
-	disponibilidad numeric NULL,    -- % porcentaje de espacios disponibles en el rango de fecha DIA/SEMANA/MES
-	reservasok numeric NULL,    -- % RESERVAS EXITOSAS DIA/SEMANA/MES
-	reservasfail numeric NULL,    -- % RESERVAS FALLIDO DIA/SEMANA/MES
-	recogok numeric NULL,    -- % RECONOCIMIENTO EXITOSO DIA/SEMANA/MES
-	recogfail numeric NULL,    -- % RECONOCIMIENTO FALLIDO DIA/SEMANA/MES
+	disponibilidad numeric(7, 4) NULL,    -- % porcentaje de espacios disponibles en el rango de fecha DIA/SEMANA/MES
+	reservasok numeric(7, 4) NULL,    -- % RESERVAS EXITOSAS DIA/SEMANA/MES
+	reservasfail numeric(7, 4) NULL,    -- % RESERVAS FALLIDO DIA/SEMANA/MES
+	recogok numeric(7, 4) NULL,    -- % RECONOCIMIENTO EXITOSO DIA/SEMANA/MES
+	recogfail numeric(7, 4) NULL,    -- % RECONOCIMIENTO FALLIDO DIA/SEMANA/MES
 	recogtotal integer NULL,    -- CANTIDAD TOTAL DE PLACAS RECONOCIDAS  DIA/SEMANA/MES
 	ingresostotal integer NULL,    -- CANTIDAD DE ENTRADAS DIA/SEMANA/MES
 	egresostotal integer NULL    -- CANTIDAD DE SALIDAS DIA/SEMANA/MES
@@ -133,7 +133,7 @@ CREATE TABLE SISTEMA_EXTERNO
 CREATE TABLE SUPERVISION
 (
 	id bigserial NOT NULL,
-	mensaje varchar(50) NOT NULL,
+	mensaje varchar(150) NOT NULL,
 	estado boolean NOT NULL,    -- ACTIVO -TRUE INACTIVO - FALSE
 	fecha timestamp without time zone NOT NULL,
 	tipo boolean NOT NULL,    -- 	- ALERTA - TRUE 	- AVISOS - FLASE
@@ -154,12 +154,12 @@ CREATE TABLE USUARIO
 	id bigserial NOT NULL,
 	nombres varchar(50) NOT NULL,
 	apellidos varchar(50) NOT NULL,
-	tipoid varchar(50) NOT NULL,
-	numid varchar(50) NOT NULL,
-	contrasena varchar(50) NOT NULL,
+	tipoid varchar(1) NOT NULL,
+	numid varchar(150) NOT NULL,
+	contrasena varchar(150) NOT NULL,
 	correo varchar(50) NOT NULL,
 	fechanac date NOT NULL,
-	fechareg varchar(50) NULL,
+	fechareg timestamp without time zone NULL,
 	estado boolean NOT NULL,
 	rol smallint NOT NULL
 );

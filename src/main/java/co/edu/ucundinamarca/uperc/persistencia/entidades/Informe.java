@@ -1,6 +1,7 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -42,16 +43,18 @@ public class Informe implements Serializable {
 	private long id;
 
 	@ManyToOne
-//	@JoinColumn(name = "usuario")
-	@JoinColumn(name = "usuario", referencedColumnName = "id")
+	@Column(name = "usuario")
+////	@JoinColumn(name = "usuario")
+//	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "regservicio", referencedColumnName = "id")
+	@Column(name = "regservicio")
+//	@JoinColumn(name = "regservicio", referencedColumnName = "id")
 	private RegServicio regServicio;
 
 	@Column(name = "fechagenerado")
-	private Date fechaGenerado;
+	private Timestamp fechaGenerado;
 
 	@Column(name = "fechainicio")
 	private Date fechaInicio;
@@ -130,7 +133,7 @@ public class Informe implements Serializable {
 	 * @param ingresosTotal
 	 * @param egresosTotal
 	 */
-	public Informe(Usuario usuario, RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
+	public Informe(Usuario usuario, RegServicio regServicio, Timestamp fechaGenerado, Date fechaInicio, Date fechaFin,
 			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
 			int recogTotal, int ingresosTotal, int egresosTotal) {
 
@@ -166,7 +169,7 @@ public class Informe implements Serializable {
 	 * @param ingresosTotal
 	 * @param egresosTotal
 	 */
-	public Informe(long id, Usuario usuario, RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
+	public Informe(long id, Usuario usuario, RegServicio regServicio, Timestamp fechaGenerado, Date fechaInicio, Date fechaFin,
 			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
 			int recogTotal, int ingresosTotal, int egresosTotal) {
 		setId(id);
@@ -236,7 +239,7 @@ public class Informe implements Serializable {
 	 * 
 	 * @return
 	 */
-	public Date getFechaGenerado() {
+	public Timestamp getFechaGenerado() {
 		return this.fechaGenerado;
 	}
 
@@ -244,7 +247,7 @@ public class Informe implements Serializable {
 	 * 
 	 * @param fechaGenerado
 	 */
-	protected void setFechaGenerado(Date fechaGenerado) {
+	protected void setFechaGenerado(Timestamp fechaGenerado) {
 		this.fechaGenerado = fechaGenerado;
 	}
 

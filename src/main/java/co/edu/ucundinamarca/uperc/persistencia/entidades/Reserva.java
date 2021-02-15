@@ -1,5 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -40,29 +41,29 @@ public class Reserva {
 	private long id;
 
 	@Column(name = "fechasolicitud")
-	private Date fechaSolicitud;
+	private Timestamp fechaSolicitud;
 
 	@Column(name = "estado")
 	private boolean estado;
 
 	@ManyToOne
-	@JoinColumn(name = "espacioparqueo", referencedColumnName = "ID")
-//	@Column(name = "ESPACIO_PARQUEO")
+	@Column(name = "espacioparqueo")
+//	@JoinColumn(name = "espacioparqueo", referencedColumnName = "ID")
 	private EspacioParqueo espacioParqueo;
 
 	@Column(name = "fechareserva")
-	private Date fechaReserva;
+	private Timestamp fechaReserva;
 
 	@Column(name = "fechafin")
-	private Date fechaFin;
+	private Timestamp fechaFin;
 
 	@Column(name = "cancelada")
 	private boolean cancelada;
 
 	@ManyToOne
-//	@Column(name = "usuario")
-	@JoinColumn(name = "usuario")
-//	@JoinColumn(name = "usuario", referencedColumnName = "ID")
+	@Column(name = "usuario")
+//	@JoinColumn(name = "usuario")
+////	@JoinColumn(name = "usuario", referencedColumnName = "ID")
 	private Usuario usuario;
 
 	/**
@@ -83,7 +84,7 @@ public class Reserva {
 	 * @param cancelada
 	 * @param usuario
 	 */
-	public Reserva(Date fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo, Date fechaReserva, Date fechaFin,
+	public Reserva(Timestamp fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo, Timestamp fechaReserva, Timestamp fechaFin,
 			boolean cancelada, Usuario usuario) {
 
 		setFechaSolicitud(fechaSolicitud);
@@ -115,7 +116,7 @@ public class Reserva {
 	 * 
 	 * @return
 	 */
-	public Date getFechaSolicitud() {
+	public Timestamp getFechaSolicitud() {
 		return this.fechaSolicitud;
 	}
 
@@ -123,7 +124,7 @@ public class Reserva {
 	 * 
 	 * @param fechaSolicitud
 	 */
-	protected void setFechaSolicitud(Date fechaSolicitud) {
+	protected void setFechaSolicitud(Timestamp fechaSolicitud) {
 		this.fechaSolicitud = fechaSolicitud;
 	}
 
@@ -163,7 +164,7 @@ public class Reserva {
 	 * 
 	 * @return
 	 */
-	public Date getFechaReserva() {
+	public Timestamp getFechaReserva() {
 		return this.fechaReserva;
 	}
 
@@ -171,7 +172,7 @@ public class Reserva {
 	 * 
 	 * @param fechaReserva
 	 */
-	protected void setFechaReserva(Date fechaReserva) {
+	protected void setFechaReserva(Timestamp fechaReserva) {
 		this.fechaReserva = fechaReserva;
 	}
 
@@ -179,7 +180,7 @@ public class Reserva {
 	 * 
 	 * @return
 	 */
-	public Date getFechaFin() {
+	public Timestamp getFechaFin() {
 		return this.fechaFin;
 	}
 
@@ -187,7 +188,7 @@ public class Reserva {
 	 * 
 	 * @param fechaFin
 	 */
-	protected void setFechaFin(Date fechaFin) {
+	protected void setFechaFin(Timestamp fechaFin) {
 		this.fechaFin = fechaFin;
 	}
 

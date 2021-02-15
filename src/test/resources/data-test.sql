@@ -88,23 +88,23 @@ VALUES('Entrada 1', 'kvision', 'CamaraIP', '192.168.100.132', '64001', '08:00:2b
 INSERT INTO public.usuario
 (nombres, apellidos, tipoid, numid, contrasena, correo, fechanac, fechareg, estado, rol)
 VALUES
-('Ad', 'Ministro', 'CC', '00000001', 'minijtro', 'minijtro@localhost', '01/01/1900', '18/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Administrador')),
+('Ad', 'Ministro', 'C', '00000001', 'minijtro', 'minijtro@localhost', '01/01/1900', '2021-01-18 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Administrador')),
 
-('El', 'docente', 'CC', '00000002', 'docente', 'docente@localhost', '01/01/1901', '17/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Docente')),
+('El', 'docente', 'C', '00000002', 'docente', 'docente@localhost', '01/01/1901', '2021-01-17 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Docente')),
 
-('El', 'Graduado', 'CC', '00000004', 'graduado', 'graduado@localhost', '01/01/1902', '16/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Graduado')),
+('El', 'Graduado', 'C', '00000004', 'graduado', 'graduado@localhost', '01/01/1902', '2021-01-16 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Graduado')),
 
-('La', 'estudiante', 'CC', '000000465', 'estudiante', 'estudiante@localhost', '01/01/1906', '18/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Estudiante')),
+('La', 'estudiante', 'C', '000000465', 'estudiante', 'estudiante@localhost', '01/01/1906', '2021-01-18 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Estudiante')),
 
-('Carlos', 'PeñarandaAdministrativo', 'CC', '00000006', 'cpenaranda', 'cpenaranda@localhost', '01/01/1923', '07/12/2020', true, (SELECT ID FROM rol r WHERE r.nombre='Administrativo')),
+('Carlos', 'PeñarandaAdministrativo', 'CC', '00000006', 'cpenaranda', 'cpenaranda@localhost', '01/01/1923', '2021-12-07 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Administrativo')),
 
-('El', 'primer supervisor', 'CC', '00000028', 'super2', 'super2@localhost', '01/01/1900', '18/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Supervisión')),
+('El', 'primer supervisor', 'CC', '00000028', 'super2', 'super2@localhost', '01/01/1900', '2021-01-18 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Supervisión')),
 
-('Segundo', 'supervisor', 'CC', '00000007', 'super1', 'super1@localhost', '01/01/1900', '18/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Supervisión')),
+('Segundo', 'supervisor', 'CC', '00000007', 'super1', 'super1@localhost', '01/01/1900', '2021-01-18 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Supervisión')),
 
-('Estudiante', 'Segundo', 'CC', '00000008', 'estudiante2', 'estudiante2@localhost', '01/01/1900', '18/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Estudiante')),
+('Estudiante', 'Segundo', 'E', '00000008', 'estudiante2', 'estudiante2@localhost', '01/01/1900', '2021-01-18 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Estudiante')),
 
-('Primer', 'visitante', 'CC', '00300009', 'visitante', 'visitante@localhost', '01/01/1997', '18/01/2021', true, (SELECT ID FROM rol r WHERE r.nombre='Visitante'));
+('Primer', 'visitante', 'I', '00300009', 'visitante', 'visitante@localhost', '01/01/1997', '2021-01-18 05:25:59.0', true, (SELECT ID FROM rol r WHERE r.nombre='Visitante'));
 
 -- Verificar la columna maxadmin
 INSERT INTO public.configuracion

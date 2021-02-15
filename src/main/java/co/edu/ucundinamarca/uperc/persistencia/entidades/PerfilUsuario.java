@@ -28,7 +28,7 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:27
  */
 @Entity
-@Table(name = "perfilusuario")
+@Table(name = "perfil_usuario")
 public class PerfilUsuario {
 
 	@Id
@@ -43,10 +43,12 @@ public class PerfilUsuario {
 	private String descripcion;
 	
 //	TODO: verificar en el modelo
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilUsuario")
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilUsuario")
 //	@OneToMany(mappedBy = "perfilusuario",  targetEntity = Rol.class)
 //	@OneToMany(mappedBy = "perfilusuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false)
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "perfil_usuario", orphanRemoval = true)//dueño de relacion
 	private Set<Rol> roles;
 
 
@@ -79,17 +81,6 @@ public class PerfilUsuario {
 		setRoles(roles);
 	}
 	
-	
-	/**
-	 * 
-	 * @param rol
-	 */
-	public void agregarRoles(Rol rol) {
-		this.roles.add(rol);
-		rol.setPerfilUsuario(this);
-	}
-
-
 	/**
 	 * 
 	 * @return
@@ -148,6 +139,15 @@ public class PerfilUsuario {
 	 */
 	protected void setRoles(Set<Rol> usuarios) {
 		this.roles = usuarios;
+	}
+
+	/**
+	 * Agregar rol a la colección de roles
+	 * @param rol
+	 */
+	public void agregarRol(Rol rol) {
+		this.roles.add(rol);
+		rol.setPerfilUsuario(this);
 	}
 	
 	

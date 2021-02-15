@@ -47,9 +47,7 @@ public class Vehiculo {
 	@Column(name = "tiposervicio")
 	private String tipoServicio;
 	
-//	Listas
-//	@OneToMany(mappedBy = "VEHICULO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "vehiculo", orphanRemoval = false)//dueño de la relacion
 	private Set<RegistroIE> registrosIE;
 
 	/**
@@ -82,15 +80,6 @@ public class Vehiculo {
 		setRegistrosIE(registrosIE);
 	}
 	
-	/**
-	 * Listas de registros de ingreso y egreso desde vehículos
-	 * @param registrosIE
-	 */
-	public void agregarRegitrosIE(RegistroIE registrosIE) {
-		this.registrosIE.add(registrosIE);
-		registrosIE.setVehiculo(this);
-	}
-
 	/**
 	 * 
 	 * @return
@@ -215,6 +204,15 @@ public class Vehiculo {
 	 */
 	protected void setRegistrosIE(Set<RegistroIE> registrosIE) {
 		this.registrosIE = registrosIE;
+	}
+
+	/**
+	 * Listas de registros de ingreso y egreso desde vehículos
+	 * @param registrosIE
+	 */
+	public void agregarRegitrosIE(RegistroIE registrosIE) {
+		this.registrosIE.add(registrosIE);
+		registrosIE.setVehiculo(this);
 	}
 	
 	

@@ -21,11 +21,11 @@
 <!-- 	<bean id="iniciosession" -->
 <!-- 		class="co.edu.ucundinamarca.uperc.InicioSession" /> -->
 
-	<bean
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/vistas/" />
-		<property name="suffix" value=".jsp" />
-	</bean>
+<!-- 	<bean -->
+<!-- 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->
+<!-- 		<property name="prefix" value="/WEB-INF/vistas/" /> -->
+<!-- 		<property name="suffix" value=".jsp" /> -->
+<!-- 	</bean> -->
 
 	<!-- configuracion de registro de los por aspectos -->
 	<aop:aspectj-autoproxy/>
