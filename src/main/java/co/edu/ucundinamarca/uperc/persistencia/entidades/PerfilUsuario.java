@@ -42,12 +42,6 @@ public class PerfilUsuario {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-//	TODO: verificar en el modelo
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "perfilUsuario")
-//	@OneToMany(mappedBy = "perfilusuario",  targetEntity = Rol.class)
-//	@OneToMany(mappedBy = "perfilusuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "perfil_usuario", orphanRemoval = true)//dueño de relacion
 	private Set<Rol> roles;
 

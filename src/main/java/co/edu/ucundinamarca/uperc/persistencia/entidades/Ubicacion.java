@@ -41,7 +41,6 @@ public class Ubicacion {
 	@Column(name = "telefono")
 	private String telefono;
 
-//	@OneToMany(mappedBy = "ubicacion", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "ubicacion", orphanRemoval = true)//dueño de relacion
 	private Set<EspacioParqueo> espaciosParqueo;
 

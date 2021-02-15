@@ -72,7 +72,6 @@ public class Recurso {
 	@Column(name = "estado")
 	private boolean estado;
 
-//	@OneToMany(mappedBy = "RECURSO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
 	private Set<RegistroIE> registrosIE;
 

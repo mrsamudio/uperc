@@ -51,7 +51,6 @@ public class Supervision {
 
 	@ManyToOne
 	@Column(name = "usuario")
-//	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuario;
 
 	/**

@@ -44,13 +44,10 @@ public class Informe implements Serializable {
 
 	@ManyToOne
 	@Column(name = "usuario")
-////	@JoinColumn(name = "usuario")
-//	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuario;
 
 	@ManyToOne
 	@Column(name = "regservicio")
-//	@JoinColumn(name = "regservicio", referencedColumnName = "id")
 	private RegServicio regServicio;
 
 	@Column(name = "fechagenerado")

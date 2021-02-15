@@ -37,7 +37,6 @@ public class EspacioParqueo {
 	
 	@ManyToOne
 	@Column(name = "ubicacion")
-//	@JoinColumn(name = "ubicacion", referencedColumnName = "ID")
 	private Ubicacion ubicacion;
 	
 	@Column(name = "ocupado")
@@ -45,7 +44,6 @@ public class EspacioParqueo {
 	
 	//TODO: Pendiente por verificar
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "espacioparqueo", orphanRemoval = true)//dueño de relacion
-//	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private Set<Reserva> reservas;
 	
 	/**

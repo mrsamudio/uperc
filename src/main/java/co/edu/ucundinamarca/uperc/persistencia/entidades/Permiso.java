@@ -28,12 +28,10 @@ public class Permiso {
 	@Column(name = "id")
 	private long id;
 
-//	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	@ManyToOne
 	@Column(name = "usuario")
 	private Usuario usuario;
 
-//	@OneToOne
 	@OneToOne(mappedBy = "permiso")
 	private RegistroIE registroIE;
 

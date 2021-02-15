@@ -97,61 +97,23 @@ public class Usuario implements Serializable {
 	@PrimaryKeyJoinColumn //
 	private Configuracion configuracion = new Configuracion();
 
-//	Listas de muchos a uno
-//	@OneToMany(mappedBy = "usuario")
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	private List<Supervision> supervisiones;
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
-																												// de
-																												// relacion
 	private Set<Supervision> supervisiones;
 
-//	@OneToMany(mappedBy = "usuario")
-////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
-																												// de
-																												// relacion
 	private Set<Reserva> reservas;
-//	private List<Reserva> reservas;
 
-//	@OneToMany(mappedBy = "usuario")
-////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
-																												// de
-																												// relacion
 	private Set<Informe> informes;
-//	private List<Informe> informes;
 
-//	@OneToMany(mappedBy = "usuarioIngreso")
-////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true)//dueño de relacion
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioingreso", orphanRemoval = true) // dueño
-																														// de
-																														// relacion
 	private Set<RegistroIE> registrosI;
 
-//	@OneToMany(mappedBy = "usuarioEgreso")
-////	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-////	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true)//dueño de relacion
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioegreso", orphanRemoval = true) // dueño
-																														// de
-																														// relacion
 	private Set<RegistroIE> registrosE;
-//	private List<RegistroIE> registrosIE;
 
-//	@OneToMany(mappedBy = "usuario")
-//	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
-//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
-																												// de
-																												// relacion
 	private Set<Permiso> permisos;
-//	private List<Permiso> permisos;
 
 	/**
 	 * Constructor por defecto

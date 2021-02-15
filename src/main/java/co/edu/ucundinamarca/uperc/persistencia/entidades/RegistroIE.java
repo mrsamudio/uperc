@@ -47,34 +47,25 @@ public class RegistroIE {
 
 	@ManyToOne
 	@Column(name = "recurso")
-//	@JoinColumn(name = "recurso", referencedColumnName = "id")
 	private Recurso recurso;
 
 	@ManyToOne
 	@Column(name = "vehiculo")
-//	@JoinColumn(name = "vehiculo", referencedColumnName = "id")
 	private Vehiculo vehiculo;
 
 	@ManyToOne
 	@JoinColumn(name = "usuarioingreso")
 	@Column(name = "usuarioingreso")
-//	@JoinColumn(name = "usuarioingreso", referencedColumnName = "id")
-////	@Column(name = "USUARIO_INGRESO")
-////	@JoinColumn(name = "usuario", referencedColumnName = "id")
 	private Usuario usuarioIngreso;
 
 	@ManyToOne
 	@JoinColumn(name = "usuarioegreso")
 	@Column(name = "usuarioegreso")
-//	@JoinColumn(name = "usuarioegreso", referencedColumnName = "id")
-////	@Column(name = "USUARIO_EGRESO")
 	private Usuario usuarioEgreso;
 	
 	@Column(name = "ticketid")//tipo uuid postgresql
 	private String ticketId;
 
-//	@OneToOne
-//	@JoinColumn(name = "permiso", referencedColumnName = "id")
 	@OneToOne(cascade = {CascadeType.ALL})//Dueño de relacion
 	@PrimaryKeyJoinColumn
 	private Permiso permiso;

@@ -48,7 +48,6 @@ public class Reserva {
 
 	@ManyToOne
 	@Column(name = "espacioparqueo")
-//	@JoinColumn(name = "espacioparqueo", referencedColumnName = "ID")
 	private EspacioParqueo espacioParqueo;
 
 	@Column(name = "fechareserva")
@@ -62,8 +61,6 @@ public class Reserva {
 
 	@ManyToOne
 	@Column(name = "usuario")
-//	@JoinColumn(name = "usuario")
-////	@JoinColumn(name = "usuario", referencedColumnName = "ID")
 	private Usuario usuario;
 
 	/**

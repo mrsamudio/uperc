@@ -38,11 +38,8 @@ public class Configuracion implements Serializable {
 
 	
 	@Id
-//	@SequenceGenerator(name = "configuracion_id_seq", sequenceName = "configuracion_id_seq", allocationSize = 1)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "configuracion_id_seq")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
-//	@Column(name = "id", columnDefinition = "serial")
 	private long id;
 
 	@Column(name = "intentosfallidos")

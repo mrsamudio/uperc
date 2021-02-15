@@ -63,11 +63,8 @@ public class Rol {
 	@Column(name = "descripcion")
 	private String descripcion;
 
-//	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//	@JoinColumn(name = "perfilusuario", referencedColumnName = "id")
 	@ManyToOne
 	@Column(name = "perfil")
-//	@JoinColumn(name = "perfil", referencedColumnName = "id")
 	private PerfilUsuario perfilUsuario;
 
 //	TODO: verificar en el modelo
