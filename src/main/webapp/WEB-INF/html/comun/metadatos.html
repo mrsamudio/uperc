@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:fragment="metadatos">
+		<meta charset="UTF-8">
+		<title th:replace="titulo :: titulo"></title>
+		
+		<!-- integrity in stylesheet and script -->
+		
+		<script>
+		    $(document).ready(function() {
+		        $.ajax({
+		            url : "/WEB-INF/js",
+		            });
+		        });
+		</script>
+	</head>
+</html>
