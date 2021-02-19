@@ -38,7 +38,8 @@ public class SistemaExterno {
 	@Column(name = "contrasena")
 	private String contrasena;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sistema_externo", orphanRemoval = true)//dueño de relacion
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "sistema_externo", orphanRemoval = true)//dueño de relacion
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)//dueño de relacion
 	private Set<RegServicio> regServicios;
 
 	/**

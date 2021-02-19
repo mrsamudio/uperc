@@ -49,7 +49,7 @@ class ConfigFuenteDatosTest {
 //	@Autowired
 //	FuenteDatos fuenteDatos;
 
-	@BeforeEach
+//	@BeforeEach
 	public void setUp() throws Exception {
 	}
 
@@ -58,7 +58,7 @@ class ConfigFuenteDatosTest {
 	}
 
 
-	@Test
+//	@Test
 	public void selectById() {
 	}
 

@@ -36,14 +36,15 @@ public class EspacioParqueo {
 	private String nombre;
 	
 	@ManyToOne
-	@Column(name = "ubicacion")
+//	@Column(name = "ubicacion")
+//	@JoinColumn(name = "ubicacion", referencedColumnName = "id")
 	private Ubicacion ubicacion;
 	
 	@Column(name = "ocupado")
 	private boolean ocupado;
 	
 	//TODO: Pendiente por verificar
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "espacioparqueo", orphanRemoval = true)//dueño de relacion
+	@OneToMany( cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private Set<Reserva> reservas;
 	
 	/**

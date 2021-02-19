@@ -50,7 +50,7 @@ public class Supervision {
 	private boolean tipo;
 
 	@ManyToOne
-	@Column(name = "usuario")
+//	@Column(name = "usuario")
 	private Usuario usuario;
 
 	/**

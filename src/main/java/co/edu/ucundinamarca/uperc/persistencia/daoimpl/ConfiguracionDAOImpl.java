@@ -63,16 +63,16 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 			res = session
 					.createSQLQuery("INSERT INTO " + Configuracion.class.getSimpleName() 
 							+ "("
-							+ "intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado, usuario"
+							+ "id, intentosfallidos, caducidadcontrasena, maxadmin, fechaguardado"
 							+ ")"
 							+ " VALUES("
-							+ ":falla, :caduca, :maxadmin, :fechaguar, :usuario)"
-							+ "")
+							+ ":idconf, :falla, :caduca, :maxadmin, :fechaguar"
+							+ ")")
+					.setParameter("idconf", configuracion.getId())
 					.setParameter("falla", configuracion.getIntentosFallidos())
 					.setParameter("caduca", configuracion.getCaducidadContrasena())
 					.setParameter("maxadmin", configuracion.getMaxAdmin())
 					.setParameter("fechaguar", configuracion.getFechaGuardado())
-					.setParameter("usuario", configuracion.getUsuario().getId())
 					.executeUpdate();
 
 			return isResultado(res);
@@ -93,14 +93,13 @@ public class ConfiguracionDAOImpl extends PersistenciaUtil implements Configurac
 					.createSQLQuery("UPDATE " + Configuracion.class.getSimpleName() 
 							+ " SET"
 							+ " intentosfallidos = :falla, caducidadcontrasena = :caduca,"
-							+ " maxadmin = :maxadmin, fechaguardado = :fechaguar, usuario = :usuario"
+							+ " maxadmin = :maxadmin, fechaguardado = :fechaguar"
 							+ " WHERE id = :idconf")
 					.setParameter("idconf", configuracion.getId())
 					.setParameter("falla", configuracion.getIntentosFallidos())
 					.setParameter("caduca", configuracion.getCaducidadContrasena())
 					.setParameter("maxadmin", configuracion.getMaxAdmin())
 					.setParameter("fechaguar", configuracion.getFechaGuardado())
-					.setParameter("usuario", configuracion.getUsuario().getId())
 					.executeUpdate();
 
 			return isResultado(res);

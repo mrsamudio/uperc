@@ -55,7 +55,7 @@ public class ConfigFuenteDatos {
 		try {
 			DriverManagerDataSource ds = new DriverManagerDataSource();
 			ds.setDriverClassName("org.postgresql.Driver");
-			ds.setUrl("jdbc:postgresql://192.168.100.183:5432/uperctest");
+			ds.setUrl("jdbc:postgresql://192.168.100.183:5432/upercfinaltest");
 			ds.setUsername("msamudio");
 			ds.setPassword("msamudio");
 //			ds.setSchema("public");
@@ -80,6 +80,7 @@ public class ConfigFuenteDatos {
 		hibernateProp.put("hibernate.max_fetch_depth", 3);
 		hibernateProp.put("hibernate.show_sql", true);
 		hibernateProp.put("hibernate.use_sql_comments", true);
+		hibernateProp.put("hibernate.jdbc.time_zone", "America/Bogota");
 		return hibernateProp;
 	}
 	

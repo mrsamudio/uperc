@@ -29,7 +29,7 @@ public class Permiso {
 	private long id;
 
 	@ManyToOne
-	@Column(name = "usuario")
+//	@Column(name = "usuario")
 	private Usuario usuario;
 
 	@OneToOne(mappedBy = "permiso")

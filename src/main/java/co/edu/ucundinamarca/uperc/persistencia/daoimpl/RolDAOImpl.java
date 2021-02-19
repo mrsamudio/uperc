@@ -66,7 +66,7 @@ public class RolDAOImpl extends PersistenciaUtil implements RolDAO {
 							+ ")")
 					.setParameter("nombre", rol.getNombre())
 					.setParameter("descripcion", rol.getDescripcion())
-					.setParameter("perfil", rol.getPerfilUsuario().getId())
+					.setParameter("perfil", rol.getPerfil().getId())
 //					.setParameter("usuario", rol.getUsuarios())
 					.executeUpdate();
 
@@ -92,7 +92,7 @@ public class RolDAOImpl extends PersistenciaUtil implements RolDAO {
 					.setParameter("idConf", rol.getId())
 					.setParameter("nombre", rol.getNombre())
 					.setParameter("descripcion", rol.getDescripcion())
-					.setParameter("perfil", rol.getPerfilUsuario().getId())
+					.setParameter("perfil", rol.getPerfil().getId())
 					.executeUpdate();
 
 			return isResultado(res);

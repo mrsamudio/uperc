@@ -42,12 +42,13 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 		return sessionFactory.getCurrentSession().getSession().get(Usuario.class, id);
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	@Transactional(readOnly = true)
 	public List<Usuario> selectAll() {
 		return sessionFactory.getCurrentSession().getSession()
-				.createQuery("from " + Usuario.class.getSimpleName()).list();
+				.createQuery("from " + Usuario.class.getSimpleName())
+				.list();
 	}
 
 	@Override
@@ -80,7 +81,9 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 					.setParameter("nombres", usuario.getNombres())
 					
 					.executeUpdate();
-
+			
+//			session.getTransaction().commit();
+			
 			return isResultado(res);
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -116,6 +119,8 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 					.setParameter("apellidos", usuario.getApellidos())
 					.setParameter("nombres", usuario.getNombres())
 					.executeUpdate();
+			
+//			session.getTransaction().commit();
 
 			return isResultado(res);
 		} catch (HibernateException e) {
@@ -140,6 +145,8 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 					.setParameter("estado", true)
 					
 					.executeUpdate();
+			
+//			session.getTransaction().commit();
 
 			return isResultado(res);
 		} catch (HibernateException e) {
@@ -164,13 +171,52 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 					.setParameter("estado", false)
 					
 					.executeUpdate();
+			
+//			session.getTransaction().commit();
 
 			return isResultado(res);
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			//TODO: verificar resultado
 			return false;
 		}
+	}
+
+	@Override
+	@Transactional
+	public boolean delete(Usuario usuario) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+//			res = session
+//			.createSQLQuery("DELETE FROM " + Usuario.class.getSimpleName()
+//					+ " WHERE"
+//					+ " rol = :rol, estado = :estado, fechareg = :fechareg"
+//					+ ", fechanac = :fechanac, correo = :correo"
+//					+ ", contrasena = :contrasena, numid = :numid"
+//					+ ", tipoid = :tipoid, apellidos = :apellidos"
+//					+ ", nombres = :nombres"
+//					+ "")
+//			.setParameter("rol", usuario.getRol().getId())
+//			.setParameter("estado", usuario.isEstado())
+//			.setParameter("fechareg", usuario.getFechaReg())
+//			.setParameter("fechanac", usuario.getFechaNac())
+//			.setParameter("correo", usuario.getCorreo())
+//			.setParameter("contrasena", usuario.getContrasena())
+//			.setParameter("numid", usuario.getNumId())
+//			.setParameter("tipoid", usuario.getTipoId())
+//			.setParameter("apellidos", usuario.getApellidos())
+//			.setParameter("nombres", usuario.getNombres())
+//			.executeUpdate();
+			session.delete(usuario);
+//			session.fl
+//			session.getTransaction().commit();
+			return true;
+//			return  isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }

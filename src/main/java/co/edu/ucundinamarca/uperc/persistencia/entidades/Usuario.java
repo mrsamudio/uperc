@@ -1,8 +1,11 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -18,6 +21,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -81,38 +86,49 @@ public class Usuario implements Serializable {
 	private String correo;
 
 	@Column(name = "fechanac")
+	@Temporal(TemporalType.DATE)
 	private Date fechaNac;
 
 	@Column(name = "fechareg")
-	private Timestamp fechaReg;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaReg;
 
 	@Column(name = "estado")
 	private boolean estado;
 
 	@ManyToOne // Foreign key
-	@Column(name = "rol")
+//	@Column(name = "rol")
+//	@ManyToOne(targetEntity = Rol.class, fetch = FetchType.LAZY)
+//	@ManyToOne(targetEntity = Rol.class)
+	@JoinColumn(name = "rol")
 	private Rol rol;
 
 	@OneToOne(cascade = { CascadeType.ALL }) // Dueño de relacion
 	@PrimaryKeyJoinColumn //
 	private Configuracion configuracion = new Configuracion();
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Supervision> supervisiones;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Reserva> reservas;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+	@OneToMany(mappedBy = "usuario")
 	private Set<Informe> informes;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioingreso", orphanRemoval = true) // dueño
+	@OneToMany(mappedBy = "usuarioIngreso")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioIngreso", orphanRemoval = true) // dueño
 	private Set<RegistroIE> registrosI;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioegreso", orphanRemoval = true) // dueño
+	@OneToMany(mappedBy = "usuarioEgreso")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioEgreso", orphanRemoval = true) // dueño
 	private Set<RegistroIE> registrosE;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
+	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Permiso> permisos;
 
 	/**
@@ -122,10 +138,45 @@ public class Usuario implements Serializable {
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 */
 	public Usuario(long id) {
 		this.setId(id);
 	}
 
+	/**
+	 * Constructor que carga todos los atributos de la entidad con id
+	 * 
+	 * @param nombres
+	 * @param apellidos
+	 * @param tipoId
+	 * @param numid
+	 * @param contrasena
+	 * @param correo
+	 * @param fechaNac
+	 * @param fechaReg
+	 * @param estado
+	 * @param rol
+	 */
+	public Usuario(long id, String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
+			Date fechaNac, Date fechaReg, boolean estado, Rol rol) {
+		
+		
+		setId(id);
+		setNombres(nombres);
+		setApellidos(apellidos);
+		setTipoId(tipoId);
+		setNumId(numid);
+		setContrasena(contrasena);
+		setCorreo(correo);
+		setFechaNac(fechaNac);
+		setFechaReg(fechaReg);
+		setEstado(estado);
+		setRol(rol);
+	}
+	
 	/**
 	 * Constructor que carga todos los atributos de la entidad
 	 * 
@@ -141,7 +192,9 @@ public class Usuario implements Serializable {
 	 * @param rol
 	 */
 	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
-			Date fechaNac, Timestamp fechaReg, boolean estado, Rol rol) {
+			Date fechaNac, Date fechaReg, boolean estado, Rol rol) {
+		
+		
 		
 		setNombres(nombres);
 		setApellidos(apellidos);
@@ -177,9 +230,11 @@ public class Usuario implements Serializable {
 	 * @param permisos
 	 */
 	public Usuario(String nombres, String apellidos, char tipoId, String numid, String contrasena, String correo,
-			Date fechaNac, Timestamp fechaReg, boolean estado, Rol rol, Configuracion configuracion,
+			Date fechaNac, Date fechaReg, boolean estado, Rol rol, Configuracion configuracion,
 			Set<Supervision> supervisiones, Set<Reserva> reservas, Set<Informe> informes, Set<RegistroIE> registrosI,
 			Set<RegistroIE> registrosE, Set<Permiso> permisos) {
+		
+		
 
 		setNombres(nombres);
 		setApellidos(apellidos);
@@ -334,9 +389,9 @@ public class Usuario implements Serializable {
 
 	/**
 	 * 
-	 * @return Timestamp
+	 * @return Date
 	 */
-	public Timestamp getFechaReg() {
+	public Date getFechaReg() {
 		return this.fechaReg;
 	}
 
@@ -344,7 +399,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param fechaReg
 	 */
-	private void setFechaReg(Timestamp fechaReg) {
+	private void setFechaReg(Date fechaReg) {
 		this.fechaReg = fechaReg;
 	}
 

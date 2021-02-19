@@ -53,5 +53,13 @@ public interface UsuarioDAO {
 	 * @return
 	 */
 	public boolean deactivate(Usuario usuario);
+	
+	
+	/**
+	 * Metodo utilizado solamente para pruebas 
+	 * @param usuario
+	 * @return
+	 */
+	public boolean delete(Usuario usuario);
 
 }

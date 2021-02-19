@@ -64,11 +64,14 @@ public class Rol {
 	private String descripcion;
 
 	@ManyToOne
-	@Column(name = "perfil")
-	private PerfilUsuario perfilUsuario;
+//	@Column(name = "perfil")
+//	@JoinColumn(name = "perfil", referencedColumnName = "id")
+	@JoinColumn(name = "perfil")
+	private PerfilUsuario perfil;
 
 //	TODO: verificar en el modelo
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "rol", orphanRemoval = true)//dueño de relacion
+	@OneToMany(mappedBy = "rol")//dueño de relacion
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "rol", orphanRemoval = true)//dueño de relacion
 	private Set<Usuario> usuarios;
 
 	/**
@@ -88,18 +91,52 @@ public class Rol {
 	}
 
 	/**
-	 * Constructor que inicializa todos los atributos
+	 * Constructor que inicializa todos los atributos sin id
 	 * 
 	 * @param nombre
 	 * @param descripcion
-	 * @param perfilUsuario
+	 * @param perfil
 	 * @param usuarios
 	 */
 	public Rol(String nombre, String descripcion, PerfilUsuario perfilUsuario, Set<Usuario> usuarios) {
 
 		setNombre(nombre);
 		setDescripcion(descripcion);
-		setPerfilUsuario(perfilUsuario);
+		setPerfil(perfilUsuario);
+		setUsuarios(usuarios);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos sin set usuarios
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param descripcion
+	 * @param perfil
+	 */
+	public Rol(int id, String nombre, String descripcion, PerfilUsuario perfilUsuario) {
+		
+		setId(id);
+		setNombre(nombre);
+		setDescripcion(descripcion);
+		setPerfil(perfilUsuario);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos 
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param descripcion
+	 * @param perfil
+	 * @param usuarios
+	 */
+	public Rol(int id, String nombre, String descripcion, PerfilUsuario perfilUsuario, Set<Usuario> usuarios) {
+		
+		setId(id);
+		setNombre(nombre);
+		setDescripcion(descripcion);
+		setPerfil(perfilUsuario);
 		setUsuarios(usuarios);
 	}
 
@@ -150,17 +187,17 @@ public class Rol {
 	}
 
 	/**
-	 * @return the perfilUsuario
+	 * @return the perfil
 	 */
-	public PerfilUsuario getPerfilUsuario() {
-		return perfilUsuario;
+	public PerfilUsuario getPerfil() {
+		return perfil;
 	}
 
 	/**
-	 * @param perfilUsuario the perfilUsuario to set
+	 * @param perfil the perfil to set
 	 */
-	protected void setPerfilUsuario(PerfilUsuario perfilUsuario) {
-		this.perfilUsuario = perfilUsuario;
+	protected void setPerfil(PerfilUsuario perfilUsuario) {
+		this.perfil = perfilUsuario;
 	}
 
 	/**

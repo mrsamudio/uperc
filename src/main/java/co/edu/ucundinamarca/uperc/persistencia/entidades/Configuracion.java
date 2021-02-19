@@ -3,18 +3,12 @@ package co.edu.ucundinamarca.uperc.persistencia.entidades;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 /**
@@ -93,6 +87,25 @@ public class Configuracion implements Serializable {
 	}
 	
 	/**
+	 * Constructor que carga todos los atributos de la entidad mapeada en bd
+	 * @param id
+	 * @param intentosFallidos
+	 * @param caducidadPass
+	 * @param maxAdmin
+	 * @param fechaGuardado
+	 * @param usuario
+	 */
+	public Configuracion(long id, int intentosFallidos, int caducidadPass, int maxAdmin, Timestamp fechaGuardado) {
+		
+		setId(id);
+		setIntentosFallidos(intentosFallidos);
+		setCaducidadContrasena(caducidadPass);
+		setMaxAdmin(maxAdmin);
+		setFechaGuardado(fechaGuardado);
+		
+	}
+	
+	/**
 	 * Constructor que carga todos los atributos
 	 * @param id
 	 * @param intentosFallidos
@@ -144,7 +157,7 @@ public class Configuracion implements Serializable {
 	 * 
 	 * @param intentosFallidos
 	 */
-	protected void setIntentosFallidos(int intentosFallidos) {
+	public void setIntentosFallidos(int intentosFallidos) {
 		this.intentosFallidos = intentosFallidos;
 	}
 
@@ -163,7 +176,7 @@ public class Configuracion implements Serializable {
 	 * 
 	 * @param caducidadContrasena
 	 */
-	protected void setCaducidadContrasena(int caducidadContrasena) {
+	public void setCaducidadContrasena(int caducidadContrasena) {
 		this.caducidadContrasena = caducidadContrasena;
 	}
 
@@ -181,7 +194,7 @@ public class Configuracion implements Serializable {
 	 * 
 	 * @param maxAdmin
 	 */
-	protected void setMaxAdmin(int maxAdmin) {
+	public void setMaxAdmin(int maxAdmin) {
 		this.maxAdmin = maxAdmin;
 	}
 
@@ -199,7 +212,7 @@ public class Configuracion implements Serializable {
 	 * 
 	 * @param fechaGuardado
 	 */
-	protected void setFechaGuardado(Timestamp fechaGuardado) {
+	public void setFechaGuardado(Timestamp fechaGuardado) {
 		this.fechaGuardado = fechaGuardado;
 	}
 

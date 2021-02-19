@@ -46,21 +46,21 @@ public class RegistroIE {
 	private Timestamp fechaEgreso;
 
 	@ManyToOne
-	@Column(name = "recurso")
+//	@Column(name = "recurso")
 	private Recurso recurso;
 
 	@ManyToOne
-	@Column(name = "vehiculo")
+//	@Column(name = "vehiculo")
 	private Vehiculo vehiculo;
 
 	@ManyToOne
-	@JoinColumn(name = "usuarioingreso")
-	@Column(name = "usuarioingreso")
+//	@JoinColumn(name = "usuarioingreso")
+//	@Column(name = "usuarioingreso")
 	private Usuario usuarioIngreso;
 
 	@ManyToOne
-	@JoinColumn(name = "usuarioegreso")
-	@Column(name = "usuarioegreso")
+//	@JoinColumn(name = "usuarioegreso")
+//	@Column(name = "usuarioegreso")
 	private Usuario usuarioEgreso;
 	
 	@Column(name = "ticketid")//tipo uuid postgresql

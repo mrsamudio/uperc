@@ -47,7 +47,7 @@ public class Reserva {
 	private boolean estado;
 
 	@ManyToOne
-	@Column(name = "espacioparqueo")
+	@JoinColumn(name = "espacioparqueo", referencedColumnName = "id")
 	private EspacioParqueo espacioParqueo;
 
 	@Column(name = "fechareserva")
@@ -60,7 +60,7 @@ public class Reserva {
 	private boolean cancelada;
 
 	@ManyToOne
-	@Column(name = "usuario")
+//	@Column(name = "usuario")
 	private Usuario usuario;
 
 	/**

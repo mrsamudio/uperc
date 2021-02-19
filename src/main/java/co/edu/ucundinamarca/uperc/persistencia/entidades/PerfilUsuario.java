@@ -28,7 +28,8 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:27
  */
 @Entity
-@Table(name = "perfil_usuario")
+//@Table(name = "perfil_usuario")
+@Table(name = "perfilusuario")
 public class PerfilUsuario {
 
 	@Id
@@ -42,7 +43,10 @@ public class PerfilUsuario {
 	@Column(name = "descripcion")
 	private String descripcion;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "perfil_usuario", orphanRemoval = true)//dueño de relacion
+	@OneToMany(mappedBy = "perfil")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)//dueño de relacion
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "perfilusuario", orphanRemoval = true)//dueño de relacion
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "perfilUsuario", orphanRemoval = true)//dueño de relacion
 	private Set<Rol> roles;
 
 
@@ -62,14 +66,55 @@ public class PerfilUsuario {
 	public PerfilUsuario(String nombre) {
 		setNombre(nombre);
 	}
+	
+	/**
+	 * Constructor que inicializa atributo id
+	 * 
+	 * @param id
+	 */
+	public PerfilUsuario(int id) {
+
+		setId(id);
+	}
+	
 
 	/**
-	 * Constructor que inicializa todos los atributos
+	 * Constructor que inicializa todos los atributos sin id
 	 * 
 	 * @param nombre
 	 */
 	public PerfilUsuario(String nombre, String descripcion, Set<Rol> roles) {
 
+		setNombre(nombre);
+		setDescripcion(descripcion);
+		setRoles(roles);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos sin set roles
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param descripcion
+	 */
+	public PerfilUsuario(int id, String nombre, String descripcion) {
+		
+		setId(id);
+		setNombre(nombre);
+		setDescripcion(descripcion);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param descripcion
+	 * @param roles
+	 */
+	public PerfilUsuario(int id, String nombre, String descripcion, Set<Rol> roles) {
+
+		setId(id);
 		setNombre(nombre);
 		setDescripcion(descripcion);
 		setRoles(roles);
@@ -141,7 +186,7 @@ public class PerfilUsuario {
 	 */
 	public void agregarRol(Rol rol) {
 		this.roles.add(rol);
-		rol.setPerfilUsuario(this);
+		rol.setPerfil(this);
 	}
 	
 	
