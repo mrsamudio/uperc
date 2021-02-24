@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.PerfilUsuarioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.PerfilUsuario;
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 /**
  * @author mrsamudio

@@ -2,7 +2,6 @@ package co.edu.ucundinamarca.uperc.persistencia.dao;
 
 import java.util.List;
 
-import co.edu.ucundinamarca.uperc.persistencia.daoimpl.EspacioParqueoDAOImpl;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
 
 public interface EspacioParqueoDAO {

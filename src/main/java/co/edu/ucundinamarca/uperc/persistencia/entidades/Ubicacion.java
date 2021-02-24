@@ -3,7 +3,13 @@
  */
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.awt.Point;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.postgresql.geometric.PGpoint;
+
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.PGPointType;
+
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,13 +22,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /**
  * @author mrsamudio
  *
  */
+@TypeDef(name = "type", typeClass = PGPointType.class)
 @Entity
 @Table(name = "ubicacion")
-public class Ubicacion {
+public class Ubicacion implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 0L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +48,15 @@ public class Ubicacion {
 	@Column(name = "direccion")
 	private String direccion;
 
-	@Column(name = "coordenadas", columnDefinition="Point")
-	private Point coordenadas;
+	@Type(type = "type")
+//	@Column(name = "coordenadas", columnDefinition="Point")
+	private PGpoint coordenadas;
 
 	@Column(name = "telefono")
 	private String telefono;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "ubicacion", orphanRemoval = true)//dueño de relacion
+	@OneToMany(mappedBy = "ubicacion")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "ubicacion", orphanRemoval = true)//dueño de relacion
 	private Set<EspacioParqueo> espaciosParqueo;
 
 	/**
@@ -49,6 +64,13 @@ public class Ubicacion {
 	 */
 	public Ubicacion() {
 
+	}
+	
+	/**
+	 * 
+	 */
+	public Ubicacion(int id) {
+		setId(id);
 	}
 
 	/**
@@ -58,7 +80,24 @@ public class Ubicacion {
 	 * @param telefono
 	 * @param espaciosParqueo
 	 */
-	public Ubicacion(String nombre, String direccion, Point coordenadas, String telefono, Set<EspacioParqueo> espaciosParqueo) {
+	public Ubicacion(int id, String nombre, String direccion, PGpoint coordenadas, String telefono, Set<EspacioParqueo> espaciosParqueo) {
+		
+		setId(id);
+		setNombre(nombre);
+		setDireccion(direccion);
+		setCoordenadas(coordenadas);
+		setTelefono(telefono);
+		setEspaciosParqueo(espaciosParqueo);
+	}
+	
+	/**
+	 * @param nombre
+	 * @param direccion
+	 * @param coordenadas
+	 * @param telefono
+	 * @param espaciosParqueo
+	 */
+	public Ubicacion(String nombre, String direccion, PGpoint coordenadas, String telefono, Set<EspacioParqueo> espaciosParqueo) {
 
 		setNombre(nombre);
 		setDireccion(direccion);
@@ -66,15 +105,23 @@ public class Ubicacion {
 		setTelefono(telefono);
 		setEspaciosParqueo(espaciosParqueo);
 	}
-
+	
 	/**
-	 * 
-	 * @param reserva
+	 * @param nombre
+	 * @param direccion
+	 * @param coordenadas
+	 * @param telefono
+	 * @param espaciosParqueo
 	 */
-	public void agregarEspaciosParqueo(EspacioParqueo espacioParqueo) {
-		this.espaciosParqueo.add(espacioParqueo);
-		espacioParqueo.setUbicacion(this);
+	public Ubicacion(String nombre, String direccion, PGpoint coordenadas, String telefono) {
+		
+		setNombre(nombre);
+		setDireccion(direccion);
+		setCoordenadas(coordenadas);
+		setTelefono(telefono);
 	}
+
+	
 
 	/**
 	 * @return the id
@@ -121,14 +168,14 @@ public class Ubicacion {
 	/**
 	 * @return the coordenadas
 	 */
-	public Point getCoordenadas() {
+	public PGpoint getCoordenadas() {
 		return coordenadas;
 	}
 
 	/**
 	 * @param coordenadas the coordenadas to set
 	 */
-	public void setCoordenadas(Point coordenadas) {
+	public void setCoordenadas(PGpoint coordenadas) {
 		this.coordenadas = coordenadas;
 	}
 
@@ -162,9 +209,9 @@ public class Ubicacion {
 	
 	/**
 	 * 
-	 * @param espacioParqueo
+	 * @param reserva
 	 */
-	public void agregarEspacioParqueo(EspacioParqueo espacioParqueo) {
+	public void agregarEspaciosParqueo(EspacioParqueo espacioParqueo) {
 		this.espaciosParqueo.add(espacioParqueo);
 		espacioParqueo.setUbicacion(this);
 	}

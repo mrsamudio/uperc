@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 /**
  * Implementación de la interfaz para el acceso a datos por objetos de la

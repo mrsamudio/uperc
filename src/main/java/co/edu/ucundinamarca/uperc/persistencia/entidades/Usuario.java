@@ -1,17 +1,12 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -115,8 +110,9 @@ public class Usuario implements Serializable {
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Reserva> reservas;
 
+	@OneToMany()// relación unidireccional
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
-	@OneToMany(mappedBy = "usuario")
+//	@OneToMany(mappedBy = "usuario")
 	private Set<Informe> informes;
 
 	@OneToMany(mappedBy = "usuarioIngreso")

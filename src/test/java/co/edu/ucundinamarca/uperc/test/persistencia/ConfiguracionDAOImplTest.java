@@ -29,7 +29,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 @ActiveProfiles("test")
 @ContextConfiguration(classes = ConfigFuenteDatos.class)
 @ExtendWith(SpringExtension.class)
-public class ConfiguracionDAOImplTest {
+class ConfiguracionDAOImplTest {
 
 	@Autowired
 	ConfiguracionDAO configuracionrepo;
@@ -82,8 +82,8 @@ public class ConfiguracionDAOImplTest {
 	 * 
 	 * Usuario u = usuariorepo.selectById((long) 2);
 	 * Configuracion c = new Configuracion(u.getConfiguracion().getId(), 100, 365, 5, fechaGuard, u);
-	 * boolean test = configuracionrepo.update(u.getConfiguracion());
-	 * boolean test = configuracionrepo.update(c);
+	 * boolean test = espacioparqueorepo.update(u.getConfiguracion());
+	 * boolean test = espacioparqueorepo.update(c);
 	 * assertEquals(true, test, "Actualización a bd, no se obtuvo el resultado esperado.");
 	 *  }
 	 * </pre>

@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.VehiculoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Vehiculo;
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 /**
  * @author mrsamudio

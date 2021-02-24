@@ -7,7 +7,6 @@ import java.time.Month;
 import java.util.Date;
 import java.util.List;
 
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 
 /**

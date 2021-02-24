@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -44,20 +46,25 @@ public class Informe implements Serializable {
 
 	@ManyToOne
 //	@Column(name = "usuario")
+	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 
 	@ManyToOne
 //	@Column(name = "regservicio")
-	@JoinColumn(name = "regservicio", referencedColumnName = "id")
+	@JoinColumn(name = "regservicio")
+//	@JoinColumn(name = "regservicio", referencedColumnName = "id")
 	private RegServicio regServicio;
 
 	@Column(name = "fechagenerado")
-	private Timestamp fechaGenerado;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date fechaGenerado;
 
 	@Column(name = "fechainicio")
+	@Temporal(TemporalType.DATE)
 	private Date fechaInicio;
 
 	@Column(name = "fechafin")
+	@Temporal(TemporalType.DATE)
 	private Date fechaFin;
 
 	/**
@@ -117,6 +124,42 @@ public class Informe implements Serializable {
 	}
 
 	/**
+	 * Carga los atributos para una inserción sin la fecha de generado
+	 * 
+	 * @param usuario
+	 * @param regServicio
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @param disponibilidad
+	 * @param reservasOk
+	 * @param reservasFail
+	 * @param recogOk
+	 * @param recogFail
+	 * @param recogTotal
+	 * @param ingresosTotal
+	 * @param egresosTotal
+	 */
+	public Informe(Usuario usuario, RegServicio regServicio, Date fechaInicio, Date fechaFin,
+			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
+			int recogTotal, int ingresosTotal, int egresosTotal) {
+		
+		setUsuario(usuario);
+		setRegServicio(regServicio);
+		setFechaInicio(fechaInicio);
+		setFechaFin(fechaFin);
+		setDisponibilidad(disponibilidad);
+		setReservasOk(reservasOk);
+		setReservasFail(reservasFail);
+		setRecogOk(recogOk);
+		setRecogFail(recogFail);
+		setRecogTotal(recogTotal);
+		setIngresosTotal(ingresosTotal);
+		setEgresosTotal(egresosTotal);
+	}
+	
+	/**
+	 * Carga los atributos para una inserción completa
+	 * 
 	 * @param usuario
 	 * @param regServicio
 	 * @param fechaGenerado
@@ -131,7 +174,7 @@ public class Informe implements Serializable {
 	 * @param ingresosTotal
 	 * @param egresosTotal
 	 */
-	public Informe(Usuario usuario, RegServicio regServicio, Timestamp fechaGenerado, Date fechaInicio, Date fechaFin,
+	public Informe(Usuario usuario, RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
 			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
 			int recogTotal, int ingresosTotal, int egresosTotal) {
 
@@ -151,7 +194,7 @@ public class Informe implements Serializable {
 	}
 	
 	/**
-	 * carga de todos los atributos
+	 * carga de todos los atributos incluyendo id
 	 * @param id
 	 * @param usuario
 	 * @param regServicio
@@ -167,7 +210,7 @@ public class Informe implements Serializable {
 	 * @param ingresosTotal
 	 * @param egresosTotal
 	 */
-	public Informe(long id, Usuario usuario, RegServicio regServicio, Timestamp fechaGenerado, Date fechaInicio, Date fechaFin,
+	public Informe(long id, Usuario usuario, RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
 			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
 			int recogTotal, int ingresosTotal, int egresosTotal) {
 		setId(id);
@@ -237,7 +280,7 @@ public class Informe implements Serializable {
 	 * 
 	 * @return
 	 */
-	public Timestamp getFechaGenerado() {
+	public Date getFechaGenerado() {
 		return this.fechaGenerado;
 	}
 
@@ -245,7 +288,7 @@ public class Informe implements Serializable {
 	 * 
 	 * @param fechaGenerado
 	 */
-	protected void setFechaGenerado(Timestamp fechaGenerado) {
+	protected void setFechaGenerado(Date fechaGenerado) {
 		this.fechaGenerado = fechaGenerado;
 	}
 

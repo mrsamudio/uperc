@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.SupervisionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Supervision;
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 /**
  * @author mrsamudio

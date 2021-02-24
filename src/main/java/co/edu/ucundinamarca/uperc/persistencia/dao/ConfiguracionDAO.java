@@ -3,7 +3,6 @@
  */
 package co.edu.ucundinamarca.uperc.persistencia.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;

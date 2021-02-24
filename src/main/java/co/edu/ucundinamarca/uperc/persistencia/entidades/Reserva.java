@@ -1,15 +1,13 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,7 +31,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "RESERVA")
-public class Reserva {
+public class Reserva implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2004993349333387121L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +50,8 @@ public class Reserva {
 	private boolean estado;
 
 	@ManyToOne
-	@JoinColumn(name = "espacioparqueo", referencedColumnName = "id")
+//	@JoinColumn(name = "espacioparqueo")
+//	@JoinColumn(name = "espacioparqueo", referencedColumnName = "id")
 	private EspacioParqueo espacioParqueo;
 
 	@Column(name = "fechareserva")

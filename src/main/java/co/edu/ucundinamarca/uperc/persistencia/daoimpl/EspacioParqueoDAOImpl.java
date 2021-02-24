@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.EspacioParqueoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 @Repository
 public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioParqueoDAO {

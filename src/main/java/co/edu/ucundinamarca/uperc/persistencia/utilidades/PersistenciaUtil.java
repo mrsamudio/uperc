@@ -1,4 +1,4 @@
-package co.edu.ucundinamarca.uperc.persistencia.daoimpl;
+package co.edu.ucundinamarca.uperc.persistencia.utilidades;
 
 import javax.annotation.Resource;
 
