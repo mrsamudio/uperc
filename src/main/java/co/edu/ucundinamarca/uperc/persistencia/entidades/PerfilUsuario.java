@@ -29,7 +29,7 @@ import javax.persistence.Table;
  */
 @Entity
 //@Table(name = "perfil_usuario")
-@Table(name = "perfilusuario")
+//@Table(name = "perfilusuario")
 public class PerfilUsuario {
 
 	@Id
@@ -77,17 +77,28 @@ public class PerfilUsuario {
 		setId(id);
 	}
 	
-
+	
 	/**
 	 * Constructor que inicializa todos los atributos sin id
 	 * 
 	 * @param nombre
 	 */
 	public PerfilUsuario(String nombre, String descripcion, Set<Rol> roles) {
-
+		
 		setNombre(nombre);
 		setDescripcion(descripcion);
 		setRoles(roles);
+	}
+
+	/**
+	 * Constructor que inicializa los atributos para inserción
+	 * 
+	 * @param nombre
+	 */
+	public PerfilUsuario(String nombre, String descripcion) {
+
+		setNombre(nombre);
+		setDescripcion(descripcion);
 	}
 	
 	/**

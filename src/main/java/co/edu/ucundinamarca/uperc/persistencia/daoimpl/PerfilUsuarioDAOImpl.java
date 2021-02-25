@@ -58,10 +58,10 @@ public class PerfilUsuarioDAOImpl extends PersistenciaUtil implements PerfilUsua
 		int res = 0;
 		try {
 			res = session
-					.createSQLQuery("INSERT INTO " + PerfilUsuario.class.getSimpleName()
-							+ "(nombre, descripcion)"
+					.createSQLQuery("INSERT INTO " + PerfilUsuario.class.getSimpleName().toLowerCase()
+							+ " (nombre, descripcion)"
 							+ " VALUES("
-							+ " nombre = :nombre, descripcion = :descripcion"
+							+ " :nombre, :descripcion"
 							+ ")")
 
 							.setParameter("nombre", perfilUsuario.getNombre() )

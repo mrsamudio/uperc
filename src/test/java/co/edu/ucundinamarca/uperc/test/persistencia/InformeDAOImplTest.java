@@ -25,13 +25,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
-import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.InformeDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.RegServicioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Informe;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.RegServicio;
 
 /**
  * @author mrsamudio
@@ -47,10 +45,9 @@ class InformeDAOImplTest {
 
 	@Autowired
 	UsuarioDAO usuariorepo;
-	
+
 	@Autowired
 	RegServicioDAO regserviciorepo;
-	
 
 	private Informe informe;
 	private List<Informe> informes = new ArrayList<>();
@@ -73,31 +70,67 @@ class InformeDAOImplTest {
 		assertFalse(informes.isEmpty());
 	}
 
+	/**
+	 * La prueba evidenció que son necesarios dos tipos de inserción diferentes, una
+	 * para regservicio y otra para usuario. esto debido a que el el usuario y el
+	 * sistema externo pueden generar informes cada uno
+	 */
 	@Rollback(true)
 	@Test
 	@Transactional
 	void insert() {
-//		TODO: null pointer en el objeto RegServicio
 		Informe informe = informerepo.selectById((long) 1);
 		Timestamp fechaGen = Timestamp.from(Instant.now());
-		Informe informe2 = new Informe(informe.getUsuario(), informe.getRegServicio(), fechaGen, Date.valueOf("1999-10-04"), Date.valueOf("1999-10-04"), 0.40, 0.67, 0.33, 0.90, 0.1, 100, 30, 25);
-		boolean test = informerepo.insert(informe2);
-		assertEquals(true, test, "Inserción a bd, no se obtuvo el resultado esperado.");
+		Date fechaIni = Date.valueOf("1999-10-04");
+		Date fechaFin = Date.valueOf("1999-10-04");
+
+		Informe informeU = new Informe(informe.getUsuario(), fechaGen, fechaIni, fechaFin, 0.40, 0.67, 0.33, 0.90, 0.1,
+				100, 30, 25);
+		
+		RegServicio reg = regserviciorepo.selectById(1);
+
+		Informe informeR = new Informe(reg, fechaGen, fechaIni, fechaFin, 0.40, 0.67, 0.33, 0.90,
+				0.1, 100, 30, 25);
+
+		// Inserción generada por solicitud del usuario
+		boolean test = informerepo.insertU(informeU);
+		assertEquals(true, test, "Inserción a bd solicitada por el usuario, no se obtuvo el resultado esperado.");
+
+		// Inserción generada por solicitud del registro de servicio
+		test = informerepo.insertR(informeR);
+		assertEquals(true, test,
+				"Inserción a bd solicitada por el registro de servicio, no se obtuvo el resultado esperado.");
 	}
 
+	/**
+	 * 
+	 */
 	@Rollback(true)
 	@Test
 	@Transactional
 	void update() {
-		// 1 
 		Informe informe = informerepo.selectById((long) 1);
 		Timestamp fechaGen = Timestamp.from(Instant.now());
-		Informe informe2 = new Informe(informe.getId(), informe.getUsuario(), informe.getRegServicio(), fechaGen, Date.valueOf("1999-10-04"), Date.valueOf("1999-10-04"), 0.40, 0.67, 0.33, 0.90, 0.1, 100, 30, 25);
-		boolean test = informerepo.update(informe2);
-		assertEquals(true, test, "Actualización a bd, no se obtuvo el resultado esperado.");
+		Date fechaIni = Date.valueOf("1999-10-04");
+		Date fechaFin = Date.valueOf("1999-10-04");
+
+		Informe informeU = new Informe(informe.getId(), informe.getUsuario(), null, fechaGen, fechaIni, fechaFin, 0.40, 0.67, 0.33, 0.90, 0.1,
+				100, 30, 25);
+
+		RegServicio reg = regserviciorepo.selectById(1);
+		Informe informeR = new Informe(informe.getId(), null, reg, fechaGen, fechaIni, fechaFin, 0.40, 0.67, 0.33, 0.90,
+				0.1, 100, 30, 25);
+
+		// Inserción generada por solicitud del usuario
+		boolean test = informerepo.updateU(informeU);
+		assertEquals(true, test, "Inserción a bd solicitada por el usuario, no se obtuvo el resultado esperado.");
+
+		// Inserción generada por solicitud del registro de servicio
+		test = informerepo.updateR(informeR);
+		assertEquals(true, test,
+				"Inserción a bd solicitada por el registro de servicio, no se obtuvo el resultado esperado.");
 	}
-	
-	
+
 	@Rollback(true)
 	@Test
 	@Transactional

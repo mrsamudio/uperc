@@ -37,7 +37,7 @@ public class Informe implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6120282131434078221L;
+	private static final long serialVersionUID = 0L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,7 +124,7 @@ public class Informe implements Serializable {
 	}
 
 	/**
-	 * Carga los atributos para una inserción sin la fecha de generado
+	 * Carga los atributos para una inserción para el usuario
 	 * 
 	 * @param usuario
 	 * @param regServicio
@@ -139,12 +139,12 @@ public class Informe implements Serializable {
 	 * @param ingresosTotal
 	 * @param egresosTotal
 	 */
-	public Informe(Usuario usuario, RegServicio regServicio, Date fechaInicio, Date fechaFin,
+	public Informe(Usuario usuario, Date fechaGenerado, Date fechaInicio, Date fechaFin,
 			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
 			int recogTotal, int ingresosTotal, int egresosTotal) {
 		
 		setUsuario(usuario);
-		setRegServicio(regServicio);
+		setFechaGenerado(fechaGenerado);
 		setFechaInicio(fechaInicio);
 		setFechaFin(fechaFin);
 		setDisponibilidad(disponibilidad);
@@ -158,7 +158,41 @@ public class Informe implements Serializable {
 	}
 	
 	/**
-	 * Carga los atributos para una inserción completa
+	 * Carga los atributos para una inserción para el registro de servicio
+	 * 
+	 * @param usuario
+	 * @param regServicio
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @param disponibilidad
+	 * @param reservasOk
+	 * @param reservasFail
+	 * @param recogOk
+	 * @param recogFail
+	 * @param recogTotal
+	 * @param ingresosTotal
+	 * @param egresosTotal
+	 */
+	public Informe(RegServicio regServicio, Date fechaGenerado, Date fechaInicio, Date fechaFin,
+			double disponibilidad, double reservasOk, double reservasFail, double recogOk, double recogFail,
+			int recogTotal, int ingresosTotal, int egresosTotal) {
+		
+		setRegServicio(regServicio);
+		setFechaGenerado(fechaGenerado);
+		setFechaInicio(fechaInicio);
+		setFechaFin(fechaFin);
+		setDisponibilidad(disponibilidad);
+		setReservasOk(reservasOk);
+		setReservasFail(reservasFail);
+		setRecogOk(recogOk);
+		setRecogFail(recogFail);
+		setRecogTotal(recogTotal);
+		setIngresosTotal(ingresosTotal);
+		setEgresosTotal(egresosTotal);
+	}
+	
+	/**
+	 * Carga los atributos para una inserción completa {@link Usuario} y {@link RegServicio}
 	 * 
 	 * @param usuario
 	 * @param regServicio
