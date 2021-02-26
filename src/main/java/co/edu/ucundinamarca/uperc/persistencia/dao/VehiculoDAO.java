@@ -25,7 +25,7 @@ public interface VehiculoDAO {
 	 * @param placa
 	 * @return
 	 */
-	public Vehiculo selectByPlaca(String placa);
+	public List<Vehiculo> selectByPlaca(String placa);
 
 	/**
 	 * 

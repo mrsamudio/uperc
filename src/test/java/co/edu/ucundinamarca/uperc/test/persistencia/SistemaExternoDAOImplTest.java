@@ -10,7 +10,8 @@ import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
 @ActiveProfiles("test")
 @ContextConfiguration(classes = ConfigFuenteDatos.class)
 @ExtendWith(SpringExtension.class)
-class RecursoDAOImplTest {
+class SistemaExternoDAOImplTest {
 
-//	TODO: realizar pruebas de recursos
+//	TODO: Realizar pruebas de sistema externo
+
 }

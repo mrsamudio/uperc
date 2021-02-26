@@ -25,7 +25,6 @@ public class PGPointType implements UserType {
 	 * 
 	 */
 	public PGPointType() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

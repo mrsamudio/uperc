@@ -72,8 +72,30 @@ public class Ubicacion implements Serializable {
 	public Ubicacion(int id) {
 		setId(id);
 	}
+	
+	/**
+	 * Constructor carga atributos para update
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param direccion
+	 * @param coordenadas
+	 * @param telefono
+	 */
+	public Ubicacion(int id, String nombre, String direccion, PGpoint coordenadas, String telefono) {
+		
+		setId(id);
+		setNombre(nombre);
+		setDireccion(direccion);
+		setCoordenadas(coordenadas);
+		setTelefono(telefono);
+		setEspaciosParqueo(espaciosParqueo);
+	}
 
 	/**
+	 * Constructor carga todos los atributos de la clase
+	 * 
+	 * @param id
 	 * @param nombre
 	 * @param direccion
 	 * @param coordenadas
@@ -107,11 +129,12 @@ public class Ubicacion implements Serializable {
 	}
 	
 	/**
+	 * Constructor que carga atributos para inserción a bd
+	 * 
 	 * @param nombre
 	 * @param direccion
 	 * @param coordenadas
 	 * @param telefono
-	 * @param espaciosParqueo
 	 */
 	public Ubicacion(String nombre, String direccion, PGpoint coordenadas, String telefono) {
 		

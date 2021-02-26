@@ -61,10 +61,11 @@ public class UbicacionDAOImpl extends PersistenciaUtil implements UbicacionDAO {
 					.createSQLQuery("INSERT INTO " + Ubicacion.class.getSimpleName() 
 							+ "(telefono, coordenadas, direccion, nombre)"
 							+ " VALUES("
-							+ ":telefono, :coordenadas, :direccion, :nombre"
+							+ ":telefono, point(:x, :y), :direccion, :nombre"
 							+ ")")
 					.setParameter("telefono", ubicacion.getTelefono())
-					.setParameter("coordenadas", ubicacion.getCoordenadas())
+					.setParameter("x", ubicacion.getCoordenadas().x)
+					.setParameter("y", ubicacion.getCoordenadas().y)
 					.setParameter("direccion", ubicacion.getDireccion())
 					.setParameter("nombre", ubicacion.getNombre())
 					.executeUpdate();
@@ -86,12 +87,13 @@ public class UbicacionDAOImpl extends PersistenciaUtil implements UbicacionDAO {
 			res = session
 					.createSQLQuery("UPDATE " + Ubicacion.class.getSimpleName() 
 							+ " SET"
-							+ "telefono, coordenadas, direccion, nombre"
-							+ "telefono = :telefono, coordenadas = :coordenadas, direccion = :direccion, nombre = :nombre"
+							+ " telefono = :telefono, coordenadas = point(:x, :y),"
+							+ " direccion = :direccion, nombre = :nombre"
 							+ " WHERE id = :idconf")
 					.setParameter("idconf", ubicacion.getId())
 					.setParameter("telefono", ubicacion.getTelefono())
-					.setParameter("coordenadas", ubicacion.getCoordenadas())
+					.setParameter("x", ubicacion.getCoordenadas().x)
+					.setParameter("y", ubicacion.getCoordenadas().y)
 					.setParameter("direccion", ubicacion.getDireccion())
 					.setParameter("nombre", ubicacion.getNombre())
 					.executeUpdate();

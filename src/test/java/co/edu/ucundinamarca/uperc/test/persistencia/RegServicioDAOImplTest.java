@@ -11,7 +11,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,14 +21,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
-import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.RegServicioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.SistemaExternoDAO;
-import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.RegServicio;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.SistemaExterno;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 @ActiveProfiles("test")
 @ContextConfiguration(classes = ConfigFuenteDatos.class)

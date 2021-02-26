@@ -1,7 +1,8 @@
-select * from informe;
+select * from vehiculo;
 
 delete from configuracion c 
 where c.id= 8;
+  1 Fusagasugá      Diagonal 18 No. 20-29                         (4.3340524,-74.3692551) 18281483
 
 
 update usuario

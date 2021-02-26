@@ -10,7 +10,7 @@ import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
 @ActiveProfiles("test")
 @ContextConfiguration(classes = ConfigFuenteDatos.class)
 @ExtendWith(SpringExtension.class)
-class RecursoDAOImplTest {
+class PermisoDAOImplTest {
 
-//	TODO: realizar pruebas de recursos
+//	TODO: realizar pruebas de permiso
 }

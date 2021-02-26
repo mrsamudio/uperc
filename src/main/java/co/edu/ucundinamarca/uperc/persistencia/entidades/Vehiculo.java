@@ -2,10 +2,8 @@ package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +45,8 @@ public class Vehiculo {
 	@Column(name = "tiposervicio")
 	private String tipoServicio;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "vehiculo", orphanRemoval = false)//dueño de la relacion
+	@OneToMany()//dueño de la relacion
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "vehiculo", orphanRemoval = false)//dueño de la relacion
 	private Set<RegistroIE> registrosIE;
 
 	/**
@@ -55,6 +54,14 @@ public class Vehiculo {
 	 */
 	public Vehiculo() {
 
+	}
+	
+	/**
+	 * Constructor por defecto
+	 * @param id
+	 */
+	public Vehiculo(long id) {
+		setId(id);
 	}
 
 	/**
@@ -78,6 +85,50 @@ public class Vehiculo {
 		setClase(clase);
 		setTipoServicio(tipoServicio);
 		setRegistrosIE(registrosIE);
+	}
+	
+	/**
+	 * Constructor que inicializa los atributos para inserción a base de datos
+	 * 
+	 * @param placa
+	 * @param marca
+	 * @param color
+	 * @param modelo
+	 * @param clase
+	 * @param tipoServicio
+	 */
+	public Vehiculo(String placa, String marca, String color, String modelo, String clase,
+			String tipoServicio) {
+		
+		setPlaca(placa);
+		setMarca(marca);
+		setColor(color);
+		setModelo(modelo);
+		setClase(clase);
+		setTipoServicio(tipoServicio);
+	}
+	
+	/**
+	 * Constructor que inicializa los atributos para actualizar registro en base de datos
+	 * 
+	 * @param id
+	 * @param placa
+	 * @param marca
+	 * @param color
+	 * @param modelo
+	 * @param clase
+	 * @param tipoServicio
+	 */
+	public Vehiculo(long id, String placa, String marca, String color, String modelo, String clase,
+			String tipoServicio) {
+		
+		setId(id);
+		setPlaca(placa);
+		setMarca(marca);
+		setColor(color);
+		setModelo(modelo);
+		setClase(clase);
+		setTipoServicio(tipoServicio);
 	}
 	
 	/**
