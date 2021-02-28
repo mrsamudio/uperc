@@ -22,10 +22,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-//@Entity(name = "Configuracion")
 @Table(name = "configuracion")
-//@Table(name = "configuracion", schema = "public")
-//TODO: probar con named queries
 public class Configuracion implements Serializable {
 
 	private static final long serialVersionUID = -8071463945094328022L;

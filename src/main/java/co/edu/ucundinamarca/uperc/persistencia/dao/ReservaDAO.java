@@ -66,14 +66,10 @@ public interface ReservaDAO {
 
 
 	/**
+	 * Finaliza o cancela la reserva
 	 * 
 	 * @param id
 	 */
-	public boolean activate(Reserva reserva);
+	public boolean endReserva(Reserva reserva);
 
-	/**
-	 * 
-	 * @param id
-	 */
-	public boolean deactivate(Reserva reserva);
 }

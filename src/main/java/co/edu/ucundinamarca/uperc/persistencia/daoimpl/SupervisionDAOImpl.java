@@ -40,6 +40,13 @@ public class SupervisionDAOImpl extends PersistenciaUtil implements SupervisionD
 	@Override
 	@Transactional(readOnly = true)
 	public Supervision selectById(long id) {
+//		Session session = sessionFactory.getCurrentSession();
+//		
+//		Supervision s = session.getSession().get(Supervision.class, id);
+//		
+//		System.out.println(s.getId());
+		
+		
 		return sessionFactory.getCurrentSession().getSession().get(Supervision.class, id);
 	}
 
@@ -146,7 +153,6 @@ public class SupervisionDAOImpl extends PersistenciaUtil implements SupervisionD
 			return isResultado(res);
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			//TODO: verificar resultado
 			return false;
 		}
 	}

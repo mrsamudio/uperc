@@ -57,10 +57,10 @@ public class SistemaExternoDAOImpl extends PersistenciaUtil implements SistemaEx
 		int res = 0;
 		try {
 			res = session
-					.createSQLQuery("INSERT INTO " + SistemaExterno.class.getSimpleName() 
+					.createSQLQuery("INSERT INTO " + "sistema_externo"
 							+ "( ip, nombre, contrasena)"
 							+ " VALUES("
-							+ ":ip, :nombre, :contrasena"
+							+ "inet(:ip), :nombre, :contrasena"
 							+ ")")
 					.setParameter("ip", sistemaExterno.getIp())
 					.setParameter("nombre", sistemaExterno.getNombre())
@@ -79,13 +79,15 @@ public class SistemaExternoDAOImpl extends PersistenciaUtil implements SistemaEx
 	public boolean update(SistemaExterno sistemaExterno) {
 		Session session = sessionFactory.getCurrentSession();
 		int res = 0;
+//		session.getc
+//		SistemaExterno.class.getSimpleName() 
 		try {
 
 			res = session
-					.createSQLQuery("UPDATE " + SistemaExterno.class.getSimpleName() 
+					.createSQLQuery("UPDATE " + "sistema_externo"
 							+ " SET"
-							+ " ip = :ip, nombre = :nombre, contrasena = :contrasena"
-							+ " WHERE id = :idconf")
+							+ " ip = inet(:ip), nombre = :nombre, contrasena = :contrasena"
+							+ " WHERE id = :idConf")
 					.setParameter("idConf", sistemaExterno.getId())
 					.setParameter("ip", sistemaExterno.getIp())
 					.setParameter("nombre", sistemaExterno.getNombre())

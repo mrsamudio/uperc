@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -50,7 +51,7 @@ public class Reserva implements Serializable {
 	private boolean estado;
 
 	@ManyToOne
-//	@JoinColumn(name = "espacioparqueo")
+	@JoinColumn(name = "espacioparqueo")
 //	@JoinColumn(name = "espacioparqueo", referencedColumnName = "id")
 	private EspacioParqueo espacioParqueo;
 
@@ -65,6 +66,7 @@ public class Reserva implements Serializable {
 
 	@ManyToOne
 //	@Column(name = "usuario")
+	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 
 	/**
@@ -75,7 +77,28 @@ public class Reserva implements Serializable {
 	}
 
 	/**
-	 * Constructor que carga todos los atributos
+	 * Constructor para inserción en bd
+	 * 
+	 * @param fechaSolicitud
+	 * @param estado
+	 * @param espacioParqueo
+	 * @param fechaReserva
+	 * @param cancelada
+	 * @param usuario
+	 */
+	public Reserva(Timestamp fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo, Timestamp fechaReserva,
+			boolean cancelada, Usuario usuario) {
+
+		setFechaSolicitud(fechaSolicitud);
+		setEstado(estado);
+		setEspacioParqueo(espacioParqueo);
+		setFechaReserva(fechaReserva);
+		setCancelada(cancelada);
+		setUsuario(usuario);
+	}
+
+	/**
+	 * Constructor que carga todos los atributos con fecha de fin
 	 * 
 	 * @param fechaSolicitud
 	 * @param estado
@@ -85,9 +108,55 @@ public class Reserva implements Serializable {
 	 * @param cancelada
 	 * @param usuario
 	 */
-	public Reserva(Timestamp fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo, Timestamp fechaReserva, Timestamp fechaFin,
-			boolean cancelada, Usuario usuario) {
+	public Reserva(Timestamp fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo, Timestamp fechaReserva,
+			Timestamp fechaFin, boolean cancelada, Usuario usuario) {
 
+		setFechaSolicitud(fechaSolicitud);
+		setEstado(estado);
+		setEspacioParqueo(espacioParqueo);
+		setFechaReserva(fechaReserva);
+		setFechaFin(fechaFin);
+		setCancelada(cancelada);
+		setUsuario(usuario);
+	}
+
+	/**
+	 * Constructor que carga todos los atributos para actualización en bd
+	 * 
+	 * @param id
+	 * @param fechaSolicitud
+	 * @param estado
+	 * @param espacioParqueo
+	 * @param fechaReserva
+	 * @param fechaFin
+	 * @param cancelada
+	 * @param usuario
+	 */
+	public Reserva(long id, Timestamp fechaSolicitud, boolean estado, EspacioParqueo espacioParqueo,
+			Timestamp fechaReserva, Timestamp fechaFin, boolean cancelada, Usuario usuario) {
+
+		setId(id);
+		setFechaSolicitud(fechaSolicitud);
+		setEstado(estado);
+		setEspacioParqueo(espacioParqueo);
+		setFechaReserva(fechaReserva);
+		setFechaFin(fechaFin);
+		setCancelada(cancelada);
+		setUsuario(usuario);
+	}
+
+	/**
+	 * Constructor que carga para actualización de la fecha de finalización o
+	 * cancelación de la reserva en bd
+	 * 
+	 * @param id
+	 * @param estado
+	 * @param fechaFin
+	 * @param cancelada
+	 */
+	public Reserva(long id, boolean estado, Timestamp fechaFin, boolean cancelada) {
+
+		setId(id);
 		setFechaSolicitud(fechaSolicitud);
 		setEstado(estado);
 		setEspacioParqueo(espacioParqueo);

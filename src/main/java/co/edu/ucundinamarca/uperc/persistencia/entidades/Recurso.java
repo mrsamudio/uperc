@@ -1,5 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -35,7 +36,12 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "recurso")
-public class Recurso {
+public class Recurso implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 0L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,8 +78,13 @@ public class Recurso {
 	@Column(name = "estado")
 	private boolean estado;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
-	private Set<RegistroIE> registrosIE;
+	@OneToMany(mappedBy = "recursoIngreso")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
+	private Set<RegistroIE> registrosI;
+	
+	@OneToMany(mappedBy = "recursoEgreso")
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
+	private Set<RegistroIE> registrosE;
 
 	/**
 	 * Constructor por defecto
@@ -81,9 +92,72 @@ public class Recurso {
 	public Recurso() {
 
 	}
+	
+	/**
+	 * Constructor para inserción de registro en bd
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param marca
+	 * @param tipo
+	 * @param ip
+	 * @param puerto
+	 * @param mac
+	 * @param protocolo
+	 * @param fechaRegistro
+	 * @param urlFabricante
+	 * @param estado
+	 * @param registrosIE
+	 */
+	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
+			Timestamp fechaRegistro, String urlFabricante, boolean estado) {
+		
+		setNombre(nombre);
+		setMarca(marca);
+		setTipo(tipo);
+		setIp(ip);
+		setPuerto(puerto);
+		setMac(mac);
+		setProtocolo(protocolo);
+		setFechaRegistro(fechaRegistro);
+		setUrlFabricante(urlFabricante);
+		setEstado(estado);
+	}
+	
+	/**
+	 * Constructor para update de registro en bd
+	 * 
+	 * @param id
+	 * @param nombre
+	 * @param marca
+	 * @param tipo
+	 * @param ip
+	 * @param puerto
+	 * @param mac
+	 * @param protocolo
+	 * @param fechaRegistro
+	 * @param urlFabricante
+	 * @param estado
+	 * @param registrosIE
+	 */
+	public Recurso(long id, String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
+			Timestamp fechaRegistro, String urlFabricante, boolean estado) {
+
+		setId(id);
+		setNombre(nombre);
+		setMarca(marca);
+		setTipo(tipo);
+		setIp(ip);
+		setPuerto(puerto);
+		setMac(mac);
+		setProtocolo(protocolo);
+		setFechaRegistro(fechaRegistro);
+		setUrlFabricante(urlFabricante);
+		setEstado(estado);
+	}
 
 	/**
-	 * Constructor por defecto
+	 * Constructor que inializa todos los atributos y listas
 	 * 
 	 * @param nombre
 	 * @param marca
@@ -98,7 +172,7 @@ public class Recurso {
 	 * @param registrosIE
 	 */
 	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
-			Timestamp fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosIE) {
+			Timestamp fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosI, Set<RegistroIE> registrosE) {
 
 		setNombre(nombre);
 		setMarca(marca);
@@ -110,7 +184,8 @@ public class Recurso {
 		setFechaRegistro(fechaRegistro);
 		setUrlFabricante(urlFabricante);
 		setEstado(estado);
-		setRegistrosIE(registrosIE);
+		setRegistrosI(registrosI);
+		setRegistrosE(registrosE);
 	}
 
 	/**
@@ -289,27 +364,51 @@ public class Recurso {
 	}
 
 	/**
-	 * @return the registrosIE
+	 * @return the registrosI
 	 */
-	public Set<RegistroIE> getRegistrosIE() {
-		return registrosIE;
+	public Set<RegistroIE> getRegistrosI() {
+		return registrosI;
 	}
 
 	/**
-	 * @param registrosIE the registrosIE to set
+	 * @param registrosIE the registrosI to set
 	 */
-	protected void setRegistrosIE(Set<RegistroIE> registrosIE) {
-		this.registrosIE = registrosIE;
+	protected void setRegistrosI(Set<RegistroIE> registrosI) {
+		this.registrosI = registrosI;
+	}
+	
+	/**
+	 * @return the registrosE
+	 */
+	public Set<RegistroIE> getRegistrosE() {
+		return registrosE;
+	}
+	
+	/**
+	 * @param registrosIE the registrosE to set
+	 */
+	protected void setRegistrosE(Set<RegistroIE> registrosE) {
+		this.registrosE = registrosE;
 	}
 
 	/**
-	 * Listas de registros de ingreso y egreso desde vehículos
+	 * Listas de registros de ingreso 
 	 * 
 	 * @param registrosIE
 	 */
-	public void agregarRegitrosIE(RegistroIE registrosIE) {
-		this.registrosIE.add(registrosIE);
-		registrosIE.setRecurso(this);
+	public void agregarRegitrosI(RegistroIE registrosI) {
+		this.registrosI.add(registrosI);
+		registrosI.setRecursoI(this);
+	}
+	
+	/**
+	 * Listas de registros de  egreso 
+	 * 
+	 * @param registrosIE
+	 */
+	public void agregarRegitrosE(RegistroIE registrosE) {
+		this.registrosE.add(registrosE);
+		registrosE.setRecursoE(this);
 	}
 
 }// end Recurso

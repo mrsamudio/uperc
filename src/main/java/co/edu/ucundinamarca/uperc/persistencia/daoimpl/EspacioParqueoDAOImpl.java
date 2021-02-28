@@ -139,7 +139,6 @@ public class EspacioParqueoDAOImpl extends PersistenciaUtil implements EspacioPa
 			return isResultado(res);
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			//TODO: verificar resultado
 			return false;
 		}
 	}

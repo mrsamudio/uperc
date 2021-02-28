@@ -69,7 +69,6 @@ public class Rol {
 	@JoinColumn(name = "perfil")
 	private PerfilUsuario perfil;
 
-//	TODO: verificar en el modelo
 	@OneToMany(mappedBy = "rol")//dueño de relacion
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "rol", orphanRemoval = true)//dueño de relacion
 	private Set<Usuario> usuarios;
@@ -107,7 +106,21 @@ public class Rol {
 	}
 	
 	/**
-	 * Constructor que inicializa todos los atributos sin set usuarios
+	 * Constructor que inicializa todos los atributos sin set usuarios para inserción en bd
+	 * 
+	 * @param nombre
+	 * @param descripcion
+	 * @param perfil
+	 */
+	public Rol(String nombre, String descripcion, PerfilUsuario perfilUsuario) {
+		
+		setNombre(nombre);
+		setDescripcion(descripcion);
+		setPerfil(perfilUsuario);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos sin set usuarios para update en bd
 	 * 
 	 * @param id
 	 * @param nombre

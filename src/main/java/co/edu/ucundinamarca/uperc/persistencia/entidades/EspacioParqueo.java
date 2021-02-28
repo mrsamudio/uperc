@@ -50,8 +50,8 @@ public class EspacioParqueo implements Serializable {
 	@Column(name = "ocupado")
 	private boolean ocupado;
 
-	// TODO: Pendiente por verificar
-	@OneToMany(mappedBy = "espacioParqueo")
+	@OneToMany
+//	@OneToMany(mappedBy = "espacioParqueo")
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private Set<Reserva> reservas;
 

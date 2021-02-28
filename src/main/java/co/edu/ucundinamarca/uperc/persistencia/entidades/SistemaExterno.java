@@ -1,12 +1,9 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
-import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -64,6 +61,35 @@ public class SistemaExterno {
 		setNombre(nombre);
 		setContrasena(contrasena);
 		setRegServicios(regServicios);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos de la entidad para inserción a bd
+	 * 
+	 * @param ip
+	 * @param nombre
+	 * @param contrasena
+	 */
+	public SistemaExterno(String ip, String nombre, String contrasena) {
+		
+		setIp(ip);
+		setNombre(nombre);
+		setContrasena(contrasena);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos de la entidad para actualizacion en bd
+	 * 
+	 * @param ip
+	 * @param nombre
+	 * @param contrasena
+	 */
+	public SistemaExterno(int id, String ip, String nombre, String contrasena) {
+		
+		setId(id);
+		setIp(ip);
+		setNombre(nombre);
+		setContrasena(contrasena);
 	}
 
 	/**

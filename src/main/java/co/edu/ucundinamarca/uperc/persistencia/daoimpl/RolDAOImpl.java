@@ -88,8 +88,8 @@ public class RolDAOImpl extends PersistenciaUtil implements RolDAO {
 			res = session
 					.createSQLQuery("UPDATE " + Rol.class.getSimpleName() 
 							+ " SET"
-							+ "nombre = :nombre, descripcion = :descripcion, perfil = :perfil"
-							+ " WHERE id = :idconf")
+							+ " nombre = :nombre, descripcion = :descripcion, perfil = :perfil"
+							+ " WHERE id = :idConf")
 					.setParameter("idConf", rol.getId())
 					.setParameter("nombre", rol.getNombre())
 					.setParameter("descripcion", rol.getDescripcion())

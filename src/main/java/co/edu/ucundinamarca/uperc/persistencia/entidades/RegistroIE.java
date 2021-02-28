@@ -1,5 +1,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
@@ -20,17 +22,19 @@ import javax.persistence.Table;
  * Guarda el momento en que los recursos(dispositivos de captura) registran el
  * ingreso o egreso al parqueadero de los usuarios y vehículos.
  * 
- * TODO: req-f El usuario que egresa debe tener permiso para salir con un
- * Por medio de ticket_id
- * vehículo diferente
  * 
  * @author mrsamudio
  * @version 1.0
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "registroie")
-public class RegistroIE {
+@Table(name = "registro_ie")
+public class RegistroIE implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,31 +47,41 @@ public class RegistroIE {
 	@Column(name = "fechaegreso")
 	private Timestamp fechaEgreso;
 
+//	TODO: eliminar columna recurso de la tabla registro_ie
+//	TODO: Agregar al modelo de entidad relación  recursoIngreso en registro_ie
 	@ManyToOne
 //	@Column(name = "recurso")
-	private Recurso recurso;
+	@JoinColumn(name = "recursoingreso")
+	private Recurso recursoIngreso;
+
+//	TODO: Agregar al modelo  de entidad relación   recursoEgreso en registro_ie
+	@ManyToOne
+//	@Column(name = "recurso")
+	@JoinColumn(name = "recursoegreso")
+	private Recurso recursoEgreso;
 
 	@ManyToOne
 //	@Column(name = "vehiculo")
+	@JoinColumn(name = "vehiculo")
 	private Vehiculo vehiculo;
 
 	@ManyToOne
-//	@JoinColumn(name = "usuarioingreso")
+	@JoinColumn(name = "usuarioingreso")
 //	@Column(name = "usuarioingreso")
 	private Usuario usuarioIngreso;
 
 	@ManyToOne
-//	@JoinColumn(name = "usuarioegreso")
+	@JoinColumn(name = "usuarioegreso")
 //	@Column(name = "usuarioegreso")
 	private Usuario usuarioEgreso;
-	
-	@Column(name = "ticketid")//tipo uuid postgresql
+
+	@Column(name = "ticketid") // tipo uuid postgresql
 	private String ticketId;
 
-	@OneToOne(cascade = {CascadeType.ALL})//Dueño de relacion
+	@OneToOne(cascade = { CascadeType.ALL }) // Dueño de relacion
 	@PrimaryKeyJoinColumn
 	private Permiso permiso;
-	
+
 	/**
 	 * Constructor por defecto
 	 */
@@ -76,23 +90,66 @@ public class RegistroIE {
 	}
 
 	/**
-	 * Constructor que inicializa todos los atributos
+	 *  Constructor que inicializa todos los atributos
 	 * 
 	 * @param fechaIngreso
 	 * @param fechaEgreso
-	 * @param recurso
+	 * @param recursoI
+	 * @param recursoE
 	 * @param vehiculo
 	 * @param usuarioIngreso
 	 * @param usuarioEgreso
 	 * @param permiso
 	 * @param ticketId
 	 */
-	public RegistroIE(Timestamp fechaIngreso, Timestamp fechaEgreso, Recurso recurso, Vehiculo vehiculo, Usuario usuarioIngreso,
-			Usuario usuarioEgreso, Permiso permiso, String ticketId) {
+	public RegistroIE(Timestamp fechaIngreso, Timestamp fechaEgreso, Recurso recursoI, Recurso recursoE,
+			Vehiculo vehiculo, Usuario usuarioIngreso, Usuario usuarioEgreso, Permiso permiso, String ticketId) {
 
 		setFechaIngreso(fechaIngreso);
 		setFechaEgreso(fechaEgreso);
-		setRecurso(recurso);
+
+		setRecursoI(recursoI);
+		setRecursoE(recursoE);
+
+		setVehiculo(vehiculo);
+		setUsuarioIngreso(usuarioIngreso);
+		setUsuarioEgreso(usuarioEgreso);
+		setPermiso(permiso);
+		setTicketId(ticketId);
+	}
+
+	/**
+	 * Constructor para update del registro de salida en bd
+	 * 
+	 * @param id
+	 * @param fechaEgreso
+	 * @param usuarioEgreso
+	 * @param recursoE
+	 */
+	public RegistroIE(long id, Timestamp fechaEgreso, Usuario usuarioEgreso, Recurso recursoE) {
+
+		setId(id);
+		setFechaEgreso(fechaEgreso);
+		setUsuarioEgreso(usuarioEgreso);
+		setRecursoE(recursoE);
+//		setPermiso(permiso);
+	}
+
+	/**
+	 * Constructor que inicializa los atributos para inserción
+	 * 
+	 * @param fechaIngreso
+	 * @param recurso
+	 * @param vehiculo
+	 * @param usuarioIngreso
+	 * @param ticketId
+	 */
+	public RegistroIE(Timestamp fechaIngreso, Recurso recursoI, Vehiculo vehiculo, Usuario usuarioIngreso,
+			String ticketId) {
+
+		setFechaIngreso(fechaIngreso);
+		setFechaEgreso(fechaEgreso);
+		setRecursoI(recursoI);
 		setVehiculo(vehiculo);
 		setUsuarioIngreso(usuarioIngreso);
 		setUsuarioEgreso(usuarioEgreso);
@@ -148,20 +205,52 @@ public class RegistroIE {
 		this.fechaEgreso = fechaEgreso;
 	}
 
+//	/**
+//	 * 
+//	 * @return
+//	 */
+//	public Recurso getRecurso() {
+//		return this.recurso;
+//	}
+//
+//	/**
+//	 * 
+//	 * @param recurso
+//	 */
+//	protected void setRecurso(Recurso recurso) {
+//		this.recurso = recurso;
+//	}
+
 	/**
 	 * 
 	 * @return
 	 */
-	public Recurso getRecurso() {
-		return this.recurso;
+	public Recurso getRecursoI() {
+		return this.recursoIngreso;
 	}
 
 	/**
 	 * 
 	 * @param recurso
 	 */
-	protected void setRecurso(Recurso recurso) {
-		this.recurso = recurso;
+	protected void setRecursoI(Recurso recursoIngreso) {
+		this.recursoIngreso = recursoIngreso;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Recurso getRecursoE() {
+		return this.recursoEgreso;
+	}
+
+	/**
+	 * 
+	 * @param recurso
+	 */
+	protected void setRecursoE(Recurso recursoEgreso) {
+		this.recursoEgreso = recursoEgreso;
 	}
 
 	/**
@@ -240,7 +329,5 @@ public class RegistroIE {
 	protected void setTicketId(String ticketId) {
 		this.ticketId = ticketId;
 	}
-	
-	
 
 }// end RegistroIE

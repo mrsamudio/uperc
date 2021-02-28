@@ -10,7 +10,7 @@ public interface PermisoDAO {
 	 * 
 	 * @param id
 	 */
-	public Permiso selectById(int id);
+	public Permiso selectById(long id);
 
 	/**
 	 * 
@@ -23,11 +23,5 @@ public interface PermisoDAO {
 	 * @param perfilUsuario
 	 */
 	public boolean insert(Permiso perfilUsuario);
-
-	/**
-	 * 
-	 * @param perfilUsuario
-	 */
-	public boolean update(Permiso perfilUsuario);
 
 }

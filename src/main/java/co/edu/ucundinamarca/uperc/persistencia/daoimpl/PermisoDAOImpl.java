@@ -39,7 +39,7 @@ public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 	@SuppressWarnings("deprecation")
 	@Override
 	@Transactional(readOnly = true)
-	public Permiso selectById(int id) {
+	public Permiso selectById(long id) {
 		return sessionFactory.getCurrentSession().getSession().get(Permiso.class, id);
 	}
 
@@ -53,19 +53,19 @@ public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 
 	@Override
 	@Transactional
-	public boolean insert(Permiso perfilUsuario) {
+	public boolean insert(Permiso permiso) {
 		Session session = sessionFactory.getCurrentSession();
 		int res = 0;
 		try {
 			res = session
 					.createSQLQuery("INSERT INTO " + Permiso.class.getSimpleName()
-							+ "(usuario, registroie)"
+							+ "(id, usuario)"
 							+ " VALUES("
-							+ " usuario = :usuario, registroie = :registroie"
+							+ " :registroie, :usuario"
 							+ ")")
 
-					.setParameter("usuario", perfilUsuario.getUsuario().getId() )
-					.setParameter("regServicio", perfilUsuario.getRegistroIE().getId() )
+					.setParameter("registroie", permiso.getRegistroIE().getId() )
+					.setParameter("usuario", permiso.getUsuario().getId() )
 					.executeUpdate();
 
 			return isResultado(res);
@@ -75,30 +75,4 @@ public class PermisoDAOImpl extends PersistenciaUtil implements PermisoDAO {
 		}
 
 	}
-
-	@Override
-	@Transactional
-	public boolean update(Permiso perfilUsuario) {
-		Session session = sessionFactory.getCurrentSession();
-		int res = 0;
-		try {
-
-			res = session
-					.createSQLQuery("UPDATE " + Permiso.class.getSimpleName() 
-							+ " SET"
-							+ " usuario = :usuario, registroie = :registroie"
-							+ " WHERE id = :idconf")
-					
-					.setParameter("idconf", perfilUsuario.getId())
-					.setParameter("usuario", perfilUsuario.getUsuario().getId() )
-					.setParameter("regServicio", perfilUsuario.getRegistroIE().getId() )
-					.executeUpdate();
-
-			return isResultado(res);
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			return false;
-		}
-	}
-
 }

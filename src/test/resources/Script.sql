@@ -1,4 +1,6 @@
-select * from vehiculo;
+select * from sistema_externo;
+
+
 
 delete from configuracion c 
 where c.id= 8;
@@ -26,6 +28,8 @@ set fechanac = current_timestamp
  
  select * from usuario;
  
+ 
+ 
  insert into usuario (rol, estado, fechareg, fechanac, correo, contrasena, numid, tipoid, apellidos,nombres)
  values (
  5, false, '2021-02-16 11:14:55.808771'::timestamp, '2021-02-16'::date, 'info@ingsamudio.co', '123456', '987654321', 'C', 'samudio', 'mario');
@@ -51,5 +55,14 @@ set fechanac = current_timestamp
  fechanac ='2021-02-16'::date, fechareg ='2021-02-16 11:14:55.808771'::timestamp, estado = true, rol = 5
  WHERE id = 2;
  select * from usuario;
+ 
+ 
+ select * from sistema_externo
+ insert into sistema_externo (ip, nombre, contrasena)
+ values ('192.168.54/8', 'test', 'asdñldkj')
+ 
+ select *  from supervision
+ 
+ 
  
  

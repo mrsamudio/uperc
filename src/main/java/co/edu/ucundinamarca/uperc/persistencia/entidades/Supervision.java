@@ -43,7 +43,7 @@ public class Supervision {
 	/**
 	 * <ul>
 	 * <li>ALERTA - TRUE</li>
-	 * <li>AVISOS - FLASE</li>
+	 * <li>AVISOS - FALSE</li>
 	 * </ul>
 	 */
 	@Column(name = "tipo")
@@ -51,6 +51,7 @@ public class Supervision {
 
 	@ManyToOne
 //	@Column(name = "usuario")
+	@JoinColumn(name = "usuario")
 	private Usuario usuario;
 
 	/**
@@ -61,16 +62,36 @@ public class Supervision {
 	}
 
 	/**
-	 * Constructor que inicializa todos loa atributos
+	 * Constructor que inicializa todos los atributos para inserción
 	 * 
 	 * @param mensaje
 	 * @param estado
 	 * @param fecha
-	 * @param tipo
+	 * @param tipo {@link #tipo}
 	 * @param usuario
 	 */
 	public Supervision(String mensaje, boolean estado, Timestamp fecha, boolean tipo, Usuario usuario) {
 		
+		setMensaje(mensaje);
+		setEstado(estado);
+		setFecha(fecha);
+		setTipo(tipo);
+		setUsuario(usuario);
+	}
+	
+	/**
+	 * Constructor que inicializa todos los atributos para inserción
+	 * 
+	 * @param id
+	 * @param mensaje
+	 * @param estado
+	 * @param fecha
+	 * @param tipo {@link #tipo}
+	 * @param usuario
+	 */
+	public Supervision(long id, String mensaje, boolean estado, Timestamp fecha, boolean tipo, Usuario usuario) {
+		
+		setId(id);
 		setMensaje(mensaje);
 		setEstado(estado);
 		setFecha(fecha);

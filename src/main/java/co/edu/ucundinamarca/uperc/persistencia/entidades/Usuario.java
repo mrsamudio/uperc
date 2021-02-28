@@ -102,11 +102,13 @@ public class Usuario implements Serializable {
 	@PrimaryKeyJoinColumn //
 	private Configuracion configuracion = new Configuracion();
 
+//	@OneToMany
 	@OneToMany(mappedBy = "usuario")
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Supervision> supervisiones;
 
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany
+//	@OneToMany(mappedBy = "usuario")
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Reserva> reservas;
 
@@ -123,7 +125,8 @@ public class Usuario implements Serializable {
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuarioEgreso", orphanRemoval = true) // dueño
 	private Set<RegistroIE> registrosE;
 
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany
+//	@OneToMany(mappedBy = "usuario")
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", orphanRemoval = true) // dueño
 	private Set<Permiso> permisos;
 
