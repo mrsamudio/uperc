@@ -51,6 +51,15 @@ class RegServicioDAOImplTest {
 		regServicio = regserviciorepo.selectById((long) 2);
 		assertNotNull(regServicio);
 	}
+	
+	@Test
+	void selectByIdSession() {
+		regServicio = regserviciorepo.selectByIdSession("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11");
+		assertNotNull("Objeto nulo, error en BD", regServicio);
+		
+		assertEquals("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", regServicio.getIdSession(), "No coincide el id de sessión");
+		
+	}
 
 	@Test
 	void selectAll() {

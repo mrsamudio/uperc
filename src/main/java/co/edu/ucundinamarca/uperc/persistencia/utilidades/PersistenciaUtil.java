@@ -15,8 +15,7 @@ public class PersistenciaUtil {
 	public PersistenciaUtil() {
 		super();
 	}
-	
-	
+
 //	private SessionFactory sessionFactory;
 //
 //	public SessionFactory getSessionFactory() {
@@ -27,7 +26,6 @@ public class PersistenciaUtil {
 //	public void setSessionFactory(SessionFactory sessionFactory) {
 //		this.sessionFactory = sessionFactory;
 //	}
-	
 
 	/**
 	 * Comprobacion resultado de la consulta a base de datos

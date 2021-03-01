@@ -29,6 +29,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
+import co.edu.ucundinamarca.uperc.persistencia.utilidades.ConstantesDB;
 
 @ActiveProfiles("test")
 @ContextConfiguration(classes = ConfigFuenteDatos.class)
@@ -58,6 +59,13 @@ class ReservaDAOImplTest {
 	void selectById() {
 		reserva = reservarepo.selectById((long) 2);
 		assertNotNull(reserva);
+	}
+	
+	@Test
+	void selectByFecha() {
+//		TODO: continuar
+		Timestamp fechaReserva = Timestamp.valueOf("2021-03-15 09:00:00");
+		reservas = reservarepo.selectByFecha(fechaReserva, ConstantesDB.SOLICITUD);
 	}
 
 	@Test

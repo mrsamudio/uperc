@@ -73,8 +73,41 @@ class RegistroIEDAOImplTest {
 	void selectAll() {
 		registrosie = registroierepo.selectAll();
 		assertFalse(registrosie.isEmpty());
+		
 	}
 
+	@Test
+	void selectByDate() {
+		Timestamp fecha = Timestamp.valueOf("2021-02-27 00:00:00");
+		
+		// true, se realiza busqueda por la fecha de ingreso
+		List<RegistroIE> registros = registroierepo.selectByDate(fecha, true);
+		
+		assertNotNull("La consulta retorna nula, error en bd", registros);
+		assertFalse("La consulta no encontró registros segun el criterio de busqueda", registros.isEmpty());
+		
+		// false, se realiza busqueda por la fecha de egreso
+		registros = registroierepo.selectByDate(fecha, false);
+		
+		assertFalse("La consulta no encontró registros segun el criterio de busqueda", registros.isEmpty());
+		assertNotNull("La consulta retorna nula, error en bd", registros);
+		
+	}
+	
+	
+	@Test
+	void selectByMonth() {
+//		TODO: 1.2 scompletar prueba selectByMonth
+	}
+	
+	@Test
+	void selectByRange() {
+//		TODO: 2.2 completar prueba selectByRange
+	}
+	
+	
+	
+	
 	@Rollback(true)
 	@Test
 	@Transactional

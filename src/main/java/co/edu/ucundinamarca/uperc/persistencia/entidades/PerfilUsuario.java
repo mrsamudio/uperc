@@ -28,8 +28,7 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:27
  */
 @Entity
-//@Table(name = "perfil_usuario")
-//@Table(name = "perfilusuario")
+@Table(name = "perfilusuario")
 public class PerfilUsuario {
 
 	@Id

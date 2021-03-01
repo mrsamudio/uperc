@@ -47,14 +47,11 @@ public class RegistroIE implements Serializable {
 	@Column(name = "fechaegreso")
 	private Timestamp fechaEgreso;
 
-//	TODO: eliminar columna recurso de la tabla registro_ie
-//	TODO: Agregar al modelo de entidad relación  recursoIngreso en registro_ie
 	@ManyToOne
 //	@Column(name = "recurso")
 	@JoinColumn(name = "recursoingreso")
 	private Recurso recursoIngreso;
 
-//	TODO: Agregar al modelo  de entidad relación   recursoEgreso en registro_ie
 	@ManyToOne
 //	@Column(name = "recurso")
 	@JoinColumn(name = "recursoegreso")

@@ -18,18 +18,23 @@ public interface RegistroIEDAO {
 	/**
 	 * 
 	 * @param id
+	 * @return
 	 */
 	public RegistroIE selectById(long id);
 
 	/**
+	 * Selección de registro por fecha de ingreso o fecha de salida
 	 * 
 	 * @param fecha
+	 * @param tipo true si es fecha de ingreso, false si es fecha de salida
+	 * @return lista de registros que coinciden con el criterio de busqueda
 	 */
-	public List<RegistroIE> selectByDate(Date fecha);
+	public List<RegistroIE> selectByDate(Date fecha, boolean tipo);
 
 	/**
 	 * 
 	 * @param mes
+	 * @return
 	 */
 	public List<RegistroIE> selectByMonth(Month mes);
 

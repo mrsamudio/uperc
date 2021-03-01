@@ -87,13 +87,6 @@ public class VehiculoDAOImpl extends PersistenciaUtil implements VehiculoDAO {
 		Session session = sessionFactory.getCurrentSession();
 		try {
 
-//			Criteria cr = session.createCriteria(Vehiculo.class)
-//					.setProjection(Projections.projectionList().add(Projections.property("id"), "id")
-//							.add(Projections.property("Name"), "Name"))
-//					.setResultTransformer(Transformers.aliasToBean(Vehiculo.class));
-//
-//			List<Vehiculo> lists = cr.list();
-
 			CriteriaBuilder cb = session.getCriteriaBuilder();
 			CriteriaQuery<Vehiculo> cquery = cb.createQuery(Vehiculo.class);
 //			CriteriaQuery<Object[]> cquery = cb.createQuery(Object[].class);
@@ -103,16 +96,9 @@ public class VehiculoDAOImpl extends PersistenciaUtil implements VehiculoDAO {
 //			cquery.select(root.get("marca"));
 			cquery.where(cb.like(root.get("marca"), "%" + marca + "%"));
 
-			Query<Vehiculo> q = session.createQuery(cquery);
-			List<Vehiculo> list = q.getResultList();
+//			Query<Vehiculo> q = session.createQuery(cquery);
 
-			System.out.println("id        Name");
-			for (Vehiculo objects : list) {
-				System.out.println(objects.getPlaca() + "        " + objects.getMarca());
-			}
-
-//			session.createQuery(cquery).getResultList();
-			return q.getResultList();
+			return session.createQuery(cquery).getResultList();
 
 		} catch (HibernateException e) {
 			e.printStackTrace();
