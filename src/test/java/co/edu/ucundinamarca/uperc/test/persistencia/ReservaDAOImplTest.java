@@ -66,6 +66,14 @@ class ReservaDAOImplTest {
 //		TODO: continuar
 		Timestamp fechaReserva = Timestamp.valueOf("2021-03-15 09:00:00");
 		reservas = reservarepo.selectByFecha(fechaReserva, ConstantesDB.SOLICITUD);
+		
+		assertFalse("Lista vacia, ¿Existen datos para realizar la pruba?", reservas.isEmpty());
+
+		reservas = reservarepo.selectByFecha(fechaReserva, ConstantesDB.RESERVA);
+		assertFalse("Lista vacia, ¿Existen datos para realizar la pruba?", reservas.isEmpty());
+
+//		reservas = reservarepo.selectByFecha(fechaReserva, ConstantesDB.FIN);
+//		assertFalse("Lista vacia, ¿Existen datos para realizar la pruba?", reservas.isEmpty());
 	}
 
 	@Test
