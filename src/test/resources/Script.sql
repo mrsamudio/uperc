@@ -4,14 +4,12 @@ select * from sistema_externo;
 
 delete from configuracion c 
 where c.id= 8;
-  1 Fusagasugá      Diagonal 18 No. 20-29                         (4.3340524,-74.3692551) 18281483
 
 
 update usuario
 set fechanac = current_timestamp
 
 
-    2 Ad         Ministro                C      00000001  minijtro    minijtro@localhost    1900-01-01 2021-01-18 05:25:59.0 true     5
 
 
   delete from usuario where id = 24;
