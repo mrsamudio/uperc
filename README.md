@@ -22,14 +22,17 @@ Pasos para usar el modelo de entidad relacion en  la base de datos de postgresql
 
 ## Utilitarios
 
-* verficar el tipo de codificación del archivo que contiene las sentencias sql
+* Verficar el tipo de codificación del archivo que contiene las sentencias sql
 `file 'Modelo fisico de base de datos.sql'` 
 
-* descomentar locales en /etc/locale.gen
+* Descomentar locales en /etc/locale.gen
 generar `locale-gen`
 
-* backup 
-`pg_dump -U usuario -W -h host basename > basename.sql`
+* backup por defecto
+`pg_dump -U usuario -W -h host basededatos > basededatos.sql`
+
+* backup con insert de datos
+`pg_dump --column-inserts -U usuario -W -h host basededatos > basededatos.sql`
 
 * restauracion
 `psql -U username -W -h host basename < basename.sql`

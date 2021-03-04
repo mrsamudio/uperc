@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:fragment="metadatos">
-		<meta charset="UTF-8">
-		<title th:replace="titulo :: titulo"></title>
-		
-		<!-- integrity in stylesheet and script -->
-		
-		<script>
-		    $(document).ready(function() {
-		        $.ajax({
-		            url : "/WEB-INF/js",
-		            });
-		        });
-		</script>
-	</head>
+<head th:fragment="metadatos">
+<meta charset="UTF-8">
+<title th:replace="comun/cuerpo/titulo.html :: titulo"></title>
+
+<!-- integrity in stylesheet and script -->
+
+<!-- 	<link type="text/css" href="@{css/jquery-ui.css}" rel="Stylesheet" /> -->
+<!-- 	<script type="text/javascript" src="@{js/jquery.js}"></script> -->
+<!-- 	<script type="text/javascript" src="@{js/jquery-ui.min.js}"></script> -->
+
+	<link rel="Stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}"  />
+<!-- 	<link rel="Stylesheet" th:href="@{/resources/static/css/bootstrap/bootstrap.min.css}"  /> -->
+<!-- 	<script type="text/javascript" src="/WEB-INF/js/bootstrap/bootstrap.bundle.min.js"></script> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
 </html>
