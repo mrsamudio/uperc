@@ -6,15 +6,20 @@ package co.edu.ucundinamarca.uperc.persistencia.daoimpl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Vehiculo;
 import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 /**
@@ -41,6 +46,35 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 	@Transactional(readOnly = true)
 	public Usuario selectById(Long id) {
 		return sessionFactory.getCurrentSession().getSession().get(Usuario.class, id);
+	}
+	
+	@Transactional(readOnly = true)
+	public Usuario selectByCorreo(String correo) {
+
+		Session session = sessionFactory.getCurrentSession();
+		try {
+
+			CriteriaBuilder cb = session.getCriteriaBuilder();
+			CriteriaQuery<Usuario> cquery = cb.createQuery(Usuario.class);
+			Root<Usuario> root = cquery.from(Usuario.class);
+
+			cquery.where(cb.equal(root.get("correo"), correo));
+
+			Query<Usuario> q = session.createQuery(cquery);
+
+			//
+			Usuario res = q.uniqueResult();
+
+				System.out.println(res.getCorreo() + "        " + res.getContrasena());
+			//
+			
+			return q.uniqueResult();
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 	@SuppressWarnings({ "deprecation", "unchecked" })

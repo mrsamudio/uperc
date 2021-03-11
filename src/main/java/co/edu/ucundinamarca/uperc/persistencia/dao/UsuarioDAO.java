@@ -19,6 +19,14 @@ public interface UsuarioDAO {
 	 * @return
 	 */
 	public Usuario selectById(Long id);
+	
+	/**
+	 * 
+	 * @param correo
+	 * @return
+	 */
+	public Usuario selectByCorreo(String correo);
+	
 
 	/**
 	 * 

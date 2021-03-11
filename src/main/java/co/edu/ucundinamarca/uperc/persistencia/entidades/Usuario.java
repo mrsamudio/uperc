@@ -350,7 +350,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param contrasena
 	 */
-	private void setContrasena(String contrasena) {
+	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
 
@@ -366,7 +366,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param correo
 	 */
-	private void setCorreo(String correo) {
+	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
 
