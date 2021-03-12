@@ -62,12 +62,6 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 
 			Query<Usuario> q = session.createQuery(cquery);
 
-			//
-			Usuario res = q.uniqueResult();
-
-				System.out.println(res.getCorreo() + "        " + res.getContrasena());
-			//
-			
 			return q.uniqueResult();
 
 		} catch (HibernateException e) {

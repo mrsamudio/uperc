@@ -1,38 +1,39 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head data-th-replace="comun/metadatos.html :: metadatos">
 
 <meta charset="UTF-8">
 <title>login Estático</title>
 
-<link rel="Stylesheet" href="../../css/bootstrap/bootstrap.css" />
+<link rel="Stylesheet" href="../../css/bootstrap/bootstrap.css"
+	th:src="@{/css/bootstrap/bootstrap.min.css}" />
 <link rel="Stylesheet" href="../../css/login.css" />
 
 </head>
 <body>
 
 	<div class="container">
-		<form class="form-signin" method="POST" action="#" data-th-action="@{/doLogin}" data-th-object="${usuario}">
+		<!-- 		<form class="form-signin" method="POST" action="#" -->
+		<!-- 			data-th-action="@{/doLogin}" data-th-object="${usuario}"> -->
+		<form class="form-signin" method="POST" action="#"
+			data-th-object="${usuario}">
 
 			<h2 class="form-heading">Inicio de sesión</h2>
 
 			<div class="form-group">
-				<label for="correo">Correo electrónico</label>
-				
-				<input id="correo" name="correo" class="form-control" type="email" data-th-field="${correo}"
-				data-th-errorclass="fieldError"
-				 placeholder="Escriba el correo" aria-describedby="emailHelp" /> 
-
-				<small id="emailHelp" class="form-text text-muted">solo se
-					permite el correo electrónico.</small>
+				<label for="correo">Correo electrónico</label> <input id="correo"
+					name="correo" class="form-control" type="email"
+					data-th-field="*{correo}" data-th-errorclass="fieldError"
+					placeholder="Escriba el correo" aria-describedby="emailHelp" /> <small
+					id="emailHelp" class="form-text text-muted">solo se permite
+					el correo electrónico.</small>
 			</div>
 
 			<div class="form-group">
-				<label for="contrasena">Contraseña</label>
-				
-				<input id="contrasena" name="contrasena" class="form-control" type="password" data-th-field="${contrasena}"
-					placeholder="Escriba su contraseña">
+				<label for="contrasena">Contraseña</label> <input id="contrasena"
+					name="contrasena" class="form-control" type="password"
+					data-th-field="*{contrasena}" placeholder="Escriba su contraseña">
 			</div>
 
 			<div class="form-check">
@@ -41,22 +42,57 @@
 					out</label>
 			</div>
 
-			<button type="submit" name="goLogin" class="btn btn-primary   btn-lg btn-block">Iniciar
-				sesión</button>
-			<small> class="text-center">
-				<a href="/registro">Registrarse como usuario</a>
+			<button type="submit" name="goLogin"
+				class="btn btn-primary   btn-lg btn-block">Iniciar sesión</button>
+			<small class="text-center"> <a href="/registro">Registrarse
+					como usuario</a>
 			</small>
 
 		</form>
 	</div>
 
 
+	<!-- Button trigger modal -->
+	<!-- 	<button type="button" class="btn btn-primary" data-toggle="modal" -->
+	<!-- 		data-target="#exampleModalCenter">Launch demo modal</button> -->
+
+	<!-- 	<div class="modal fade" id="exampleModalCenter" tabindex="-1" -->
+	<!-- 		role="dialog" aria-labelledby="exampleModalCenterTitle" -->
+	<!-- 		th:hidden="${errorlogin}" -->
+	<!-- 		aria-hidden="true"> -->
+	<!-- Modal -->
+	<div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog">
+
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="titulomodal" th:text="${errortitulo}">Título
+						modal</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" th:text="${errormensaje}">Este es un
+					mensaje modal</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
 	<script type="text/javascript" th:src="@{/js/jquery.js}"
 		src="../../js/jquery.js"></script>
 	<script type="text/javascript"
-		th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"
+		th:src="@{/js/bootstrap/bootstrap.min.js}"
 		src="../../js/bootstrap/bootstrap.bundle.min.js"></script>
 
+	<script type="text/javascript" th:utext="${mostrar}"></script>
 
 </body>
 </html>

@@ -123,8 +123,8 @@ public class ConfigWebMVC extends WebMvcConfigurerAdapter implements WebMvcConfi
         return viewResolve;
     }
     
-    @SuppressWarnings("deprecation")
-	@Override
+    
+    @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
         registry.addResourceHandler("/images/**").addResourceLocations("/images/");
