@@ -54,6 +54,9 @@ set fechanac = current_timestamp
  WHERE id = 2;
  select * from usuario;
  
+   2 Ad         Ministro                C      00000001  minijtro    minijtro@localhost    2021-02-16 2021-02-16 11:14:55.808771 true     5
+
+ 
  
  select * from sistema_externo
  insert into sistema_externo (ip, nombre, contrasena)
