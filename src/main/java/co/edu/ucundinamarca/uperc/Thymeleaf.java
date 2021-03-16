@@ -24,7 +24,7 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  */
 
 @Controller
-public class ControladorThymeleaf {
+public class Thymeleaf {
 
 	@Autowired
 	private UsuarioDAO usuariorepo;

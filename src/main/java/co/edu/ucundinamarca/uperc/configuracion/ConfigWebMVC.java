@@ -127,9 +127,12 @@ public class ConfigWebMVC extends WebMvcConfigurerAdapter implements WebMvcConfi
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
+    
+    
+//    TODO: agregar message resource bundle resolver personalizada
 
 }
