@@ -98,11 +98,70 @@ class RegistroIEDAOImplTest {
 	@Test
 	void selectByMonth() {
 //		TODO: 1.2 scompletar prueba selectByMonth
+		
+//		Tabla de registros_ie  consulta de seleccionar registros por mes
+//
+//		SELECT 	registro_ie.id, 
+//			registro_ie.fechaingreso, 
+//			registro_ie.fechaegreso, 
+//			recurso.nombre||' '|| recurso.marca||' '|| recurso.tipo as camara,
+//			vehiculo.placa||' '|| vehiculo.marca||' '|| vehiculo.color||' '|| vehiculo.clase||' '|| vehiculo.tiposervicio AS automovil,
+//			usuing.nombres||' '|| usuing.apellidos AS usuario_ing,
+//			usuegr.nombres||' '|| usuegr.apellidos AS usuario_egr,
+//			ticketid
+//
+//		FROM registro_ie 
+//			INNER JOIN recurso ON ( registro_ie.recursoingreso = recurso.id)
+//			INNER JOIN vehiculo ON ( registro_ie.vehiculo= vehiculo.id)
+//			INNER JOIN usuario AS usuing ON ( registro_ie.usuarioingreso = usuing.id)
+//			INNER JOIN usuario AS usuegr ON ( registro_ie.usuarioegreso = usuegr.id)
+//
+//		WHERE extract(year from fechaingreso) = 2021 AND extract(month from fechaingreso)= 2;
+		
 	}
 	
 	@Test
 	void selectByRange() {
 //		TODO: 2.2 completar prueba selectByRange
+		
+//		Tabla de registros_ie  consulta consulta de seleccionar registros por un rango de fechas, inicial y final (la función BETWEEN no incluye las fechas que se escriben, por eso toca poner la fecha enterior)
+//
+//		SELECT 	registro_ie.id, 
+//			registro_ie.fechaingreso, 
+//			registro_ie.fechaegreso, 
+//			recurso.nombre||' '|| recurso.marca||' '|| recurso.tipo as camara,
+//			vehiculo.placa||' '|| vehiculo.marca||' '|| vehiculo.color||' '|| vehiculo.clase||' '|| vehiculo.tiposervicio AS automovil,
+//			usuing.nombres||' '|| usuing.apellidos AS usuario_ing,
+//			usuegr.nombres||' '|| usuegr.apellidos AS usuario_egr,
+//			ticketid
+//			
+//		FROM registro_ie 
+//			INNER JOIN recurso ON ( registro_ie.recursoingreso = recurso.id)
+//			INNER JOIN vehiculo ON ( registro_ie.vehiculo= vehiculo.id)
+//			INNER JOIN usuario AS usuing ON ( registro_ie.usuarioingreso = usuing.id)
+//			INNER JOIN usuario AS usuegr ON ( registro_ie.usuarioegreso = usuegr.id)
+//			
+//		WHERE fechaingreso BETWEEN '2021-01-31'::DATE AND '2021-03-01'::DATE;
+//
+//
+//		Tabla de registros_ie  consulta consulta de seleccionar registros por un rango de fechas, inicial y final 
+//
+//		SELECT 	registro_ie.id, 
+//			registro_ie.fechaingreso, 
+//			registro_ie.fechaegreso, 
+//			recurso.nombre||' '|| recurso.marca||' '|| recurso.tipo as camara,
+//			vehiculo.placa||' '|| vehiculo.marca||' '|| vehiculo.color||' '|| vehiculo.clase||' '|| vehiculo.tiposervicio AS automovil,
+//			usuing.nombres||' '|| usuing.apellidos AS usuario_ing,
+//			usuegr.nombres||' '|| usuegr.apellidos AS usuario_egr,
+//			ticketid
+//			
+//		FROM registro_ie 
+//			INNER JOIN recurso ON ( registro_ie.recursoingreso = recurso.id)
+//			INNER JOIN vehiculo ON ( registro_ie.vehiculo= vehiculo.id)
+//			INNER JOIN usuario AS usuing ON ( registro_ie.usuarioingreso = usuing.id)
+//			INNER JOIN usuario AS usuegr ON ( registro_ie.usuarioegreso = usuegr.id)
+//			
+//		WHERE fechaingreso >= '2021-01-31'::DATE AND fechaingreso >= '2021-03-01'::DATE;
 	}
 	
 	
