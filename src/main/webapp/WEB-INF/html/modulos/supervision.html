@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+	
+	<head data-th-replace="comun/metadatos.html :: metadatos" >
+		<meta charset="UTF-8">
+		<title>Estático</title>
+		<link  rel="Stylesheet" href="../../css/bootstrap/bootstrap.css"/>
+	</head>
+	
+	<body>
+		
+		<nav class="navbar navbar-expand-lg navbar-light bg-light"  data-th-replace="comun/cuerpo/navegacion.html :: navegacion">
+			<a class="navbar-brand" href="#">Uperc</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			  <span class="navbar-toggler-icon"></span>
+			</button>
+			
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+				  		<a class="nav-link" href="#">Resumen <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+				  		<a class="nav-link" href="#">Usuarios Link</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  		Recursos
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" href="#">Action</a>
+							<a class="dropdown-item" href="#">Another action</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">Something else here</a>
+						</div>
+					</li>
+					<li class="nav-item">
+				  		<a class="nav-link disabled" href="#">Configuración</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+				</form>
+			</div>
+		</nav>
+
+		<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado estático</header>
+		
+		
+		<p>Nombre de usuario: [(nombreUsuario)]</p>
+		<p>Descripción: <strong> [[descripcion]]</strong></p>
+		
+<!-- 		TODO: Crear footer de bootstrap  -->
+		<footer  data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
+			<p>Proyecto de grado UPERC Est. 2021</p>
+		</footer>
+		
+<!-- 		TODO: externalizar -->
+		<script type="text/javascript" th:src="@{/js/jquery.js}" src="../../js/jquery.js"></script> 
+		<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}" src="../../js/bootstrap/bootstrap.bundle.min.js"></script>
+		
+	</body>
+</html>

@@ -1,8 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-	<footer th:fragment="piedepagina">
-		<p>Universidad de cundinamarca. 2021</p>
-	</footer>
-	
+<head data-th-replace="comun/metadatos.html :: metadatos">
+
+<meta charset="UTF-8">
+<title>pie de página Estático</title>
+<link rel="Stylesheet" href="../../../../css/bootstrap/bootstrap.css" />
+<link rel="Stylesheet" href="../../../../css/login.css" />
+
+</head>
+
+
+<footer th:fragment="piedepagina" class="sticky-footer" id="piedepagina">
+	<div class="container-fluid text-black text-center">
+		<br>
+		<div class="row">
+			<!-- 			<div class="col"> -->
+			<!-- 				<h4>Facebook</h4> -->
+			<!-- 				<p> -->
+			<!-- 					<i class="fab fa-facebook"></i> <a href="#">/usuario</a> -->
+			<!-- 				</p> -->
+			<!-- 			</div> -->
+			<!-- 			<div class="col"> -->
+			<!-- 				<h4 id="contacto">Contacto</h4> -->
+			<!-- 				<p>San Telmo</p> -->
+			<!-- 				<p> -->
+			<!-- 					Direcci&oacute;n: CABA - Buenos Aires<br> Tel&eacute;fonos: <br> -->
+			<!-- 					eMail: -->
+			<!-- 				</p> -->
+			<!-- 			</div> -->
+			<div class="col">
+				<p>Universidad de cundinamarca 2021</p>
+			</div>
+		</div>
+	</div>
+</footer>
+
 </html>
