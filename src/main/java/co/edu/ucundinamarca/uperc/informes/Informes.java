@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Informes {
 
 	@GetMapping(path = "/informes")
-	public String getUsuarios(Model model) {
+	public String getInformes(Model model) {
 		return "modulos/informes.html";
 		
 	}

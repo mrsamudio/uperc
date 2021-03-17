@@ -82,9 +82,47 @@ public class LogApectos {
 	 * @param joinPoint
 	 * @param resultado
 	 */
-	@AfterReturning(pointcut = "metodosPublicos()", returning = "resultado")
+//	@AfterReturning(pointcut = "metodosPublicos()", returning = "resultado")
+//	@AfterReturning(pointcut = "metodosPublicosEnUperc()", returning = "resultado")
+	@AfterReturning(pointcut = "metodosPublicosEnUperc()", returning = "resultado")
 	public void logDespuesRes(JoinPoint joinPoint, Object resultado) {
 		
+		logger.info("En el método " + joinPoint.getSignature().getName());
+		logger.info("El valor retornado es: " + resultado.toString());
+		
+	}
+	
+	
+	
+//	Módulo de usuarios
+	
+	/**
+	 * Punto de corte para todos los métodos públicos en el módulo usuarios
+	 */
+	@Pointcut("execution( public * co.edu.ucundinamarca.uperc.usuarios.*.*(..))")
+    private void puntoDeCorteUsuarios() {} 	
+
+	/**
+	 * 
+	 */
+    @Pointcut("within (co.edu.ucundinamarca.uperc.usuarios..*)")
+    private void enUsuarios() {}    
+
+    /**
+     * Unión de dos puntos de corte
+     */
+    @Pointcut("puntoDeCorteUsuarios() && enUsuarios()")
+    private void enUsuariosPublicos() {}
+
+    
+	/**
+	 * Registra el retorno de los sucesos en el módulo usuarios
+	 * @param joinPoint
+	 * @param resultado
+	 */
+	@AfterReturning(pointcut = "enUsuariosPublicos()", returning = "resultado")
+	public void logUsuariosRetorno(JoinPoint joinPoint, Object resultado) {
+//		TODO: detallar log de modulo usuarios
 		logger.info("En el método " + joinPoint.getSignature().getName());
 		logger.info("El valor retornado es: " + resultado.toString());
 		

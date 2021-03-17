@@ -27,6 +27,8 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 @Component
 public class InicioSession {
 	
+	@Autowired
+	private UsuarioDAO usuariorepo;
 	
 	@RequestMapping
 	public String inicioDeSession() {
@@ -35,8 +37,6 @@ public class InicioSession {
 	}
 	
 	
-	@Autowired
-	private UsuarioDAO usuariorepo;
 
 	/**
 	 * Página de inicio de sesión

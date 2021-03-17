@@ -16,7 +16,7 @@ public class TableroPrincipal {
 	 */
 	@GetMapping(path = "/tableroPrincipal")
 //	TODO: agregar parametros datos que se muestran en el tablero principal
-	public String getExampleHTML(Model model) {
+	public String getTableroPrincipal(Model model) {
 		model.addAttribute("nombreUsuario", "Inicio UPERC");
 		model.addAttribute("descripcion", "Configuración inicial de Thymeleaf");
 //		TODO: crear vista de tablero principal

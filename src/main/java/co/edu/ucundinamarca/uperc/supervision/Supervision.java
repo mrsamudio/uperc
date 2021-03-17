@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Supervision {
 
 	@GetMapping(path = "/supervision")
-	public String getUsuarios(Model model) {
+	public String getSupervision(Model model) {
 		return "modulos/supervision.html";
 		
 	}

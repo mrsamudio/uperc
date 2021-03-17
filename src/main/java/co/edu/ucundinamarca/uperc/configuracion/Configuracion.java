@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class Configuracion {
 
 	@GetMapping(path = "/configuracion")
-	public String getUsuarios(Model model) {
+	public String getConfiguracion(Model model) {
 		return "modulos/configuracion.html";
 		
 	}
