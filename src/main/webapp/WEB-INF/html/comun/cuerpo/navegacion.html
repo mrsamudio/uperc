@@ -29,7 +29,7 @@
 				href="../../modulos/usuarios.html" data-th-href="@{/usuarios}">Usuarios</a>
 			</li>
 
-			<li class="nav-item active"><a class="nav-link"
+			<li class="nav-item"><a class="nav-link"
 				href="../../tableroPrincipal.html"
 				data-th-href="@{/tableroPrincipal}">Tablero principal <span
 					class="sr-only">(current)</span></a></li>
@@ -46,7 +46,7 @@
 			<li class="nav-item"><a class="nav-link"
 				href="../../modulos/informes.html" data-th-href="@{/informes}">Informes</a></li>
 
-<!-- TODO: verificar redirección a modulo de configuración -->
+			<!-- TODO: verificar redirección a modulo de configuración -->
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle"
 				href="../../modulos/configuracion.html"
@@ -56,19 +56,26 @@
 
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 
-					<a class="dropdown-item" href="../../modulos/integracion.html" data-th-href="@{/integracion}">Sistemas externos</a>
-					
-					<a class="dropdown-item" href="../../modulos/recursos.html" data-th-href="@{/recursos}">Recursos</a>
+					<a class="dropdown-item" href="../../modulos/integracion.html"
+						data-th-href="@{/integracion}">Sistemas externos</a> <a
+						class="dropdown-item" href="../../modulos/recursos.html"
+						data-th-href="@{/recursos}">Recursos</a>
 
 					<div class="dropdown-divider"></div>
 
-					<a class="dropdown-item" href="../../modulos/configuracion/roles.html" data-th-href="@{/roles}">Roles</a>
+					<a class="dropdown-item"
+						href="../../modulos/configuracion/roles.html"
+						data-th-href="@{/roles}">Roles</a>
 					<!-- 					<a class="dropdown-item" href="/permisos">Permisos</a> -->
-					<a class="dropdown-item" href="../../modulos/configuracion/perfiles.html" data-th-href="@{/perfiles}">Perfiles de usuario</a>
+					<a class="dropdown-item"
+						href="../../modulos/configuracion/perfiles.html"
+						data-th-href="@{/perfiles}">Perfiles de usuario</a>
 
 					<div class="dropdown-divider"></div>
 
-					<a class="dropdown-item" href="../../modulos/configuracion/espacios.html" data-th-href="@{/espacios}">Espacios de parqueo</a>
+					<a class="dropdown-item"
+						href="../../modulos/configuracion/espacios.html"
+						data-th-href="@{/espacios}">Espacios de parqueo</a>
 					<!-- 						<a class="nav-link disabled" href="#">Ubicaciones</a> -->
 
 				</div></li>
@@ -92,8 +99,21 @@
 	</div>
 </nav>
 
-	<script type="text/javascript" src="../../../../js/jquery.js"></script>
-	<script type="text/javascript" src="../../../../js/bootdeliver/popper.min.js"></script>
-	<script type="text/javascript" src="../../../../js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../js/jquery.js"></script>
+<script type="text/javascript"
+	src="../../../../js/bootdeliver/popper.min.js"></script>
+<script type="text/javascript"
+	src="../../../../js/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(
+			function() {
+				$.each($('#navegacion').find('li'), function() {
+					$(this).toggleClass(
+							'active',
+							window.location.pathname.indexOf($(this).find('a')
+									.attr('href')) > -1);
+				});
+			});
+</script>
 
 </html>

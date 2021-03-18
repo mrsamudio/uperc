@@ -47,13 +47,17 @@
 					id="navbarDropdown" role="button" data-toggle="dropdown"
 					aria-haspopup="true" aria-expanded="false"> Configuración </a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="modulos/integracion.html">Sistemas externos</a> <a
-							class="dropdown-item" href="modulos/recursos.html">Recursos</a>
+						<a class="dropdown-item" href="modulos/integracion.html">Sistemas
+							externos</a> <a class="dropdown-item" href="modulos/recursos.html">Recursos</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="modulos/configuracion/roles.html">Roles</a> <a
-							class="dropdown-item" href="modulos/configuracion/perfiles.html">Perfiles de usuario</a>
+						<a class="dropdown-item" href="modulos/configuracion/roles.html">Roles</a>
+						<a class="dropdown-item"
+							href="modulos/configuracion/perfiles.html">Perfiles de
+							usuario</a>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item" href="modulos/configuracion/espacios.html">Espacios de parqueo</a>
+						<a class="dropdown-item"
+							href="modulos/configuracion/espacios.html">Espacios de
+							parqueo</a>
 					</div></li>
 			</ul>
 		</div>
@@ -288,10 +292,13 @@
 	<script type="text/javascript"
 		src="../../js/bootstrap/bootstrap.min.js"
 		data-th-src="@{/js/bootstrap/bootstrap.min.js}"></script>
-
+	
+	<script type="text/javascript"
+		data-th-replace="comun/scripts.html :: navegacion"></script>
 
 	<!-- Graphs -->
-	<script src="../../js/chart/Chart.js" data-th-src="@{/js/chart/Chart.js}"></script>
+	<script src="../../js/chart/Chart.js"
+		data-th-src="@{/js/chart/Chart.js}"></script>
 
 	<script>
 		var ctx = document.getElementById("myChart");

@@ -1,64 +1,115 @@
 <!DOCTYPE html>
-<html lang="es" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-	
-	<head data-th-replace="comun/metadatos.html :: metadatos" >
-		<meta charset="UTF-8">
-		<title>Estático</title>
-		<link  rel="Stylesheet" href="../../css/bootstrap/bootstrap.css"/>
-	</head>
-	
-	<body>
-		
-		<nav class="navbar navbar-expand-lg navbar-light bg-light"  data-th-replace="comun/cuerpo/navegacion.html :: navegacion">
-			<a class="navbar-brand" href="#">Uperc</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-			  <span class="navbar-toggler-icon"></span>
-			</button>
-			
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-				  		<a class="nav-link" href="#">Resumen <span class="sr-only">(current)</span></a>
-					</li>
-					<li class="nav-item">
-				  		<a class="nav-link" href="#">Usuarios Link</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					  		Recursos
-						</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-							<a class="dropdown-item" href="#">Action</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="#">Something else here</a>
-						</div>
-					</li>
-					<li class="nav-item">
-				  		<a class="nav-link disabled" href="#">Configuración</a>
-					</li>
-				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
-				</form>
-			</div>
-		</nav>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
-		<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado estático</header>
-		
-		
-		<p>Nombre de usuario: [(nombreUsuario)]</p>
-		<p>Descripción: <strong> [[descripcion]]</strong></p>
-		
-<!-- 		TODO: Crear footer de bootstrap  -->
-		<footer  data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
-			<p>Proyecto de grado UPERC Est. 2021</p>
-		</footer>
-		
-<!-- 		TODO: externalizar -->
-		<script type="text/javascript" th:src="@{/js/jquery.js}" src="../../js/jquery.js"></script> 
-		<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.bundle.min.js}" src="../../js/bootstrap/bootstrap.bundle.min.js"></script>
-		
-	</body>
+<head data-th-replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Reservas Estático</title>
+<link rel="Stylesheet" href="../../../css/bootstrap/bootstrap.css" />
+<link rel="Stylesheet" href="../../../css/login.css" />
+</head>
+
+<body>
+
+	<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion">
+		<a class="navbar-brand" href="#">Uperc</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="usuarios.html">Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="../tableroPrincipal.html">Tablero principal <span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="supervision.html">Supervisión</a></li>
+				<li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+				<li class="nav-item active"><a class="nav-link" href="informes.html">Informes</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="configuracion.html"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Configuración </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="integracion.html">Sistemas
+							externos</a> <a class="dropdown-item" href="recursos.html">Recursos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/roles.html">Roles</a>
+						<a class="dropdown-item" href="configuracion/perfiles.html">Perfiles
+							de usuario</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/espacios.html">Espacios
+							de parqueo</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+
+	<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado
+		estático</header>
+
+
+	<p>Nombre de usuario: [(nombreUsuario)]</p>
+	<p>
+		Descripción: <strong> [[descripcion]]</strong>
+	</p>
+
+		<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Usuario o sistema externo</th>
+					<th>Fecha de generado</th>
+					
+<!-- 					<th>Fecha de solicitud</th> -->
+<!-- 					<th>Espacio de parqueo</th> -->
+<!-- 					<th>Fecha de fin</th> -->
+<!-- 					<th>Cancelada</th> -->
+<!-- 					<th>Estado</th> -->
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="informe : ${informes}">
+					<td th:text="${informe.id}">El número</td>
+					
+					<td th:remove="${informe.usuario?.getNombres()}? tag : none">El usuario</td>
+					<td th:remove="${informe.regServicio?.sistemaExterno?.getNombre()}? tag : none">El sistema externo</td>
+					
+					<td th:text="${informe.fechaGenerado}">Fecha de generado</td>
+<!-- 					TODO: agregar los datos del informe o desplegarlos en mas detalles -->
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+	<!-- 		TODO: Crear footer de bootstrap  -->
+	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<script type="text/javascript" src="../../../js/jquery.js"
+		data-th-src="@{/js/jquery.js}"></script>
+
+	<script type="text/javascript"
+		src="../../../js/bootdeliver/popper.min.js"
+		data-th-src="@{/js/bootdeliver/popper.min.js}"></script>
+
+	<script type="text/javascript"
+		src="../../../js/bootstrap/bootstrap.min.js"
+		data-th-src="@{/js/bootstrap/bootstrap.min.js}"></script>
+
+
+	<script type="text/javascript"
+		data-th-replace="comun/scripts.html :: navegacion"></script>
+</body>
 </html>
