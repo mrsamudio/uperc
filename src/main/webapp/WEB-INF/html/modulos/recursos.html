@@ -61,6 +61,42 @@
 		Descripción: <strong> [[descripcion]]</strong>
 	</p>
 
+
+	<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nombre</th>
+					<th>marca</th>
+					<th>tipo</th>
+					<th>ip</th>
+					<th>puerto</th>
+					<th>mac</th>
+					<th>protocolo</th>
+					<th>fecha de registro</th>
+					<th>url fabricante</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="recurso : ${recursos}">
+					<td th:text="${recurso.id}">El número</td>
+					<td th:text="${recurso.nombre}">nombre de recurso</td>
+					<td th:text="${recurso.marca}">marca del recurso</td>
+					<td th:text="${recurso.tipo}">tipo del recurso</td>
+					<td th:text="${recurso.ip}">ip del recurso</td>
+					<td th:text="${recurso.puerto}">puerto del recurso</td>
+					<td th:text="${recurso.mac}">mac del recurso</td>
+					<td th:text="${recurso.protocolo}">protocolo del recurso</td>
+					<td th:text="${recurso.fechaRegistro}">fechaRegistro del recurso</td>
+					<td th:text="${recurso.urlFabricante}">urlFabricante del recurso</td>
+					<td th:text="${recurso.estado}? 'Activo' : 'Inactivo'">Activo</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
 	<!-- 		TODO: Crear footer de bootstrap  -->
 	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
 		<p>Proyecto de grado UPERC Est. 2021</p>

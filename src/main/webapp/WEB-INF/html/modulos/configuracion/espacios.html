@@ -57,6 +57,31 @@
 		Descripción: <strong> [[descripcion]]</strong>
 	</p>
 
+
+
+	<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nombre</th>
+					<th>Ubicación</th>
+					<th>Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="espacio : ${espacios}">
+					<td th:text="${espacio.id}">El número</td>
+					<td th:text="${espacio.nombre}">Nombre del espacio</td>
+					<td th:text="${espacio.ubicacion?.getNombre}?: 'Sede chía'">Sede Chía</td>
+					<td th:text="${espacio.ocupado}? 'Activo' : 'Inactivo'">Activo</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+<!-- 	TODO: agregar lista o bton para activar o desactivar espacio de parqueo -->
+
 	<!-- 		TODO: Crear footer de bootstrap  -->
 	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
 		<p>Proyecto de grado UPERC Est. 2021</p>

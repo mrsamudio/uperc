@@ -16,53 +16,54 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 public interface RegistroIEDAO {
 
 	/**
-	 * 
+	 * Seleccionar un registro por id
 	 * @param id
-	 * @return
+	 * @return un solo registroIE
 	 */
 	public RegistroIE selectById(long id);
 
 	/**
-	 * Selección de registro por fecha de ingreso o fecha de salida
+	 * Selección de registros por fecha de ingreso o fecha de salida
 	 * 
 	 * @param fecha
 	 * @param tipo true si es fecha de ingreso, false si es fecha de salida
-	 * @return lista de registros que coinciden con el criterio de busqueda
+	 * @return lista de registros que coinciden con el criterio de búsqueda <= fecha ingresada
 	 */
 	public List<RegistroIE> selectByDate(Date fecha, boolean tipo);
 
 	/**
-	 * 
+	 * Selección de registros por mes
 	 * @param mes
-	 * @return
+	 * @return Lista de registros
 	 */
 	public List<RegistroIE> selectByMonth(Month mes);
 
 	/**
-	 * 
+	 * Selección de registros por un rango de fechas
 	 * @param fechaInicial
 	 * @param fechaFinal
+	 * @return Lista de registros
 	 */
 	public List<RegistroIE> selectByRange(Date fechaInicial, Date fechaFinal);
 	
 	/**
-	 * 
-	 * @return
+	 * Selección de todos los registrosIE
+	 * @return Lista de registros
 	 */
 	public List<RegistroIE> selectAll();
 	
 	/**
-	 * 
+	 * Insertar un registro de ingreso
 	 * @param registroI
-	 * @return
+	 * @return true or false
 	 */
 	public boolean insertI(RegistroIE registroI);
 	
 
 	/**
-	 * 
+	 * Actualizar un registroIE 
 	 * @param registroI
-	 * @return
+	 * @return true or false
 	 */
 	public boolean updateIE(RegistroIE registroI);
 	

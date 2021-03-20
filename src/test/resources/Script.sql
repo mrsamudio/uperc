@@ -62,7 +62,7 @@ set fechanac = current_timestamp
  insert into sistema_externo (ip, nombre, contrasena)
  values ('192.168.54/8', 'test', 'asdñldkj')
  
- select *  from supervision
+ select *  from reserva
  
  
  

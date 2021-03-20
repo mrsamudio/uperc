@@ -12,7 +12,7 @@
 
 <body>
 
-		<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
+	<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
 		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
 		id="navegacion">
 		<a class="navbar-brand" href="#">Uperc</a>
@@ -60,6 +60,27 @@
 	<p>
 		Descripción: <strong> [[descripcion]]</strong>
 	</p>
+
+
+	<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nombre</th>
+					<th>ip</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="sistext : ${sistemasext}">
+					<td th:text="${sistext.id}">El número</td>
+					<td th:text="${sistext.nombre}">El nombre del sistema externo</td>
+					<td th:text="${sistext.ip}">La ip</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 
 	<!-- 		TODO: Crear footer de bootstrap  -->
 	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">

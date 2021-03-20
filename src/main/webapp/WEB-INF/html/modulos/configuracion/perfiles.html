@@ -63,6 +63,31 @@
 		Descripción: <strong> [[descripcion]]</strong>
 	</p>
 
+
+
+	<div class="table-responsive">
+		<table class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nombre</th>
+					<th>Descripción</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="perfil : ${perfiles}">
+					<td th:text="${perfil.id}">El número</td>
+					<td th:text="${perfil.nombre}">Nombre del perfil</td>
+					<td th:text="${perfil.descripcion}?: 'Sin descripción definida'">Descripción
+						del perfil</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
 	<!-- 		TODO: Crear footer de bootstrap  -->
 	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
 		<p>Proyecto de grado UPERC Est. 2021</p>

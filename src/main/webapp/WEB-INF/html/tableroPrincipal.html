@@ -90,7 +90,7 @@
 				</ul>
 			</nav>
 
-			<div class="col-sm-9 col-8">
+			<div class="col-8">
 
 				<div id="section1">
 					<h1>Section 1</h1>
@@ -101,20 +101,20 @@
 				<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 					Sed sit amet dolor et arcu faucibus accumsan vitae sed tellus.
 					Donec scelerisque neque id nibh vestibulum dignissim. Vestibulum
-					sit amet facilisis elit. Maecenas id felis et quam tempus posuere
-					in tincidunt lacus. Vivamus eleifend ante facilisis suscipit
-					laoreet. Maecenas quis luctus risus, eu ornare nibh. Maecenas
-					convallis eget nunc sed porttitor. Sed at risus metus. Donec
-					pulvinar ante ut enim lobortis, ut euismod elit aliquet. Maecenas
-					pretium, est eu tincidunt ullamcorper, mauris nisi aliquam mi, id
-					convallis tellus eros ut tortor. Curabitur tincidunt egestas
-					accumsan. Cras ac lorem ac lectus congue auctor. Integer mattis,
-					ante non bibendum laoreet, ex erat fermentum nunc, at eleifend nunc
 					eros id sapien. Nulla egestas velit id nibh egestas, at bibendum
 					sem eleifend. Proin pellentesque volutpat nulla, vitae scelerisque
 					est finibus eu. Aenean pellentesque auctor facilisis.</div>
 
 
+				<h1>usuarios registrados [(TotalUsuarios)]</h1>
+				<p>usuarios registrados [(TotalUsuarios)]</p>
+				<canvas id="ChartDemo"></canvas>
+
+				<canvas id="GraficoIE"></canvas>
+				
+				
+				<canvas id="Supervisiones"></canvas>
+				
 
 				<main role="main">
 
@@ -160,111 +160,7 @@
 									<td>dolor</td>
 									<td>sit</td>
 								</tr>
-								<tr>
-									<td>1,002</td>
-									<td>amet</td>
-									<td>consectetur</td>
-									<td>adipiscing</td>
-									<td>elit</td>
-								</tr>
-								<tr>
-									<td>1,003</td>
-									<td>Integer</td>
-									<td>nec</td>
-									<td>odio</td>
-									<td>Praesent</td>
-								</tr>
-								<tr>
-									<td>1,003</td>
-									<td>libero</td>
-									<td>Sed</td>
-									<td>cursus</td>
-									<td>ante</td>
-								</tr>
-								<tr>
-									<td>1,004</td>
-									<td>dapibus</td>
-									<td>diam</td>
-									<td>Sed</td>
-									<td>nisi</td>
-								</tr>
-								<tr>
-									<td>1,005</td>
-									<td>Nulla</td>
-									<td>quis</td>
-									<td>sem</td>
-									<td>at</td>
-								</tr>
-								<tr>
-									<td>1,006</td>
-									<td>nibh</td>
-									<td>elementum</td>
-									<td>imperdiet</td>
-									<td>Duis</td>
-								</tr>
-								<tr>
-									<td>1,007</td>
-									<td>sagittis</td>
-									<td>ipsum</td>
-									<td>Praesent</td>
-									<td>mauris</td>
-								</tr>
-								<tr>
-									<td>1,008</td>
-									<td>Fusce</td>
-									<td>nec</td>
-									<td>tellus</td>
-									<td>sed</td>
-								</tr>
-								<tr>
-									<td>1,009</td>
-									<td>augue</td>
-									<td>semper</td>
-									<td>porta</td>
-									<td>Mauris</td>
-								</tr>
-								<tr>
-									<td>1,010</td>
-									<td>massa</td>
-									<td>Vestibulum</td>
-									<td>lacinia</td>
-									<td>arcu</td>
-								</tr>
-								<tr>
-									<td>1,011</td>
-									<td>eget</td>
-									<td>nulla</td>
-									<td>Class</td>
-									<td>aptent</td>
-								</tr>
-								<tr>
-									<td>1,012</td>
-									<td>taciti</td>
-									<td>sociosqu</td>
-									<td>ad</td>
-									<td>litora</td>
-								</tr>
-								<tr>
-									<td>1,013</td>
-									<td>torquent</td>
-									<td>per</td>
-									<td>conubia</td>
-									<td>nostra</td>
-								</tr>
-								<tr>
-									<td>1,014</td>
-									<td>per</td>
-									<td>inceptos</td>
-									<td>himenaeos</td>
-									<td>Curabitur</td>
-								</tr>
-								<tr>
-									<td>1,015</td>
-									<td>sodales</td>
-									<td>ligula</td>
-									<td>in</td>
-									<td>libero</td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -292,13 +188,17 @@
 	<script type="text/javascript"
 		src="../../js/bootstrap/bootstrap.min.js"
 		data-th-src="@{/js/bootstrap/bootstrap.min.js}"></script>
-	
+
 	<script type="text/javascript"
 		data-th-replace="comun/scripts.html :: navegacion"></script>
 
 	<!-- Graphs -->
 	<script src="../../js/chart/Chart.js"
 		data-th-src="@{/js/chart/Chart.js}"></script>
+
+
+
+
 
 	<script>
 		var ctx = document.getElementById("myChart");
@@ -330,6 +230,108 @@
 			}
 		});
 	</script>
+
+	<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
+    var ctx = document.getElementById("ChartDemo").getContext('2d');
+    var ChartDemo = new Chart(ctx, {
+        type: 'line',
+        data: {
+            //a label that was stored in the controller only take out a variable formula 
+            labels: /*[[ ${label} ]]*/,
+            datasets: [
+                {
+                    label: "Chart-1",
+                    borderColor: 'rgb(255, 0, 0)',
+                    lineTension: 0,
+                    fill: false,
+                    //the same manner as described above, only is taken out of the point in the variable expression. 
+                    data: /*[[ ${point} ]]*/
+                }
+            ]
+        },
+        options: {responsive: true}
+    });
+    /*]]>*/
+    </script>
+
+
+	<script type="text/javascript" th:inline="javascript">
+	var datos = {
+		    datasets: [{
+		        label: "Chart-1",
+// 		        backgroundColor: 'rgba(0, 253, 0, 0.1)',
+		        backgroundColor: ["#0074D9", "#FF4136"],
+                borderColor: 'rgb(255, 0, 0)',
+                lineTension: 0,
+                fill: false,
+		    	data: /*[[ ${puntos} ]]*/ 
+	    	}],
+	    	
+		    labels:  /*[[ ${etiqueta} ]]*/
+	};
+	
+	var ctx = document.getElementById("GraficoIE").getContext('2d');
+    var ChartDemo = new Chart(ctx, {
+        type: 'doughnut',
+        data: datos,
+        options: {
+        	responsive: true,
+        	tooltips: {
+        		  callbacks: {
+        		    label: function(tooltipItem, data) {
+        		      return data['labels'][tooltipItem['index']] + ': ' + data['datasets'][0]['data'][tooltipItem['index']] + '%';
+        		    }
+        		  }
+        		},
+            title:{
+                display: true,
+                text: "Color test"
+            }
+       	}
+    });    
+//     ChartDemo.data.datasets[0].pointBackgroundColor[0] = "#cc00cc";
+//     ChartDemo.data.datasets[0].pointBorderColor[1] = "#cc0000";
+//     ChartDemo.update();
+    </script>
+
+	<script type="text/javascript" th:inline="javascript">
+	var datosSupervision = {
+		    datasets: [{
+		        label: "Chart-1",
+		        backgroundColor: ["#FF4136", "#0074D9"],
+                borderColor: 'rgb(255, 0, 0)',
+                lineTension: 0,
+                fill: false,
+		    	data: /*[[ ${supervisiones} ]]*/ 
+	    	}],
+	    	
+		    labels:  /*[[ ${etiquetasSup} ]]*/
+	};
+	
+	var ctx = document.getElementById("Supervisiones").getContext('2d');
+    var ChartDemo = new Chart(ctx, {
+        type: 'doughnut',
+        data: datosSupervision,
+        options: {
+        	responsive: true,
+        	tooltips: {
+      		  callbacks: {
+      		    label: function(tooltipItem, data) {
+      		      return data['labels'][tooltipItem['index']] + ': ' + data['datasets'][0]['data'][tooltipItem['index']] + '%';
+      		    }
+      		  }
+      		},
+            title:{
+                display: true,
+                text: "Color test"
+            }
+       	}
+    });    
+//     ChartDemo.data.datasets[0].pointBackgroundColor[0] = "#cc00cc";
+//     ChartDemo.data.datasets[0].pointBorderColor[1] = "#cc0000";
+//     ChartDemo.update();
+    </script>
 
 
 </body>
