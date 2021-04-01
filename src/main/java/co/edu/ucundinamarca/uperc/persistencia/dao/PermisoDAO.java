@@ -25,3 +25,7 @@ public interface PermisoDAO {
 	public boolean insert(Permiso perfilUsuario);
 
 }
+
+
+
+//InformeDAOImplTest, PermisoDAOImplTest, RecursoDAOImplTest, RegServicioDAOImplTest, RegistroIEDAOImplTest

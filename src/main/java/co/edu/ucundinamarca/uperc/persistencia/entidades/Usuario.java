@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 
  * Guarda los usuarios registrados en el sistema. - El campo NOMBRES registra
@@ -81,6 +83,7 @@ public class Usuario implements Serializable {
 	private String correo;
 
 	@Column(name = "fechanac")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date fechaNac;
 
@@ -268,7 +271,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param id
 	 */
-	protected void setId(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -286,7 +289,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param nombres
 	 */
-	private void setNombres(String nombres) {
+	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
 
@@ -302,7 +305,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param apellidos
 	 */
-	private void setApellidos(String apellidos) {
+	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
 	}
 
@@ -322,7 +325,7 @@ public class Usuario implements Serializable {
 	 * @param tipoId "C" cédula de ciudadanía, "I" Tarjeta de identidad,
 	 * "E" cédula de extranjería
 	 */
-	private void setTipoId(char tipoId) {
+	public void setTipoId(char tipoId) {
 		this.tipoId = tipoId;
 	}
 
@@ -338,7 +341,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param numId
 	 */
-	private void setNumId(String numId) {
+	public void setNumId(String numId) {
 		this.numId = numId;
 	}
 
@@ -382,7 +385,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param fechaNac
 	 */
-	private void setFechaNac(Date fechaNac) {
+	public void setFechaNac(Date fechaNac) {
 		this.fechaNac = fechaNac;
 	}
 
@@ -398,7 +401,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param fechaReg
 	 */
-	private void setFechaReg(Date fechaReg) {
+	public void setFechaReg(Date fechaReg) {
 		this.fechaReg = fechaReg;
 	}
 
@@ -414,7 +417,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param estado
 	 */
-	private void setEstado(boolean estado) {
+	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
 
@@ -430,7 +433,7 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param rol
 	 */
-	protected void setRol(Rol rol) {
+	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
 

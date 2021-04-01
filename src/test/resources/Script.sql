@@ -46,7 +46,7 @@ set fechanac = current_timestamp
  select * from configuracion;
  select * from rol;
  
- delete from usuario where id = 77;
+ delete from usuario where id = 150;
  update usuario
  set
  nombres ='Ad', apellidos ='Ministro', tipoid ='C', numid = '00000001', contrasena ='minijtro', correo ='minijtro@localhost',
@@ -58,11 +58,17 @@ set fechanac = current_timestamp
 
  
  
- select * from sistema_externo
+ select * from reg_servicio
  insert into sistema_externo (ip, nombre, contrasena)
  values ('192.168.54/8', 'test', 'asdñldkj')
  
- select *  from reserva
+ select *  from supervision
+
+ 
+ 
+ InformeDAOImplTest, PermisoDAOImplTest, RecursoDAOImplTest, RegServicioDAOImplTest, RegistroIEDAOImplTest
+ InformeDAOImplTest, RegServicioDAOImplTest
+ 
  
  
  

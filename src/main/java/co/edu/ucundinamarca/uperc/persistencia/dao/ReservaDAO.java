@@ -4,7 +4,6 @@
 package co.edu.ucundinamarca.uperc.persistencia.dao;
 
 import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
@@ -17,7 +16,7 @@ import co.edu.ucundinamarca.uperc.persistencia.utilidades.ConstantesDB;
 public interface ReservaDAO {
 
 	/**
-	 * Seleción de una reserva por su id
+	 * Selección de una reserva por su id
 	 * 
 	 * @param id
 	 * @return la reserva identificada con el id
@@ -83,8 +82,9 @@ public interface ReservaDAO {
 	 * Finaliza o cancela la reserva
 	 * 
 	 * @param reserva a finalizar o cancelar
+	 * @param true para cancelada, false para no cancelada
 	 * @return true or false
 	 */
-	public boolean endReserva(Reserva reserva);
+	public boolean endReserva(Reserva reserva, boolean isCancelada);
 
 }

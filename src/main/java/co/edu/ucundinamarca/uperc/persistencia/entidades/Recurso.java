@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnTransformer;
 
 /**
  * Guarda los dispositivos que capturan o muestran la información del ingreso o
@@ -36,7 +36,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "recurso")
-public class Recurso implements Serializable{
+public class Recurso implements Serializable {
 
 	/**
 	 * 
@@ -58,12 +58,15 @@ public class Recurso implements Serializable{
 	private String tipo;
 
 	@Column(name = "ip")
+	@ColumnTransformer(read="CAST(ip AS varchar)", write="CAST(? AS inet)")
 	private String ip;
+//	private InetAddress ip;
 
 	@Column(name = "puerto")
 	private int puerto;
 
 	@Column(name = "mac")
+	@ColumnTransformer(read = "CAST(mac AS varchar)", write = "CAST(? AS macaddr)")
 	private String mac;
 
 	@Column(name = "protocolo")
@@ -81,7 +84,7 @@ public class Recurso implements Serializable{
 	@OneToMany(mappedBy = "recursoIngreso")
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
 	private Set<RegistroIE> registrosI;
-	
+
 	@OneToMany(mappedBy = "recursoEgreso")
 //	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "recurso", orphanRemoval = false)
 	private Set<RegistroIE> registrosE;
@@ -92,7 +95,7 @@ public class Recurso implements Serializable{
 	public Recurso() {
 
 	}
-	
+
 	/**
 	 * Constructor para inserción de registro en bd
 	 * 
@@ -109,9 +112,10 @@ public class Recurso implements Serializable{
 	 * @param estado
 	 * @param registrosIE
 	 */
+//	public Recurso(String nombre, String marca, String tipo, InetAddress ip, int puerto, String mac, String protocolo,
 	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
 			Timestamp fechaRegistro, String urlFabricante, boolean estado) {
-		
+
 		setNombre(nombre);
 		setMarca(marca);
 		setTipo(tipo);
@@ -123,7 +127,7 @@ public class Recurso implements Serializable{
 		setUrlFabricante(urlFabricante);
 		setEstado(estado);
 	}
-	
+
 	/**
 	 * Constructor para update de registro en bd
 	 * 
@@ -140,8 +144,9 @@ public class Recurso implements Serializable{
 	 * @param estado
 	 * @param registrosIE
 	 */
-	public Recurso(long id, String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
-			Timestamp fechaRegistro, String urlFabricante, boolean estado) {
+//	public Recurso(long id, String nombre, String marca, String tipo, InetAddress ip, int puerto, String mac,
+	public Recurso(long id, String nombre, String marca, String tipo, String ip, int puerto, String mac,
+			String protocolo, Timestamp fechaRegistro, String urlFabricante, boolean estado) {
 
 		setId(id);
 		setNombre(nombre);
@@ -171,8 +176,10 @@ public class Recurso implements Serializable{
 	 * @param estado
 	 * @param registrosIE
 	 */
+//	public Recurso(String nombre, String marca, String tipo, InetAddress ip, int puerto, String mac, String protocolo,
 	public Recurso(String nombre, String marca, String tipo, String ip, int puerto, String mac, String protocolo,
-			Timestamp fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosI, Set<RegistroIE> registrosE) {
+			Timestamp fechaRegistro, String urlFabricante, boolean estado, Set<RegistroIE> registrosI,
+			Set<RegistroIE> registrosE) {
 
 		setNombre(nombre);
 		setMarca(marca);
@@ -256,6 +263,7 @@ public class Recurso implements Serializable{
 	 * 
 	 * @return
 	 */
+//	public InetAddress getIp() {
 	public String getIp() {
 		return this.ip;
 	}
@@ -264,6 +272,7 @@ public class Recurso implements Serializable{
 	 * 
 	 * @param ip
 	 */
+//	protected void setIp(InetAddress ip) {
 	protected void setIp(String ip) {
 		this.ip = ip;
 	}
@@ -376,14 +385,14 @@ public class Recurso implements Serializable{
 	protected void setRegistrosI(Set<RegistroIE> registrosI) {
 		this.registrosI = registrosI;
 	}
-	
+
 	/**
 	 * @return the registrosE
 	 */
 	public Set<RegistroIE> getRegistrosE() {
 		return registrosE;
 	}
-	
+
 	/**
 	 * @param registrosIE the registrosE to set
 	 */
@@ -392,7 +401,7 @@ public class Recurso implements Serializable{
 	}
 
 	/**
-	 * Listas de registros de ingreso 
+	 * Listas de registros de ingreso
 	 * 
 	 * @param registrosIE
 	 */
@@ -400,9 +409,9 @@ public class Recurso implements Serializable{
 		this.registrosI.add(registrosI);
 		registrosI.setRecursoI(this);
 	}
-	
+
 	/**
-	 * Listas de registros de  egreso 
+	 * Listas de registros de egreso
 	 * 
 	 * @param registrosIE
 	 */

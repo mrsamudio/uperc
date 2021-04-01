@@ -2,10 +2,8 @@ package co.edu.ucundinamarca.uperc.persistencia.entidades;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -165,7 +163,7 @@ public class Rol {
 	 * 
 	 * @param id
 	 */
-	protected void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -181,7 +179,7 @@ public class Rol {
 	 * 
 	 * @param nombre
 	 */
-	protected void setNombre(String nombre) {
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -195,7 +193,7 @@ public class Rol {
 	/**
 	 * @param descripcion the descripcion to set
 	 */
-	protected void setDescripcion(String descripcion) {
+	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
 
@@ -209,7 +207,7 @@ public class Rol {
 	/**
 	 * @param perfil the perfil to set
 	 */
-	protected void setPerfil(PerfilUsuario perfilUsuario) {
+	public void setPerfil(PerfilUsuario perfilUsuario) {
 		this.perfil = perfilUsuario;
 	}
 
@@ -223,7 +221,7 @@ public class Rol {
 	/**
 	 * @param usuarios the usuarios to set
 	 */
-	protected void setUsuarios(Set<Usuario> usuarios) {
+	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 	

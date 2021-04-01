@@ -31,7 +31,7 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "RESERVA")
+@Table(name = "reserva")
 public class Reserva implements Serializable {
 
 	/**

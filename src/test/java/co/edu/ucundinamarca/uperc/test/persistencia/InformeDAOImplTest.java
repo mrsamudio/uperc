@@ -79,7 +79,7 @@ class InformeDAOImplTest {
 	@Test
 	@Transactional
 	void insert() {
-		Informe informe = informerepo.selectById((long) 1);
+		Informe informe = informerepo.selectById((long) 2);
 		Timestamp fechaGen = Timestamp.from(Instant.now());
 		Date fechaIni = Date.valueOf("1999-10-04");
 		Date fechaFin = Date.valueOf("1999-10-04");
@@ -109,7 +109,7 @@ class InformeDAOImplTest {
 	@Test
 	@Transactional
 	void update() {
-		Informe informe = informerepo.selectById((long) 1);
+		Informe informe = informerepo.selectById((long) 2);
 		Timestamp fechaGen = Timestamp.from(Instant.now());
 		Date fechaIni = Date.valueOf("1999-10-04");
 		Date fechaFin = Date.valueOf("1999-10-04");

@@ -21,13 +21,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
-import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.PermisoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.RecursoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.RegistroIEDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.VehiculoDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Recurso;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;

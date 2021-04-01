@@ -30,7 +30,8 @@
 						class="sr-only">(current)</span></a></li>
 				<li class="nav-item"><a class="nav-link"
 					href="supervision.html">Supervisión</a></li>
-				<li class="nav-item active"><a class="nav-link" href="reservas.html">Reservas</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="reservas.html">Reservas</a></li>
 				<li class="nav-item"><a class="nav-link" href="informes.html">Informes</a></li>
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="configuracion.html"
@@ -51,16 +52,24 @@
 		</div>
 	</nav>
 
-	<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado
-		estático</header>
 
 
-	<p>Nombre de usuario: [(nombreUsuario)]</p>
-	<p>
-		Descripción: <strong> [[descripcion]]</strong>
-	</p>
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+			<p>
+		
+		<p>
+	
+	</div>
+	
+	<!-- Button trigger modal -->
+			<!-- 				TODO: crear insercion para reservas -->
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#agregarUsuario">Nueva reserva</button>
 
-	<div class="table-responsive">
+	
+		<div class="table-responsive">
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -89,7 +98,31 @@
 					<td th:text="${reserva.fechaFin}?: 'En espera de egreso'">Fecha
 						de fin</td>
 					<td th:text="${reserva.cancelada}? 'Si' : 'No'">El número</td>
-					<td th:text="${reserva.estado}? 'Activo' : 'Inactivo'">Activa</td>
+
+					<!-- 					<td th:text="${reserva.estado}? 'Activo' : 'Inactivo'">Activa</td> -->
+
+
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"
+									th:text="${reserva.estado}? 'Activo' : 'Inactivo'">Activo
+									o inactivo</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item"
+										th:href="@{/supervision(cambiarEstado=${reserva.id})}"
+										th:name="cambiarEstado">Cambiar estado</a>
+									<div role="separator" class="dropdown-divider"></div>
+									<a class="dropdown-item" href="#">Editar</a>
+								</div>
+							</div>
+						</div>
+					</td>
+
+
 				</tr>
 			</tbody>
 		</table>

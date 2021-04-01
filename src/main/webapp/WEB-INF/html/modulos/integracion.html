@@ -51,15 +51,19 @@
 			</ul>
 		</div>
 	</nav>
+	
+	
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
 
-	<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado
-		estático</header>
-
-
-	<p>Nombre de usuario: [(nombreUsuario)]</p>
-	<p>
-		Descripción: <strong> [[descripcion]]</strong>
-	</p>
+		<!-- Button trigger modal -->
+	<!-- 				TODO: crear insercion para reservas -->
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#agregarUsuario">Nuevo sistema externo</button>
 
 
 	<div class="table-responsive">
@@ -69,6 +73,7 @@
 					<th>#</th>
 					<th>Nombre</th>
 					<th>ip</th>
+					
 
 				</tr>
 			</thead>
@@ -77,6 +82,21 @@
 					<td th:text="${sistext.id}">El número</td>
 					<td th:text="${sistext.nombre}">El nombre del sistema externo</td>
 					<td th:text="${sistext.ip}">La ip</td>
+					
+					
+					
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<a class="btn btn-outline-secondary"
+									th:href="@{/supervision(cambiarEstado=${sistext.id})}"
+									th:name="cambiarEstado">Editar</a>
+							</div>
+						</div>
+					</td>
+					
+					
 				</tr>
 			</tbody>
 		</table>

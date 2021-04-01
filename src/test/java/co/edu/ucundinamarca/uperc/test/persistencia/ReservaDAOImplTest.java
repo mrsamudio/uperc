@@ -21,11 +21,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
-import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.EspacioParqueoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.ReservaDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.EspacioParqueo;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
@@ -92,7 +90,7 @@ class ReservaDAOImplTest {
 		Usuario u = usuariorepo.selectById((long) 6);
 		EspacioParqueo ep = espacioparqueorepo.selectById(27);
 		
-		Reserva r = new Reserva(fechaSolicitud, false, ep, fechaReserva, false, u);
+		Reserva r = new Reserva(fechaSolicitud, true, ep, fechaReserva, false, u);
 		boolean test = reservarepo.insert(r);
 		assertEquals(true, test, "Inserción a bd, no se obtuvo el resultado esperado.");
 	}
@@ -126,7 +124,7 @@ class ReservaDAOImplTest {
 		reserva = reservarepo.selectById(2);
 		
 		Reserva re = new Reserva(reserva.getId(), true, fechaFin, true);
-		boolean test = reservarepo.endReserva(re);
+		boolean test = reservarepo.endReserva(re, false);// no se canceló, solo terminó
 		assertEquals(true, test, "Finalización de reserva en bd, no se obtuvo el resultado esperado.");
 	}
 

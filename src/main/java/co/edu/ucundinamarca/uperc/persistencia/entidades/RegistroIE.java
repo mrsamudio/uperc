@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.ColumnTransformer;
+
 /**
  * clase que representa la tabla de registros de entrada y salida de vehículos y
  * los usuarios asociados.
@@ -73,6 +75,7 @@ public class RegistroIE implements Serializable {
 	private Usuario usuarioEgreso;
 
 	@Column(name = "ticketid") // tipo uuid postgresql
+	@ColumnTransformer(read="CAST(ticketid AS varchar)", write="CAST(? AS uuid)")
 	private String ticketId;
 
 	@OneToOne(cascade = { CascadeType.ALL }) // Dueño de relacion

@@ -1,9 +1,5 @@
 package co.edu.ucundinamarca.uperc.persistencia.utilidades;
 
-import javax.annotation.Resource;
-
-import org.hibernate.SessionFactory;
-
 /**
  * Utilidades relacionadas con persistencia
  * 

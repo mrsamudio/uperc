@@ -3,10 +3,8 @@ package co.edu.ucundinamarca.uperc.persistencia.entidades;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.ColumnTransformer;
 
 /**
  * Guarda la sesión del sistema externo y la fecha en la que se creó la sessión.
@@ -28,27 +30,30 @@ import javax.persistence.Table;
  * @created 05-nov.-2020 5:20:28
  */
 @Entity
-@Table(name = "REG_SERVICIO")
+@Table(name = "reg_servicio")
 public class RegServicio {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
+	@Column(name = "id")
 	private long id;
 
-	@Column(name = "ID_SESSION")
+	@Column(name = "idsession")
+	@ColumnTransformer(read="CAST(idsession AS varchar)", write="CAST(? AS uuid)")
 	private String idSession;
 
 	@ManyToOne
-	@JoinColumn(name = "SISTEMA_EXTERNO", referencedColumnName = "ID")
+	@JoinColumn(name = "sistemaexterno", referencedColumnName = "ID")
 //	@Column(name = "SISTEMA_EXTERNO")
 	private SistemaExterno sistemaExterno;
 
-	@Column(name = "FECHA_SESSION")
+	@Column(name = "fechasession")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaSession;
 
 //	Listas 
-	@OneToMany(mappedBy = "REG_SERVICIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
+	@OneToMany()
+//	@OneToMany(mappedBy = "REG_SERVICIO", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = false)
 	private List<Informe> informes;
 
 	/**
@@ -65,12 +70,26 @@ public class RegServicio {
 	 * @param sistemaExterno
 	 * @param fechaSession
 	 */
-	public RegServicio(String idSession, SistemaExterno sistemaExterno, Date fechaSession, List<Informe> informes) {
+	public RegServicio(String idSession, SistemaExterno sistemaExterno, Date fechaSession) {
 
 		setIdSession(idSession);
 		setSistemaExterno(sistemaExterno);
 		setFechaSession(fechaSession);
-		setInformes(informes);
+	}
+
+	/**
+	 * Constructor para update
+	 * 
+	 * @param idSession
+	 * @param sistemaExterno
+	 * @param fechaSession
+	 */
+	public RegServicio(long id, String idSession, SistemaExterno sistemaExterno, Date fechaSession) {
+		
+		setId(id);
+		setIdSession(idSession);
+		setSistemaExterno(sistemaExterno);
+		setFechaSession(fechaSession);
 	}
 
 	/**

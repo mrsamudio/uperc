@@ -19,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Vehiculo;
 import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
 /**
@@ -214,7 +213,7 @@ public class UsuarioDAOImpl extends PersistenciaUtil implements UsuarioDAO {
 	@Transactional
 	public boolean delete(Usuario usuario) {
 		Session session = sessionFactory.getCurrentSession();
-		int res = 0;
+//		int res = 0;
 		try {
 //			res = session
 //			.createSQLQuery("DELETE FROM " + Usuario.class.getSimpleName()

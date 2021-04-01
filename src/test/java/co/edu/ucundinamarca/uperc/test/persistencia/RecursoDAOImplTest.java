@@ -21,12 +21,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
-import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.RecursoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Recurso;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 @ActiveProfiles("test")
 @ContextConfiguration(classes = ConfigFuenteDatos.class)
@@ -64,7 +61,18 @@ class RecursoDAOImplTest {
 	@Test
 	@Transactional
 	void insert() {
-		Recurso r = new Recurso("recurso tal", "lg", "tipo", "20.45.10.30", 4530, "08:FF:2b:01:02:03", "TCP",
+//		InetAddress ip = null;
+//		try {
+//			ip = InetAddress.getByName("140.82.112.4");
+//		} catch (UnknownHostException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		Recurso r = new Recurso("recurso tal", "lg", "tipo"
+//				,ip.getAddress().toString()
+				,"140.82.112.4"
+				, 4530, "08:FF:2b:01:02:03", "TCP",
 				Timestamp.from(Instant.now()), "http://proveedor.co", false);
 		boolean test = recursorepo.insert(r);
 		assertEquals(true, test, "Inserción a bd, no se obtuvo el resultado esperado.");

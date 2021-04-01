@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.SupervisionDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Supervision;
 import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
@@ -210,6 +209,49 @@ public class SupervisionDAOImpl extends PersistenciaUtil implements SupervisionD
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	
+	@Override
+	@Transactional
+	public boolean activate(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Supervision.class.getSimpleName() + " SET estado = :estado"
+							+ " WHERE id = :idconf" + "")
+					.setParameter("idconf", id)
+					.setParameter("estado", true).executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	
+	@Override
+	@Transactional
+	public boolean deactivate(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Supervision.class.getSimpleName() + " SET estado = :estado"
+							+ " WHERE id = :idconf" + "")
+					.setParameter("idconf", id)
+					.setParameter("estado", false).executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 }

@@ -26,7 +26,7 @@ public interface RegistroIEDAO {
 	 * Selección de registros por fecha de ingreso o fecha de salida
 	 * 
 	 * @param fecha
-	 * @param tipo true si es fecha de ingreso, false si es fecha de salida
+	 * @param tipo true si es fecha de ingreso, false si es fecha egreso (de salida)
 	 * @return lista de registros que coinciden con el criterio de búsqueda <= fecha ingresada
 	 */
 	public List<RegistroIE> selectByDate(Date fecha, boolean tipo);
@@ -34,17 +34,19 @@ public interface RegistroIEDAO {
 	/**
 	 * Selección de registros por mes
 	 * @param mes
+	 * @param tipo true si es fecha de ingreso, false si es fecha egreso (de salida)
 	 * @return Lista de registros
 	 */
-	public List<RegistroIE> selectByMonth(Month mes);
+	public List<RegistroIE> selectByMonth(Month mes, boolean tipo);
 
 	/**
 	 * Selección de registros por un rango de fechas
 	 * @param fechaInicial
 	 * @param fechaFinal
+	 * @param tipo true si es fecha de ingreso, false si es fecha egreso (de salida)
 	 * @return Lista de registros
 	 */
-	public List<RegistroIE> selectByRange(Date fechaInicial, Date fechaFinal);
+	public List<RegistroIE> selectByRange(Date fechaInicial, Date fechaFinal, boolean tipo);
 	
 	/**
 	 * Selección de todos los registrosIE

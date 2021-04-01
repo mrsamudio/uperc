@@ -4,8 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +19,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import co.edu.ucundinamarca.uperc.configuracion.ConfigFuenteDatos;
-import co.edu.ucundinamarca.uperc.persistencia.dao.ConfiguracionDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.PermisoDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.RegistroIEDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
-import co.edu.ucundinamarca.uperc.persistencia.entidades.Configuracion;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Permiso;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.RegistroIE;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;

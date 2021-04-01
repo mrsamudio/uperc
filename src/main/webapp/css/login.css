@@ -85,14 +85,20 @@ div.col-8 div {
 	flex: 1 0 auto;
 }
 
-#sticky-footer {
-	/* 	flex-shrink: none; */
-/* 	position: fixed; */
-/* 	left: 0; */
-/* 	bottom: 0; */
-/* 	width: 100%; */
-}
+/* #sticky-footer { */
+/* 	/* 	flex-shrink: none; */ */
+/* 	/* 	position: fixed; */ */
+/* 	/* 	left: 0; */ */
+/* 	/* 	bottom: 0; */ */
+/* 	/* 	width: 100%; */ */
+	
+/* } */
 
+.img-responsive {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
 
 /* @ */
 /* -webkit-keyframes chartjs-render-animation { */

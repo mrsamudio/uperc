@@ -79,9 +79,10 @@ class RegServicioDAOImplTest {
 	@Transactional
 	void insert() {
 		Timestamp fechaSession = Timestamp.from(Instant.now());
-		SistemaExterno sis = sistemaexternorepo.selectById(1);
+		SistemaExterno sis = sistemaexternorepo.selectById(7);
 		RegServicio reg = new RegServicio("a0befc79-9c0b-4ef8-bb6d-6bb9bd380a10", sis, fechaSession);
 
+		
 		boolean test = regserviciorepo.insert(reg);
 		assertEquals(true, test, "Inserción a bd, no se obtuvo el resultado esperado.");
 	}

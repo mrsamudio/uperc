@@ -12,8 +12,6 @@ import javax.sql.DataSource;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.SessionFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 //import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Profile;
@@ -22,7 +20,6 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * @author mrsamudio
@@ -61,6 +58,7 @@ public class FuenteDatosTest implements FuenteDatos {
 
 		try {
 			SimpleDriverDataSource ds = new SimpleDriverDataSource();
+			@SuppressWarnings("unchecked")
 			Class<? extends Driver> driver = (Class<? extends Driver>) Class.forName("org.postgresql.Driver");
 			ds.setDriverClass(driver);
 			ds.setUrl("jdbc:postgresql://192.168.100.183:5432/uperctest");

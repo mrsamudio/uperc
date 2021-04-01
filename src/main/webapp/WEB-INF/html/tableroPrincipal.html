@@ -9,19 +9,19 @@
 <link rel="icon"
 	href="https://getbootstrap.com/docs/4.1/assets/img/favicons/favicon.ico">
 
-<title>tablero principal Estático</title>
+<title>Tablero principal Estático</title>
 <link rel="Stylesheet" href="../../css/bootstrap/bootstrap.css" />
 <link rel="Stylesheet" href="../../css/login.css" />
 </head>
 
 <!-- <body data-spy="scroll" data-target=".navbar" data-offset="50"> -->
-<body data-multiple-spy="scroll" data-target="#navegacion, #opciones"
-	data-offset="50">
+<!-- <body class="" data-multiple-spy="scroll" data-target="#navegacion, #opciones" data-offset="50"> -->
+<body class="" data-multiple-spy="scroll" data-target="#navegacion" data-offset="50">
 
 	<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
 		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
 		id="navegacion">
-		<a class="navbar-brand" href="#">Uperc</a>
+		<a class="navbar-brand">Uperc</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarSupportedContent"
 			aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -64,114 +64,98 @@
 	</nav>
 
 	<div class="container-fluid">
+
 		<div class="row">
 
-			<nav class="col-sm-3 col-4" id="opciones">
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item"><a class="nav-link active" href="#">
-							<span data-feather="home"></span> Tablero principal <span
-							class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="file"></span> Orders
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="shopping-cart"></span> Products
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="users"></span> Customers
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="bar-chart-2"></span> Reports
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#"> <span
-							data-feather="layers"></span> Integrations
-					</a></li>
-				</ul>
-			</nav>
-
-			<div class="col-8">
-
-				<div id="section1">
-					<h1>Section 1</h1>
-					<p>Try to scroll this page and look at the menu while
-						scrolling!</p>
-				</div>
-
-				<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-					Sed sit amet dolor et arcu faucibus accumsan vitae sed tellus.
-					Donec scelerisque neque id nibh vestibulum dignissim. Vestibulum
-					eros id sapien. Nulla egestas velit id nibh egestas, at bibendum
-					sem eleifend. Proin pellentesque volutpat nulla, vitae scelerisque
-					est finibus eu. Aenean pellentesque auctor facilisis.</div>
+			<!-- 			<nav class="col-sm-4 col-4" id="opciones"> -->
+<!-- 			<nav class="col col-lg-1" id="opciones"> -->
+<!-- 				<ul class="nav nav-pills flex-column"> -->
+<!-- 					<li class="nav-item"><a class="nav-link active" href="#"> -->
+<!-- 							<span data-feather="home"></span> Tablero principal <span -->
+<!-- 							class="sr-only">(current)</span> -->
+<!-- 					</a></li> -->
+<!-- 					<li class="nav-item"><a class="nav-link" href="#"> <span -->
+<!-- 							data-feather="file"></span> Orders -->
+<!-- 					</a></li> -->
+<!-- 					<li class="nav-item"><a class="nav-link" href="#"> <span -->
+<!-- 							data-feather="shopping-cart"></span> Products -->
+<!-- 					</a></li> -->
+<!-- 					<li class="nav-item"><a class="nav-link" href="#"> <span -->
+<!-- 							data-feather="users"></span> Customers -->
+<!-- 					</a></li> -->
+<!-- 					<li class="nav-item"><a class="nav-link" href="#"> <span -->
+<!-- 							data-feather="bar-chart-2"></span> Reports -->
+<!-- 					</a></li> -->
+<!-- 					<li class="nav-item"><a class="nav-link" href="#"> <span -->
+<!-- 							data-feather="layers"></span> Integrations -->
+<!-- 					</a></li> -->
+<!-- 				</ul> -->
+<!-- 			</nav> -->
 
 
-				<h1>usuarios registrados [(TotalUsuarios)]</h1>
-				<p>usuarios registrados [(TotalUsuarios)]</p>
-				<canvas id="ChartDemo"></canvas>
+			<div class="container">
 
-				<canvas id="GraficoIE"></canvas>
-				
-				
-				<canvas id="Supervisiones"></canvas>
-				
+				<div class="row">
 
-				<main role="main">
-
-					<div
-						class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center  border-bottom">
-						<h1 class="h2">Dashboard</h1>
-						<div class="btn-toolbar mb-2 mb-md-0">
-							<div class="btn-group mr-2">
-								<button class="btn btn-sm btn-outline-secondary">Share</button>
-								<button class="btn btn-sm btn-outline-secondary">Export</button>
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<h3>
+									<p class="text-center">Reservas en la semana</p>
+								</h3>
+								<canvas class="col" id="historicoReservas"></canvas>
 							</div>
-							<button class="btn btn-sm btn-outline-secondary dropdown-toggle">
-								<span data-feather="calendar"></span> This week
-							</button>
 						</div>
 					</div>
 
-					<canvas class="my-4 w-100 chartjs-render-monitor" id="myChart"></canvas>
 
-					<!-- 					<canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" -->
-					<!-- 						width="1542" height="651" -->
-					<!-- 						style="display: block; width: 1542px; height: 651px;"></canvas> -->
-
-					<h2>Section title</h2>
-
-
-					<div class="table-responsive">
-						<table class="table table-striped table-sm">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>Header</th>
-									<th>Header</th>
-									<th>Header</th>
-									<th>Header</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1,001</td>
-									<td>Lorem</td>
-									<td>ipsum</td>
-									<td>dolor</td>
-									<td>sit</td>
-								</tr>
-
-							</tbody>
-						</table>
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<h3>
+									<p class="text-center">Registro de ingresos y egresos</p>
+								</h3>
+								<canvas class="col" id="GraficoIE"></canvas>
+							</div>
+						</div>
 					</div>
 
+				</div>
 
-				</main>
+				<div class="row">
+
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<h3>
+									<p class="text-center">Mensajes y alertas de supervisión</p>
+								</h3>
+								<canvas class="col" id="Supervisiones"></canvas>
+							</div>
+						</div>
+					</div>
+
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<h3>
+									<p class="text-center">Total de usuarios registrados</p>
+								</h3>
+								<p class="text-center text-large" style="font-size: 8vw;"
+									data-th-text="${totalUsuarios}"></p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 
 			</div>
-		</div>
-	</div>
 
+
+		</div>
+
+	</div>
 
 
 	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
@@ -200,68 +184,51 @@
 
 
 
-	<script>
-		var ctx = document.getElementById("myChart");
-		var myChart = new Chart(ctx, {
-			type : 'line',
-			data : {
-				labels : [ "Sunday", "Monday", "Tuesday", "Wednesday",
-						"Thursday", "Friday", "Saturday" ],
-				datasets : [ {
-					data : [ 15339, 21345, 18483, 24003, 23489, 24092, 12034 ],
-					lineTension : 0,
-					backgroundColor : 'transparent',
-					borderColor : '#007bff',
-					borderWidth : 4,
-					pointBackgroundColor : '#007bff'
-				} ]
-			},
-			options : {
-				scales : {
-					yAxes : [ {
-						ticks : {
-							beginAtZero : false
-						}
-					} ]
-				},
-				legend : {
-					display : false,
-				}
-			}
-		});
-	</script>
-
 	<script type="text/javascript" th:inline="javascript">
     /*<![CDATA[*/
-    var ctx = document.getElementById("ChartDemo").getContext('2d');
+    var ctx = document.getElementById("historicoReservas").getContext('2d');
     var ChartDemo = new Chart(ctx, {
         type: 'line',
         data: {
-            //a label that was stored in the controller only take out a variable formula 
             labels: /*[[ ${label} ]]*/,
             datasets: [
                 {
-                    label: "Chart-1",
-                    borderColor: 'rgb(255, 0, 0)',
+                    label: "",
                     lineTension: 0,
-                    fill: false,
-                    //the same manner as described above, only is taken out of the point in the variable expression. 
-                    data: /*[[ ${point} ]]*/
+                    data: /*[[ ${point} ]]*/,
+					data : [ 15, 21, 7, 50, 23, 35, 12 ],
+                    backgroundColor : 'transparent',
+					borderColor : '#4e4848',
+					borderWidth : 4,
+					pointBackgroundColor : '#4e4848'
                 }
             ]
         },
-        options: {responsive: true}
+        options: {
+        	responsive: true,
+        	scales : {
+				yAxes : [ {
+					ticks : {
+						beginAtZero : false
+					}
+				} ]
+			},
+			legend : {
+				display : false,
+			}
+       	}
     });
     /*]]>*/
     </script>
 
 
 	<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
 	var datos = {
 		    datasets: [{
-		        label: "Chart-1",
-// 		        backgroundColor: 'rgba(0, 253, 0, 0.1)',
-		        backgroundColor: ["#0074D9", "#FF4136"],
+		        label: "",
+				// backgroundColor: ['rgba(0, 253, 0, 0.1)', 'rgba(35, 0, 182, 0.1)'],
+		        backgroundColor: ["#79c000", "#4e4848"],
                 borderColor: 'rgb(255, 0, 0)',
                 lineTension: 0,
                 fill: false,
@@ -286,21 +253,20 @@
         		},
             title:{
                 display: true,
-                text: "Color test"
             }
        	}
     });    
-//     ChartDemo.data.datasets[0].pointBackgroundColor[0] = "#cc00cc";
-//     ChartDemo.data.datasets[0].pointBorderColor[1] = "#cc0000";
-//     ChartDemo.update();
+    /*]]>*/
     </script>
 
 	<script type="text/javascript" th:inline="javascript">
+    /*<![CDATA[*/
 	var datosSupervision = {
 		    datasets: [{
 		        label: "Chart-1",
-		        backgroundColor: ["#FF4136", "#0074D9"],
-                borderColor: 'rgb(255, 0, 0)',
+				// backgroundColor: ["#f02137", "#fbc90b"],
+		        backgroundColor: ["#79c000", "#4e4848"],
+                borderColor: 'rgb(0, 255, 0)',
                 lineTension: 0,
                 fill: false,
 		    	data: /*[[ ${supervisiones} ]]*/ 
@@ -324,13 +290,11 @@
       		},
             title:{
                 display: true,
-                text: "Color test"
+                //text: "Color test"
             }
        	}
     });    
-//     ChartDemo.data.datasets[0].pointBackgroundColor[0] = "#cc00cc";
-//     ChartDemo.data.datasets[0].pointBorderColor[1] = "#cc0000";
-//     ChartDemo.update();
+    /*]]>*/
     </script>
 
 

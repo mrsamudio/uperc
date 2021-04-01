@@ -52,17 +52,25 @@
 	</nav>
 
 
-	<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado
-		estático</header>
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+			<p>
+		
+		<p>
+	
+	</div>
 
 
-	<p>Nombre de usuario: [(nombreUsuario)]</p>
-	<p>
-		Descripción: <strong> [[descripcion]]</strong>
-	</p>
+		<!-- Button trigger modal -->
+			<!-- 				TODO: crear insercion para recursos -->
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#agregarUsuario">Nuevo recurso</button>
 
 
-	<div class="table-responsive">
+	
+		<div class="table-responsive">
 		<table class="table table-striped table-sm">
 			<thead>
 				<tr>
@@ -76,6 +84,7 @@
 					<th>protocolo</th>
 					<th>fecha de registro</th>
 					<th>url fabricante</th>
+					<th>Estado</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -90,7 +99,30 @@
 					<td th:text="${recurso.protocolo}">protocolo del recurso</td>
 					<td th:text="${recurso.fechaRegistro}">fechaRegistro del recurso</td>
 					<td th:text="${recurso.urlFabricante}">urlFabricante del recurso</td>
-					<td th:text="${recurso.estado}? 'Activo' : 'Inactivo'">Activo</td>
+					
+<!-- 					<td th:text="${recurso.estado}? 'Activo' : 'Inactivo'">Activo</td> -->
+					
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+							<div class="input-group mb-3">
+								<div class="input-group-prepend">
+									<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"
+									th:text="${recurso.estado}? 'Activo' : 'Inactivo'">Activo
+										o inactivo</button>
+									<div class="dropdown-menu">
+										<a class="dropdown-item"
+										th:href="@{/supervision(cambiarEstado=${recurso.id})}"
+										th:name="cambiarEstado">Cambiar estado</a>
+										<div role="separator" class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Editar</a>
+									</div>
+								</div>
+							</div>
+						</td>
+					
+					
 				</tr>
 			</tbody>
 		</table>

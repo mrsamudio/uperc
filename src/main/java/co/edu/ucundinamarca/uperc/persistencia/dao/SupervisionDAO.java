@@ -66,6 +66,7 @@ public interface SupervisionDAO {
 	 * @return
 	 */
 	public boolean activate(Supervision supervision);
+	
 
 	/**
 	 * Desactiva un registro de supervisión
@@ -73,5 +74,8 @@ public interface SupervisionDAO {
 	 * @return
 	 */
 	public boolean deactivate(Supervision supervision);
+	
+	public boolean activate(long id);
+	public boolean deactivate(long id);
 
 }

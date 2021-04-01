@@ -54,16 +54,14 @@
 		</div>
 	</nav>
 
-	<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado
-		estático</header>
 
 
-	<p>Nombre de usuario: [(nombreUsuario)]</p>
-	<p>
-		Descripción: <strong> [[descripcion]]</strong>
-	</p>
-
-
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
 
 	<div class="table-responsive">
 		<table class="table table-striped table-sm">
@@ -80,6 +78,20 @@
 					<td th:text="${perfil.nombre}">Nombre del perfil</td>
 					<td th:text="${perfil.descripcion}?: 'Sin descripción definida'">Descripción
 						del perfil</td>
+
+
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<a class="btn btn-outline-secondary"
+									th:href="@{/supervision(cambiarEstado=${perfil.id})}"
+									th:name="cambiarEstado">Editar</a>
+							</div>
+						</div>
+					</td>
+
+
 				</tr>
 			</tbody>
 		</table>

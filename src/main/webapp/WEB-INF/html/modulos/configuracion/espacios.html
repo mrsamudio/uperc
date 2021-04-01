@@ -48,17 +48,14 @@
 		</div>
 	</nav>
 
-	<header data-th-replace="comun/cuerpo/encabezado.html :: encabezado">Encabezado
-		estático</header>
 
-
-	<p>Nombre de usuario: [(nombreUsuario)]</p>
-	<p>
-		Descripción: <strong> [[descripcion]]</strong>
-	</p>
-
-
-
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+	
 	<div class="table-responsive">
 		<table class="table table-striped table-sm">
 			<thead>
@@ -66,21 +63,37 @@
 					<th>#</th>
 					<th>Nombre</th>
 					<th>Ubicación</th>
-					<th>Estado</th>
+					<!-- 					<th>Estado</th> -->
 				</tr>
 			</thead>
 			<tbody>
 				<tr th:each="espacio : ${espacios}">
 					<td th:text="${espacio.id}">El número</td>
 					<td th:text="${espacio.nombre}">Nombre del espacio</td>
-					<td th:text="${espacio.ubicacion?.getNombre}?: 'Sede chía'">Sede Chía</td>
-					<td th:text="${espacio.ocupado}? 'Activo' : 'Inactivo'">Activo</td>
+					<td th:text="${espacio.ubicacion?.getNombre}?: 'Sede chía'">Sede
+						Chía</td>
+
+					<!-- 					<td th:text="${espacio.ocupado}? 'Activo' : 'Inactivo'">Activo</td> -->
+
+
+
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<a class="btn btn-outline-secondary"
+									th:href="@{/supervision(cambiarEstado=${espacio.id})}"
+									th:name="cambiarEstado">Editar</a>
+							</div>
+						</div>
+					</td>
+
 				</tr>
 			</tbody>
 		</table>
 	</div>
 
-<!-- 	TODO: agregar lista o bton para activar o desactivar espacio de parqueo -->
+	<!-- 	TODO: agregar lista o bton para activar o desactivar espacio de parqueo -->
 
 	<!-- 		TODO: Crear footer de bootstrap  -->
 	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">

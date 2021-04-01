@@ -3,8 +3,6 @@ package co.edu.ucundinamarca.uperc;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +40,6 @@ public class TableroPrincipal {
 	 * @return
 	 */
 	@GetMapping(path = "/tableroPrincipal")
-//	TODO: agregar parametros datos que se muestran en el tablero principal
 	public String getTableroPrincipal(Model model) {
 		model.addAttribute("nombreUsuario", "Inicio UPERC");
 		model.addAttribute("descripcion", "Configuración inicial de Thymeleaf");
@@ -83,32 +80,12 @@ public class TableroPrincipal {
 					
 				}
 			}
-
-			
-//			if (reserva.getFechaSolicitud().toInstant().until(dias[0].toInstant(), ChronoUnit.DAYS) <= 1) {
-//				++reservados[0];
-//			} else if (reserva.getFechaSolicitud().toInstant().until(dias[1].toInstant(), ChronoUnit.DAYS) == 2) {
-//
-//			} else if (reserva.getFechaSolicitud().toInstant().until(dias[2].toInstant(), ChronoUnit.DAYS) == 3) {
-//			} else if (reserva.getFechaSolicitud().toInstant().until(dias[3].toInstant(), ChronoUnit.DAYS) == 4) {
-//			} else if (reserva.getFechaSolicitud().toInstant().until(dias[4].toInstant(), ChronoUnit.DAYS) == 5) {
-//			}
-			
 		}
 
-		// the value of the horizontal and vertical axes of the graph may be stored
-		// respectively String, the array of type int.
-		// horizontal axis is the//label. To an array of type String, we have
-		// appropriately put a value.
 		String label[] = { "120h", "96h", "72h", "48h", "24h" };
-//		String label[] = { "24h", "48h", "72h", "96h", "120h"};
-		// The vertical axis is the
-		// specific value. In int type, this value is also suitable.
-//		int point[] = { 5, 3, 7, 1, 8, 3, 4, };
-		// and stores it in the Model. So that you receive an array for the graph in the
-		// view side.
 		model.addAttribute("label", label);
 		model.addAttribute("point", reservados);
+
 
 		// Gráfico de histórico de mensaje de alertas y avisos de supervisión
 		int alertas = supervisionrepo.selectAlertas().size();
@@ -123,9 +100,8 @@ public class TableroPrincipal {
 		model.addAttribute("supervisiones", supervisiones);
 
 		// Usuarios registrados en total
-		model.addAttribute("TotalUsuarios", usuariorepo.selectAll().size());
+		model.addAttribute("totalUsuarios", usuariorepo.selectAll().size());
 
-//		TODO: crear vista de tablero principal
 		return "tableroPrincipal.html";
 	}
 
@@ -139,8 +115,8 @@ public class TableroPrincipal {
 
 		double pNum1, pNum2;
 
-		pNum1 = (100 * num1) / (num1 + num2);
-		pNum2 = (100 * num2) / (num1 + num2);
+		pNum1 = (double) (100 * num1) / (num1 + num2);
+		pNum2 = (double) (100 * num2) / (num1 + num2);
 
 		return new Double[] { pNum1, pNum2 };
 
