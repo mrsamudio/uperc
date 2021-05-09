@@ -53,7 +53,8 @@ public class SupervisionesControlador {
 
 	}
 
-	@RequestMapping(value = "/supervision", params = { "cambiarEstado" })
+//	@RequestMapping(value = "/supervision", params = { "cambiarEstado" })
+	@GetMapping(value = "/supervision", params = { "cambiarEstado" })
 	public String cambiarEstado(final Supervision supervision, final BindingResult bindingResult,
 			@RequestParam(value = "cambiarEstado", required = false) Long id
 

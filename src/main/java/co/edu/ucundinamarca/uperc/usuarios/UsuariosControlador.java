@@ -13,9 +13,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.RolDAO;
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Supervision;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
 @Controller
@@ -60,6 +63,21 @@ public class UsuariosControlador {
 		}else
 			return "";
     }
+
+	
+//	@RequestMapping(value = "/usuarios", params = {"cambiarEstado"})
+	@GetMapping(value = "/usuarios", params = {"cambiarEstado"})
+	public String cambiarEstado(final Usuario usuario, final BindingResult bindingResult,
+			@RequestParam(value = "cambiarEstado", required = false) Long id) {
+		
+		if (usuariorepo.selectById(id).isEstado())
+			usuariorepo.deactivate(id);
+		else
+			usuariorepo.activate(id);
+			
+		
+		return "redirect:/usuarios";
+	}
 
 	/**
 	 * 

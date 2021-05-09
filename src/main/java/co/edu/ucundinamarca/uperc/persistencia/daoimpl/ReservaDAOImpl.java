@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import co.edu.ucundinamarca.uperc.persistencia.dao.ReservaDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Supervision;
 import co.edu.ucundinamarca.uperc.persistencia.utilidades.ConstantesDB;
 import co.edu.ucundinamarca.uperc.persistencia.utilidades.PersistenciaUtil;
 
@@ -258,5 +259,91 @@ public class ReservaDAOImpl  extends PersistenciaUtil implements ReservaDAO {
 			return false;
 		}
 	}
+	
+	
+	
+
+	@Override
+	@Transactional
+	public boolean activate(Reserva reserva) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Reserva.class.getSimpleName() + " SET estado = :estado"
+							+ " WHERE id = :idconf" + "")
+					.setParameter("idconf", reserva.getId()).setParameter("estado", true).executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	@Override
+	@Transactional
+	public boolean deactivate(Reserva reserva) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Reserva.class.getSimpleName() + " SET estado = :estado"
+							+ " WHERE id = :idconf" + "")
+					.setParameter("idconf", reserva.getId()).setParameter("estado", false).executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
+	@Override
+	@Transactional
+	public boolean activate(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Reserva.class.getSimpleName() + " SET estado = :estado"
+							+ " WHERE id = :idconf" + "")
+					.setParameter("idconf", id)
+					.setParameter("estado", true).executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	
+	@Override
+	@Transactional
+	public boolean deactivate(long id) {
+		Session session = sessionFactory.getCurrentSession();
+		int res = 0;
+		try {
+
+			res = session
+					.createSQLQuery("UPDATE " + Reserva.class.getSimpleName() + " SET estado = :estado"
+							+ " WHERE id = :idconf" + "")
+					.setParameter("idconf", id)
+					.setParameter("estado", false).executeUpdate();
+
+			return isResultado(res);
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
+	
 
 }

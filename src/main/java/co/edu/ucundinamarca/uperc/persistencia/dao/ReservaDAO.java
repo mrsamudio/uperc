@@ -7,6 +7,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Reserva;
+import co.edu.ucundinamarca.uperc.persistencia.entidades.Supervision;
 import co.edu.ucundinamarca.uperc.persistencia.utilidades.ConstantesDB;
 
 /**
@@ -86,5 +87,39 @@ public interface ReservaDAO {
 	 * @return true or false
 	 */
 	public boolean endReserva(Reserva reserva, boolean isCancelada);
+	
+
+	/**
+	 * Activa un registro de reserva
+	 * 
+	 * @param supervision
+	 * @return
+	 */
+	public boolean activate(Reserva reserva);
+
+	/**
+	 * Desactiva un registro de reserva
+	 * 
+	 * @param supervision
+	 * @return
+	 */
+	public boolean deactivate(Reserva reserva);
+
+	/**
+	 * Activa un registro de reserva por id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean activate(long id);
+
+	/**
+	 * Desactiva un registro de reserva por id
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean deactivate(long id);
+	
 
 }

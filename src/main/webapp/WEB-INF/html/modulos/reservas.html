@@ -70,17 +70,17 @@
 
 	
 		<div class="table-responsive">
-		<table class="table table-striped table-sm">
+		<table aria-describedby="treservas" class="table table-striped table-sm">
 			<thead>
 				<tr>
-					<th>#</th>
-					<th>Usuario</th>
-					<th>Fecha de reserva</th>
-					<th>Fecha de solicitud</th>
-					<th>Espacio de parqueo</th>
-					<th>Fecha de fin</th>
-					<th>Cancelada</th>
-					<th>Estado</th>
+					<th id="thnum">#</th>
+					<th id="thusuario">Usuario</th>
+					<th id="thfreserva">Fecha de reserva</th>
+					<th id="thfsolicitud">Fecha de solicitud</th>
+					<th id="theparqueo">Espacio de parqueo</th>
+					<th id="thffin">Fecha de fin</th>
+					<th id="thcancel">Cancelada</th>
+					<th id="thestado">Estado</th>
 
 				</tr>
 			</thead>
@@ -113,8 +113,8 @@
 									o inactivo</button>
 								<div class="dropdown-menu">
 									<a class="dropdown-item"
-										th:href="@{/supervision(cambiarEstado=${reserva.id})}"
-										th:name="cambiarEstado">Cambiar estado</a>
+										th:href="@{/reservas(cancelarReserva=${reserva.id})}"
+										th:name="cancelarReserva">Cancelar reserva</a>
 									<div role="separator" class="dropdown-divider"></div>
 									<a class="dropdown-item" href="#">Editar</a>
 								</div>

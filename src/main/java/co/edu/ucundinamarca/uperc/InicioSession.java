@@ -11,8 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import co.edu.ucundinamarca.uperc.persistencia.dao.UsuarioDAO;
 import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
 
@@ -30,7 +28,7 @@ public class InicioSession {
 	@Autowired
 	private UsuarioDAO usuariorepo;
 	
-	@RequestMapping
+	@GetMapping(path = "/login")
 	public String inicioDeSession() {
 //		return "InicioDeSesion";		
 		return "redirect:/login";		
@@ -45,7 +43,7 @@ public class InicioSession {
 	 */
 	@GetMapping(path = "/login")
 	public String getLogin(Model model) {
-		model.addAttribute("usuario", new Usuario());
+		model.addAttribute(Usuario.class.getSimpleName().toLowerCase(), new Usuario());
 		return "login.html";
 	}
 	
@@ -63,7 +61,7 @@ public class InicioSession {
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("errortitulo", "Error");
 			model.addAttribute("errormensaje", "Error al realizar la petición");
-			model.addAttribute("usuario", new Usuario());
+			model.addAttribute(Usuario.class.getName().toLowerCase(), new Usuario());
 			return "login.html";
 		}
 		
@@ -73,7 +71,7 @@ public class InicioSession {
 		}else {
 			model.addAttribute("errortitulo", "Ingreso fallido");
 			model.addAttribute("errormensaje", "La contraseña no es correcta, por favor intenta de nuevo");
-			model.addAttribute("usuario", new Usuario());
+			model.addAttribute(Usuario.class.getName().toLowerCase(), new Usuario());
 			model.addAttribute("mostrar", "$(window).load(function(){$('#mensajeModal').modal('show');});");
 			return "login.html";
 		}

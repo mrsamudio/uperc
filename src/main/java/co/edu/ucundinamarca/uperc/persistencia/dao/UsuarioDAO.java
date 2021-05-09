@@ -12,21 +12,20 @@ import co.edu.ucundinamarca.uperc.persistencia.entidades.Usuario;
  *
  */
 public interface UsuarioDAO {
-	
+
 	/**
 	 * 
 	 * @param id
 	 * @return
 	 */
 	public Usuario selectById(Long id);
-	
+
 	/**
 	 * 
 	 * @param correo
 	 * @return
 	 */
 	public Usuario selectByCorreo(String correo);
-	
 
 	/**
 	 * 
@@ -50,21 +49,36 @@ public interface UsuarioDAO {
 
 	/**
 	 * 
-	 * @param id
+	 * @param usuario
 	 * @return
 	 */
 	public boolean activate(Usuario usuario);
 
 	/**
-	 * 
+	 * Desactiva un registro de supervisión por id
 	 * @param id
 	 * @return
 	 */
-	public boolean deactivate(Usuario usuario);
-	
-	
+	public boolean activate(long id);
+
 	/**
-	 * Metodo utilizado solamente para pruebas 
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+	public boolean deactivate(Usuario usuario);
+
+	/**
+	 * 
+	 * Activa un registro de supervisión por id
+	 * @param id
+	 * @return
+	 */
+	public boolean deactivate(long id);
+
+	/**
+	 * Metodo utilizado solamente para pruebas
+	 * 
 	 * @param usuario
 	 * @return
 	 */
