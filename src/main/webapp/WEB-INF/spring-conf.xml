@@ -18,6 +18,7 @@
 	<!-- paquete en donde se buscan los componentes -->
 	<context:component-scan
 		base-package="co.edu.ucundinamarca.uperc" />
+		
 <!-- 	<bean id="iniciosession" -->
 <!-- 		class="co.edu.ucundinamarca.uperc.InicioSession" /> -->
 
@@ -29,6 +30,7 @@
 
 	<!-- configuracion de registro de los por aspectos -->
 	<aop:aspectj-autoproxy/>
+	
 <!-- 	<aop:aspectj-autoproxy> -->
 <!-- 		<aop:include name="logDeApectos" /> -->
 <!-- 	</aop:aspectj-autoproxy> -->
