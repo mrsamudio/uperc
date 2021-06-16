@@ -41,7 +41,6 @@ set fechanac = current_timestamp
  select * from usuario;
  
  
- 
  select * from perfilusuario;
  select * from configuracion;
  select * from rol;

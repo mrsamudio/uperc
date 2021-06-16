@@ -22,6 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
+ * 
  * @author mrsamudio
  *
  */
@@ -33,7 +34,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 public class ConfigFuenteDatos {
 
 	private static Logger logger = LogManager.getLogger(ConfigFuenteDatos.class);
-	
+
+	/**
+	 * Configuración relacionada con el motor de base de datos
+	 * @return
+	 */
 	@Bean
 	public DataSource fuenteDatos() {
 
@@ -51,8 +56,8 @@ public class ConfigFuenteDatos {
 		}
 	}
 
-	
 	/**
+	 * Propiedades Hibernate
 	 * 
 	 * @return
 	 */
@@ -69,7 +74,13 @@ public class ConfigFuenteDatos {
 		hibernateProp.put("hibernate.jdbc.time_zone", "America/Bogota");
 		return hibernateProp;
 	}
-	
+
+	/**
+	 * Factoria de sessión
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	@Bean
 	public SessionFactory factoriaSesion() throws IOException {
 		LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
@@ -80,9 +91,14 @@ public class ConfigFuenteDatos {
 		return sessionFactoryBean.getObject();
 	}
 
+	/**
+	 * Gestor de transacción
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	@Bean
 	public PlatformTransactionManager transactionManager() throws IOException {
 		return new HibernateTransactionManager(factoriaSesion());
 	}
-	
 }
