@@ -8,6 +8,10 @@ Pasos para usar el modelo de entidad relacion en  la base de datos de postgresql
 1. Crear usuario
 `CREATE USER msamudio WITH CREATEDB PASSWORD 'msamudio';`
 
+1.1 Verificar la codificación de la base de datos
+
+Dentro de psql `create collation es_CO (LOCALE='es_CO.iso-8859-1');`
+
 2. Crear base de datos antes del script
 `CREATE DATABASE "upercfinaltest"
     WITH OWNER "msamudio" ENCODING 'ISO88591'
