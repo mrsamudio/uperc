@@ -36,6 +36,7 @@ public class ConfigFuenteDatos {
 	private static Logger logger = LogManager.getLogger(ConfigFuenteDatos.class);
 
 	/**
+	 * 
 	 * Configuración relacionada con el motor de base de datos
 	 * @return
 	 */
