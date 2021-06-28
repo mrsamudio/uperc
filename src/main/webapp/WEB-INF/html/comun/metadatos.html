@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
 
-<head data-th-fragment="metadatos">
+<head sec:authorize="isAuthenticated()" data-th-fragment="metadatos">
 
 <!-- Para desactivar la caché de javascript y css -->
 <meta http-equiv="Expires" content="0">

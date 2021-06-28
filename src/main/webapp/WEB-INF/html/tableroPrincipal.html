@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org">
 
 <head data-th-replace="comun/metadatos.html :: metadatos">
 <meta charset="UTF-8">
@@ -16,7 +17,7 @@
 
 <!-- <body data-spy="scroll" data-target=".navbar" data-offset="50"> -->
 <!-- <body class="" data-multiple-spy="scroll" data-target="#navegacion, #opciones" data-offset="50"> -->
-<body class="" data-multiple-spy="scroll" data-target="#navegacion" data-offset="50">
+<body sec:authorize="isAuthenticated()" class="" data-multiple-spy="scroll" data-target="#navegacion" data-offset="50">
 
 	<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
 		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
@@ -109,7 +110,7 @@
 					</div>
 
 
-					<div class="col">
+					<div sec:authorize="hasAnyRole'ROLE_ADMIN')" class="col">
 						<div class="card">
 							<div class="card-body">
 								<h3>
@@ -124,7 +125,7 @@
 
 				<div class="row">
 
-					<div class="col">
+					<div sec:authorize="hasAnyRole'ROLE_ADMIN')" class="col">
 						<div class="card">
 							<div class="card-body">
 								<h3>
@@ -135,7 +136,7 @@
 						</div>
 					</div>
 
-					<div class="col">
+					<div sec:authorize="hasRole('ROLE_ADMIN')" class="col">
 						<div class="card">
 							<div class="card-body">
 								<h3>

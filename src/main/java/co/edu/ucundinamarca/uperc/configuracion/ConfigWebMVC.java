@@ -38,12 +38,11 @@ public class ConfigWebMVC extends WebMvcConfigurerAdapter implements WebMvcConfi
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
-
 	}
 	
 	
 	
-	@Bean
+	@Bean(name="SpringSecurity")
     public ViewResolver htmlViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine(htmlTemplateResolver()));

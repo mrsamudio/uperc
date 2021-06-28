@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
-<head data-th-replace="comun/metadatos.html :: metadatos">
+<head sec:authorize="isAuthenticated()" data-th-replace="comun/metadatos.html :: metadatos">
 
 <meta charset="UTF-8">
 <title>pie de página Estático</title>

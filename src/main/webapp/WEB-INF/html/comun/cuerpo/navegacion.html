@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="es" xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 
 
 <head>
@@ -10,7 +10,7 @@
 <link rel="Stylesheet" href="../../../../css/login.css" />
 </head>
 
-<nav data-th-fragment="navegacion"
+<nav sec:authorize="isAuthenticated()" data-th-fragment="navegacion"
 	class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
 	style="background-color: #11462b;" id="navegacion">
 	<a class="navbar-brand">Uperc</a>
@@ -25,16 +25,16 @@
 		<ul class="navbar-nav mr-auto">
 
 
-			<li class="nav-item"><a class="nav-link"
+			<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 				href="../../modulos/usuarios.html" data-th-href="@{/usuarios}">Usuarios</a>
 			</li>
 
-			<li class="nav-item"><a class="nav-link"
+			<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 				href="../../tableroPrincipal.html"
-				data-th-href="@{/tableroPrincipal}">Tablero principal <span
+				data-th-href="@{/tableroPrincipal}">Tablero principal<span
 					class="sr-only">(current)</span></a></li>
 
-			<li class="nav-item">
+			<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
 				<!-- 				<a class="nav-link disabled" href="/supervision">Supervisión</a> -->
 				<a class="nav-link" href="../../modulos/supervision.html"
 				data-th-href="@{/supervision}">Supervisión</a>
@@ -43,7 +43,7 @@
 			<li class="nav-item"><a class="nav-link"
 				href="../../modulos/reservas.html" data-th-href="@{/reservas}">Reservas</a></li>
 
-			<li class="nav-item"><a class="nav-link"
+			<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item"><a class="nav-link"
 				href="../../modulos/informes.html" data-th-href="@{/informes}">Informes</a></li>
 
 			<!-- TODO: verificar redirección a modulo de configuración -->
@@ -54,11 +54,12 @@
 				data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Configuración </a>
 
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				<div sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-menu" aria-labelledby="navbarDropdown">
 
 					<a class="dropdown-item" href="../../modulos/integracion.html"
-						data-th-href="@{/integracion}">Sistemas externos</a> <a
-						class="dropdown-item" href="../../modulos/recursos.html"
+						data-th-href="@{/integracion}">Sistemas externos</a>
+						
+					<a class="dropdown-item" href="../../modulos/recursos.html"
 						data-th-href="@{/recursos}">Recursos</a>
 
 					<div class="dropdown-divider"></div>
@@ -66,7 +67,9 @@
 					<a class="dropdown-item"
 						href="../../modulos/configuracion/roles.html"
 						data-th-href="@{/roles}">Roles</a>
+						
 					<!-- 					<a class="dropdown-item" href="/permisos">Permisos</a> -->
+					
 					<a class="dropdown-item"
 						href="../../modulos/configuracion/perfiles.html"
 						data-th-href="@{/perfiles}">Perfiles de usuario</a>
@@ -76,9 +79,10 @@
 					<a class="dropdown-item"
 						href="../../modulos/configuracion/espacios.html"
 						data-th-href="@{/espacios}">Espacios de parqueo</a>
+						
 					<!-- 						<a class="nav-link disabled" href="#">Ubicaciones</a> -->
-
-				</div></li>
+				</div>
+			</li>
 
 			<!-- hacen parte de los informes -->
 			<!-- 			<li class="nav-item"> -->
@@ -100,7 +104,7 @@
 		<ul class="navbar-nav mr-auto">
 		<li class="nav-item"><a class="nav-link"
 				href="../../login.html"
-				data-th-href="@{/login}"> Cerrar sesión</a></li>
+				data-th-href="@{/logout}"> Cerrar sesión</a></li>
 		</ul>
 		
 	</div>

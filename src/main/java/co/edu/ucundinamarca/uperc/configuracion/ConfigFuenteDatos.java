@@ -40,13 +40,13 @@ public class ConfigFuenteDatos {
 	 * Configuración relacionada con el motor de base de datos
 	 * @return
 	 */
-	@Bean
+	@Bean(name = "dataSource")
 	public DataSource fuenteDatos() {
 
 		try {
 			DriverManagerDataSource ds = new DriverManagerDataSource();
 			ds.setDriverClassName("org.postgresql.Driver");
-			ds.setUrl("jdbc:postgresql://192.168.100.183:5432/upercfinaltest");
+			ds.setUrl("jdbc:postgresql://192.168.100.154:5432/upercfinaltest");
 			ds.setUsername("msamudio");
 			ds.setPassword("msamudio");
 //			ds.setSchema("public");
