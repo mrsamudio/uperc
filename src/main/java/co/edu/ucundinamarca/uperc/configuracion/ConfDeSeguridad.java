@@ -89,10 +89,10 @@ public class ConfDeSeguridad extends WebSecurityConfigurerAdapter {
 //        .and()
 //          .csrf();
       
-      .antMatchers("/", "/css/**", "/js/**", "/img/**", "/txt/**", "/registro", "/informes").permitAll()
+      .antMatchers("/", "/css/**", "/js/**", "/img/**", "/txt/**", "/registro").permitAll()
       .antMatchers("/tableroPrincipal").hasAnyRole("USER")
       .antMatchers("/configuracion", "/roles", "/perfiles", "/espacios").hasAnyRole("ADMIN")
-//      .antMatchers("/informes").hasAnyRole("ADMIN")
+      .antMatchers("/informes").hasAnyRole("ADMIN")
 //      .antMatchers("/informes").permitAll()
       .antMatchers("/integracion").hasAnyRole("ADMIN")
       .antMatchers("/recursos").hasAnyRole("ADMIN")
