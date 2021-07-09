@@ -47,7 +47,7 @@ public class InicioSession {
 	 */
 	@GetMapping(path = "/")
 	public String inicioDeSession() {
-		return "redirect:/login";
+		return "redirect:/login2";
 	}
 	
 //	@GetMapping("/login-error.html")
@@ -62,10 +62,10 @@ public class InicioSession {
 	 * @param model
 	 * @return
 	 */
-	@GetMapping(path = "/login")
+	@GetMapping(path = "/login2")
 	public String getLogin(Model model) {
 		model.addAttribute(Usuario.class.getSimpleName().toLowerCase(), new Usuario());
-		return "login.html";
+		return "login2.html";
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class InicioSession {
 			model.addAttribute("errortitulo", "Error");
 			model.addAttribute("errormensaje", "Error al realizar la petición");
 			model.addAttribute(Usuario.class.getName().toLowerCase(), new Usuario());
-			return "login.html";
+			return "login2.html";
 		}
 
 		Usuario u = null;
@@ -126,7 +126,7 @@ public class InicioSession {
 		model.addAttribute("errormensaje", mensaje);
 		model.addAttribute(Usuario.class.getName().toLowerCase(), new Usuario());
 		model.addAttribute("mostrar", "$(window).load(function(){$('#mensajeModal').modal('show');});");
-		return "login.html";
+		return "login2.html";
 	}
 
 	public void testeo() throws Exception {
@@ -140,13 +140,13 @@ public class InicioSession {
 //		return "authenticated";
 //	}
 	
-	@GetMapping ("/logout")
+	@GetMapping ("/logout2")
 	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null){
 			new SecurityContextLogoutHandler().logout(request, response,auth);
 		}
-		return "login.html";
+		return "login2.html";
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package co.edu.ucundinamarca.uperc.configuracion.seguridad;
+package co.edu.ucundinamarca.uperc.configuracion;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
@@ -7,5 +7,8 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  *
  */
 public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
+//public class SpringSecurityInitializer {
 	//No se necesita código en esta clase
+	
+	
 }

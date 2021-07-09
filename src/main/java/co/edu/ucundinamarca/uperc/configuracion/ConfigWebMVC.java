@@ -13,7 +13,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.thymeleaf.spring5.ISpringTemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -26,11 +25,10 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
  * @author mrsamudio
  *
  */
-@SuppressWarnings("deprecation")
 @Configuration
 @EnableWebMvc
-@ComponentScan({ "co.edu.ucundinamarca.uperc" })
-public class ConfigWebMVC extends WebMvcConfigurerAdapter implements WebMvcConfigurer, ApplicationContextAware {
+@ComponentScan({ "co.edu.ucundinamarca.uperc" , "co.edu.ucundinamarca.uperc.configuracion" })
+public class ConfigWebMVC implements WebMvcConfigurer, ApplicationContextAware {
 	
 	private ApplicationContext applicationContext;
 
@@ -42,7 +40,8 @@ public class ConfigWebMVC extends WebMvcConfigurerAdapter implements WebMvcConfi
 	
 	
 	
-	@Bean(name="SpringSecurity")
+//	@Bean(name="SpringSecurity")
+	@Bean
     public ViewResolver htmlViewResolver() {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
         resolver.setTemplateEngine(templateEngine(htmlTemplateResolver()));
@@ -125,7 +124,6 @@ public class ConfigWebMVC extends WebMvcConfigurerAdapter implements WebMvcConfi
     
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-        super.addResourceHandlers(registry);
         registry.addResourceHandler("/img/**").addResourceLocations("/img/");
         registry.addResourceHandler("/css/**").addResourceLocations("/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("/js/");
