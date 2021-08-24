@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head data-th-replace="comun/metadatos.html :: metadatos"></head>
+<body>
+	<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion"></nav>
+
+
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+	<div class="container-fluid">
+		<a class="btn btn-outline-primary" th:href="@{/modulos/informes.html}">Volver
+			a la lista de informes</a>
+	</div>
+	<br>
+	<h2>Informe detallado</h2>
+	<div class="table-responsive">
+		<table aria-describedby="tinformes"
+			class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th id="thnum">#</th>
+					<th id="thusuario">Usuario o sistema externo</th>
+					<th id="fechagenerado">Fecha de generado</th>
+					<th id="fechainicio">Fecha de inicio</th>
+					<th id="fechafin">Fecha de fin</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="informe : ${detalleInforme}">
+
+					<td th:text="${informe.id}">El número</td>
+
+					<td th:if="${informe.usuario != null}"
+						th:text="${informe.usuario}? ${informe.usuario.correo} : ''"></td>
+					<td th:if="${informe.regServicio != null}"
+						th:text="${informe.regServicio}? ${informe.regServicio.sistemaExterno.nombre} : ''"></td>
+
+					<td
+						th:text="${#dates.format(informe.fechaGenerado, 'EE dd MMM yyyy (hh:mm a)')}">Fecha
+						de generado</td>
+					<td
+						th:text="${#dates.format(informe.fechaInicio, 'EE dd MMM yyyy (hh:mm a)')}">Fecha
+						de inicio</td>
+					<td
+						th:text="${#dates.format(informe.fechaFin, 'EE dd MMM yyyy (hh:mm a)')}">Fecha
+						de fin</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-11">
+			<h3>Espacios de parqueo</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-11">
+
+			<div class="table-responsive">
+				<table aria-describedby="tinformes"
+					class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th id="espDisp">Espacios disponibles</th>
+							<th id="espDisp">Espacios no disponibles</th>
+							<th id="esptotal">Total de espacios</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="informe : ${detalleInforme}">
+							<td th:text="${#numbers.formatDecimal(informe.disponibilidad, 0, 'COMMA', 4, 'POINT')  + ' %'}">esp
+								disponibles %</td>
+							<td th:text="${#numbers.formatDecimal((100 - informe.disponibilidad), 0, 'COMMA', 4, 'POINT') + ' %'}">esp
+								disponibles %</td>
+							<td th:text="${espTotal}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-11">
+			<h3>Reservas</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-11">
+
+			<div class="table-responsive">
+				<table aria-describedby="tinformes"
+					class="table table-striped table-sm">
+					<thead>
+						<tr class="align-middle text-center">
+							<th id="reservFin" colspan="2" th:text="${#numbers.formatDecimal((detalleInforme.reservasOk+detalleInforme.reservasFail), 0, 'COMMA', 4, 'POINT') + '%' + ' Reservas finalizadas' + (reservFin != null? (' (' + reservFin + ')'): '')}">Reservas finalizadas</th>
+							<th id="reservActivas" rowspan="2" class="text-center align-middle" th:if="${reservActivas ne null}" th:text="${'Reservas activas (' + reservActivasnum + ')'}">Reservas activas</th>
+
+							<!-- incluyen (activas, no finalizadas, finalizadas, canceladas) -->
+							<th id="reservtotal" rowspan="2" class="text-center align-middle" th:if="${totalReservas ne null}">Reservas total</th>
+						</tr>
+						<tr>
+							<th id="reservFin" th:text="${'Reservas finalizadas correctamente' + (reservFinOk != null? (' (' + reservFinOk + ')'): '')}">Reservas finalizadas</th>
+							<th id="reservCan" th:text="${'Reservas canceladas' + (reservFinCancel != null? (' (' + reservFinCancel + ')'): '')}">Reservas canceladas</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="informe : ${detalleInforme}">
+							<td th:text="${#numbers.formatDecimal(informe.reservasOk, 0, 'COMMA', 4, 'POINT') + ' %'}">reservas fin
+								bien %</td>
+							<td th:text="${#numbers.formatDecimal(informe.reservasFail, 0, 'COMMA', 4, 'POINT') + ' %'}">reservas fin
+								canceladas %</td>
+
+							<td class="text-center align-middle" th:if="${reservActivas ne null}" th:text="${#numbers.formatDecimal(reservActivas, 0, 'COMMA', 4, 'POINT') + ' %'}">reserv activas %</td>
+							<td class="text-center align-middle" th:if="${totalReservas ne null}" th:text="${totalReservas}">total reservas</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-11">
+			<h3>Registros de ingresos y egresos</h3>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col"></div>
+		<div class="col-11">
+
+			<div class="table-responsive">
+				<table aria-describedby="tinformes"
+					class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th id="ingresos">Ingresos</th>
+							<th id="egresos">Egresos</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="informe : ${detalleInforme}">
+							<td th:text="${informe.ingresosTotal}">Ingresos</td>
+							<td th:text="${informe.egresosTotal}">egresos</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+
+	<!-- 	<div class="table-responsive"> -->
+	<!-- 		<table aria-describedby="tinformes" -->
+	<!-- 			class="table table-striped table-sm"> -->
+	<!-- 			<thead> -->
+	<!-- 				<tr> -->
+	<!-- 					<th id="thnum">#</th> -->
+	<!-- 					<th id="thusuario">Usuario o sistema externo</th> -->
+
+	<!-- 					<th id="fechagenerado">Fecha de generado</th> -->
+	<!-- 					<th id="fechainicio">Fecha de inicio</th> -->
+	<!-- 					<th id="fechafin">Fecha de fin</th> -->
+
+	<!-- 					<th id="espDisp">Espacios disponibles</th> -->
+
+	<!-- 					<th id="reservFin">Reservas finalizadas</th> -->
+	<!-- 					<th id="reservCan">Reservas canceladas</th> -->
+
+
+	<!-- 					<th id="reservActivas">Reservas activas</th> -->
+	<!-- 					incluyen las que se encuentran activas en el momento(no finalizadas, finalizadas, canceladas) -->
+	<!-- 					<th id="reservtotal">Reservas total</th> -->
+
+	<!-- 					<th id="ingresos">Ingresos</th> -->
+	<!-- 					<th id="egresos">Egresos</th> -->
+
+	<!-- 				</tr> -->
+	<!-- 			</thead> -->
+	<!-- 			<tbody> -->
+	<!-- 				<tr th:each="informe : ${detalleInforme}"> -->
+
+	<!-- 					<td th:text="${informe.id}">El número</td> -->
+
+	<!-- 					<td th:if="${informe.usuario != null}" -->
+	<!-- 						th:text="${informe.usuario}? ${informe.usuario.correo} : ''"></td> -->
+	<!-- 					<td th:if="${informe.regServicio != null}" -->
+	<!-- 						th:text="${informe.regServicio}? ${informe.regServicio.sistemaExterno.nombre} : ''"></td> -->
+
+	<!-- 					<td -->
+	<!-- 						th:text="${#dates.format(informe.fechaGenerado, 'EE dd MMM yyyy (hh:mm a)')}">Fecha -->
+	<!-- 						de generado</td> -->
+	<!-- 					<td -->
+	<!-- 						th:text="${#dates.format(informe.fechaInicio, 'EE dd MMM yyyy (hh:mm a)')}">Fecha -->
+	<!-- 						de inicio</td> -->
+	<!-- 					<td -->
+	<!-- 						th:text="${#dates.format(informe.fechaFin, 'EE dd MMM yyyy (hh:mm a)')}">Fecha -->
+	<!-- 						de fin</td> -->
+
+	<!-- 					<td th:text="${informe.disponibilidad + ' %'}">esp disponibles -->
+	<!-- 						%</td> -->
+
+	<!-- 					<td th:text="${informe.reservasOk  + ' %'}">reservas fin bien -->
+	<!-- 						%</td> -->
+	<!-- 					<td th:text="${informe.reservasFail + ' %'}">reservas fin -->
+	<!-- 						canceladas %</td> -->
+
+
+	<!-- 					<td th:text="${' %'}">reserv activas %</td> -->
+	<!-- 					<td th:text="${' xxx'}">total reservas</td> -->
+
+	<!-- 					<td th:text="${informe.ingresosTotal}">Ingresos</td> -->
+	<!-- 					<td th:text="${informe.egresosTotal}">egresos</td> -->
+
+
+	<!-- 				</tr> -->
+	<!-- 			</tbody> -->
+	<!-- 		</table> -->
+	<!-- 	</div> -->
+
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+</body>
+</html>

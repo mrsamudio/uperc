@@ -1,0 +1,33 @@
+
+body, html {
+	height: 100%;
+}
+
+body {
+	padding-top: 3.5%;
+	position: relative;
+	padding-bottom: 3.5%;
+}
+
+ul.nav-pills {
+	/* 	top: 20px; */
+	position: fixed;
+}
+
+div.col-8 div {
+	height: 500px;
+	/* 	height: 7%; */
+}
+
+
+#page-content {
+	flex: 1 0 auto;
+}
+
+
+.img-responsive {
+	display: block;
+	max-width: 100%;
+	height: auto;
+}
+

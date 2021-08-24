@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Registros estáticos</title>
+<link rel="Stylesheet" href="../../../css/bootstrap.min.css" />
+<link rel="Stylesheet" href="../../../css/login.css" />
+</head>
+
+<body>
+
+	<nav th:replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion"></nav>
+
+	<div class="container-fluid">
+		<div class="table-responsive">
+
+			<!-- Button trigger modal -->
+			<button sec:authorize="hasAnyAuthority('Administrador')"
+				type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#agregarRegistroI">Registrar ingreso</button>
+
+			<!-- Button trigger modal -->
+			<button sec:authorize="hasAnyAuthority('Administrador')"
+				type="button" class="btn btn-primary" data-toggle="modal"
+				data-target="#modalregistrarEgreso">Registrar egreso</button>
+				
+				<h2>Registros de ingresos</h2>
+
+			<table aria-describedby="tegistros"
+				class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th id="thnum">#</th>
+
+						<th id="thusi">Usuario que ingresó</th>
+						<th id="thfi">Fecha de ingreso</th>
+						<th id="thri">recurso que registró ingreso</th>
+
+<!-- 						<th id="thfe">Fecha de egreso</th> -->
+<!-- 						<th id="thre">recurso que registró egreso</th> -->
+<!-- 						<th id="thuse">Usuario que egresó</th> -->
+
+						<th id="thticket">Ticket</th>
+						<th id="thv">Vehículo</th>
+						<th id="thepr">Espacio reservado</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="registro : ${registrosIngresos}">
+						<td th:text="${registro.id}">1</td>
+
+						<td	th:text="${registro.usuarioIngreso.correo}">usuario
+							que ingresó</td>
+							
+						<td th:text="${#dates.format(registro.fechaIngreso, 'EE dd MMM yyyy (hh:mm a)')}">fecha de ingreso</td>
+						<td
+							th:text="${registro.recursoIngreso ne null}? ${registro.recursoIngreso.nombre} : ''">recurso
+							que registró el ingreso</td>
+<!-- 						<td -->
+<!-- 							th:text="${registro.usuarioIngreso.apellidos + ' ' + registro.usuarioIngreso.nombres}">usuario -->
+<!-- 							que ingresó</td> -->
+
+
+
+						<td th:text="${registro.ticketId}">número de ticket</td>
+
+						<td th:text="${registro.vehiculo.placa}">número de placa</td>
+
+						<td th:text="${reservasActivas.get(registro.usuarioIngreso.id)}">
+							Espacio de parqueo
+						</td>
+
+<!-- 						<td> -->
+<!-- 							<div class="input-group mb-3"> -->
+<!-- 								<div class="input-group-prepend"> -->
+<!-- 									<button class="btn btn-outline-secondary dropdown-toggle" -->
+<!-- 										type="button" data-toggle="dropdown" aria-haspopup="true" -->
+<!-- 										aria-expanded="false" th:text="${registro.vehiculo.placa}">Placa -->
+<!-- 										del vehículo</button> -->
+
+<!-- 									<div -->
+<!-- 										sec:authorize="hasAnyAuthority('Administrador', 'Administrativo')" -->
+<!-- 										class="dropdown-menu"> -->
+
+<!-- 										<a class="dropdown-item" -->
+<!-- 											th:text="${'nombres apellidos' + ' otorgó permiso.'}">nombre -->
+<!-- 											del supervisor que otorga permiso de egreso</a> -->
+<!-- 																					th:text="${registro.permiso.usuario.apellidos ne null + ' otorgó permiso.'}" -->
+<!-- 									</div> -->
+<!-- 								</div> -->
+<!-- 							</div> -->
+<!-- 						</td> -->
+					</tr>
+				</tbody>
+			</table>
+			
+			<h2>Registros de egresos</h2>
+			
+			<table aria-describedby="tegistrosE"
+				class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th id="thnum">#</th>
+
+						<th id="thv">Vehículo</th>
+						
+						<th id="thfi">Fecha de ingreso</th>
+						<th id="thri">recurso que registró ingreso</th>
+						<th id="thusi">Usuario que ingresó</th>
+
+						<th id="thticket">Ticket</th>
+
+						<th id="thfe">Fecha de egreso</th>
+						<th id="thre">recurso que registró egreso</th>
+						<th id="thuse">Usuario que egresó</th>
+
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="registro : ${registrosEgresos}">
+						<td th:text="${registro.id}">1</td>
+
+						<td th:text="${registro.vehiculo.placa}">número de placa</td>
+						
+						<td th:text="${#dates.format(registro.fechaIngreso, 'EE dd MMM yyyy (hh:mm a)')}">fecha de ingreso</td>
+						<td
+							th:text="${registro.recursoIngreso ne null}? ${registro.recursoIngreso.nombre} : ''">recurso
+							que registró el ingreso</td>
+
+						<td
+							th:text="${registro.usuarioIngreso.correo}">usuario
+							que ingresó</td>
+
+						<td th:text="${registro.ticketId}">número de ticket</td>
+						
+						<td
+							th:text="${registro.fechaEgreso ne null}? ${#dates.format(registro.fechaEgreso, 'EE dd MMM yyyy (hh:mm a)')} : ''">fecha
+							de egreso</td>
+						<td
+							th:text="${registro.recursoEgreso ne null}? ${registro.recursoEgreso.nombre} : ''">recurso
+							que registró el egreso</td>
+						
+						<td
+							th:text="${registro.usuarioEgreso ne null}? ${registro.usuarioEgreso.correo} : ''">usuario
+							que egresó</td>
+
+
+
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+
+	</div>
+
+
+	<!-- Modal crear nuevo registro de ingreso -->
+	<div sec:authorize="hasAnyAuthority('Administrador')"
+		class="modal fade" id="agregarRegistroI" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalAgregarRegistroI" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalAgregarRegistroI">Registrar
+						ingreso</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelcrearRegistroI="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form id="crearRegistroI" class="form" method="POST" action=""
+						th:action="@{/modulos/registrosie.html}"
+						th:object="${nuevoRegistroI}">
+
+						<h2 class="form-heading">Nuevo ingreso</h2>
+
+						<!--  Vehículo -->
+						<div class="form-group">
+							<label for="vehiculo">Vehículo</label> <select
+								class="form-control" th:field="*{vehiculo.id}"
+								th:errorclass="fieldError">
+								<option th:each="vehiculo : ${vehiculosFuera}"
+									th:value="${vehiculo.id}" th:text="${vehiculo.placa}"></option>
+							</select>
+						</div>
+
+						<!--  usuario -->
+						<div class="form-group">
+							<label for="usuario">Usuario que ingresa</label> <select
+								class="form-control" th:field="*{usuarioIngreso.id}"
+								th:errorclass="fieldError">
+								<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+									th:text="${usuario.correo}"></option>
+							</select>
+						</div>
+
+						<!--  Recurso -->
+						<div class="form-group">
+							<label for="recursso">Recurso</label> <select
+								class="form-control" th:field="*{recursoIngreso.id}"
+								th:errorclass="fieldError">
+								<option th:each="recursso : ${recurssos}"
+									th:value="${recursso.id}" th:text="${recursso.nombre}"></option>
+							</select>
+						</div>
+
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="crearNuevoRegistro"
+						form="crearRegistroI" class="btn btn-primary">Guardar</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Modal registrar egreso -->
+	<div sec:authorize="hasAnyAuthority('Administrador')"
+		class="modal fade" id="modalregistrarEgreso" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalregistrarEgreso" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalregistrarEgreso">Registrar
+						egreso</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelregistrarEgreso="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form id="registrarEgresoForm" class="form" method="POST" action=""
+						th:action="@{/modulos/registrosie.html}"
+						th:object="${nuevoRegistroI}">
+
+						<h2 class="form-heading">Nuevo egreso</h2>
+
+						<!--  Vehículo -->
+						<div class="form-group">
+							<label for="vehiculo">Vehículo</label> <select
+								class="form-control" th:field="*{vehiculo.id}"
+								th:errorclass="fieldError">
+								<option th:each="vehiculo : ${vehiculosDentro}"
+									th:value="${vehiculo.id}" th:text="${vehiculo.placa}"></option>
+							</select>
+						</div>
+
+						<!--  usuario -->
+						<div class="form-group">
+							<label for="usuario">Usuario que egresa</label> <select
+								class="form-control" th:field="*{usuarioEgreso.id}"
+								th:errorclass="fieldError">
+								<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+									th:text="${usuario.correo}"></option>
+							</select>
+						</div>
+
+						<!--  Recurso -->
+						<div class="form-group">
+							<label for="recursso">Recurso</label> <select
+								class="form-control" th:field="*{recursoEgreso.id}"
+								th:errorclass="fieldError">
+								<option th:each="recursso : ${recurssos}"
+									th:value="${recursso.id}" th:text="${recursso.nombre}"></option>
+							</select>
+						</div>
+
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="registrarEgresoBD"
+						form="registrarEgresoForm" class="btn btn-primary">Guardar</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<footer class="sticky-footer text-center"
+		th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+
+</body>
+</html>

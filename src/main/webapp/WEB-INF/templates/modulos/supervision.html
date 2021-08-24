@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Supervisión Estático</title>
+<link rel="Stylesheet" href="../../../css/bootstrap.min.css" />
+</head>
+
+<body>
+
+	<nav th:replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion">
+		<a class="navbar-brand" href="#">Uperc</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="usuarios.html">Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="../tableroPrincipal.html">Tablero principal <span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="supervision.html">Supervisión</a></li>
+				<li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+				<li class="nav-item"><a class="nav-link" href="informes.html">Informes</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="configuracion.html"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Configuración </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="integracion.html">Sistemas
+							externos</a> <a class="dropdown-item" href="recursos.html">Recursos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/roles.html">Roles</a>
+						<a class="dropdown-item" href="configuracion/perfiles.html">Perfiles
+							de usuario</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/espacios.html">Espacios
+							de parqueo</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+	
+	
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+	<!-- Button trigger modal -->
+	<button sec:authorize="hasAnyAuthority('Administrador', 'Supervisor')" type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#agregarSupervision">Nuevo Mensaje</button>
+
+	<div class="table-responsive">
+		<table aria-describedby="tsupervision" class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th id="thnum">#</th>
+					<th id="thtmens">Tipo de mensaje</th>
+					<th id="thmens">Mensaje</th>
+					<th id="thfecha">Fecha</th>
+					<th id="thestado">Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="supervision : ${supervisiones}">
+					<td th:text="${supervision.id}">El número</td>
+					<td th:text="${supervision.tipo}? 'Alerta' : 'Aviso'">El tipo
+						de mensaje</td>
+					<td th:text="${supervision.mensaje}">El mensaje</td>
+					<td th:text="${#dates.format(supervision.fecha, 'EE dd MMM yyyy (hh:mm a)')}">La fecha del mensaje</td>
+<!-- 					<td th:text="${supervision.estado}? 'Activo' : 'Inactivo'">Activo</td> -->
+
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false" th:text="${supervision.estado}? 'Activo' : 'Inactivo'">Activo o inactivo</button>
+									
+								<div sec:authorize="hasAnyAuthority('Administrador', 'Supervisor')" class="dropdown-menu">
+								
+									<a class="dropdown-item" 
+										th:href="@{/modulos/supervision.html(cambiarEstado=${supervision.id})}" 
+										th:name="cambiarEstado">Cambiar estado</a>
+										
+									<div role="separator" class="dropdown-divider"></div>
+									
+									<a class="dropdown-item"
+										th:href="@{/comun/edit.html(editarSupervision=${supervision.id})}"
+										th:name="editarSupervision"
+									>Editar</a>
+									
+								</div>
+							</div>
+						</div>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<!-- Modal -->
+	<div sec:authorize="hasAnyAuthority('Administrador', 'Supervisor')" class="modal fade" 
+		id="agregarSupervision" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalAgregarSupervision"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalAgregarSupervision">Agregar
+						Mensaje</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelcrearUsuario="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form id="crearNuevaSupervision" class="form" method="POST"
+					th:action="@{/modulos/supervision.html}"
+						action="" th:object="${nuevaSupervision}">
+
+						<h2 class="form-heading">Mensaje nuevo</h2>
+
+						<!-- tipo de mensaje -->
+						<div class="form-group">
+							<label for="tipo">Elija el tipo de mensaje</label> <select
+								class="form-control" th:field="*{tipo}"
+								th:errorclass="fieldError">
+								<option th:value="true" th:text="Alerta"></option>
+								<option th:value="false" th:text="Aviso"></option>
+							</select>
+						</div>
+
+						<!--  usuario -->
+						<div class="form-group">
+							<label for="usuario">Usuario a enviar el mensaje</label> <select
+								class="form-control" th:field="*{usuario.id}"
+								th:errorclass="fieldError">
+								<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+									th:text="${usuario.nombres + ' ' + usuario.apellidos}"></option>
+							</select>
+						</div>
+
+
+						<!-- mensaje -->
+						<div class="form-group">
+							<label for="numId">Mensaje</label> <input id="numId"
+								name="mensaje" class="form-control" type="text"
+								th:field="*{mensaje}" th:errorclass="fieldError"
+								placeholder="Escriba el mensaje" maxlength="50" required="required"/>
+						</div>
+
+					</form>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="crearNuevaSupervision"
+						form="crearNuevaSupervision" class="btn btn-primary">Guardar</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 		TODO: Crear footer de bootstrap  -->
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+
+</body>
+</html>

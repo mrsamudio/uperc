@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head data-th-replace="comun/metadatos.html :: metadatos"></head>
+
+<body class="" data-multiple-spy="scroll" data-target="#navegacion"
+	data-offset="50">
+
+	<nav data-th-replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion"></nav>
+
+	<div class="container-fluid">
+		<div class="row">
+			<h3 th:text="${error}"></h3>
+		</div>
+	</div>
+
+
+	<footer class="sticky-footer text-center"
+		th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+
+
+</body>
+</html>

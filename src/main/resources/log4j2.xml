@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration
+	xmlns="http://logging.apache.org/log4j/2.0/config" status="WARN">
+	<Properties>
+		<Property name="logs">$${sys:catalina.base}/logs</Property>
+	</Properties>
+	<Appenders>
+		<!-- File Appender -->
+		<File name="FILE" fileName="${logs}/uperc.log" append="true">
+			<PatternLayout
+				pattern="%-5p _ %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</File>
+
+
+		<!-- File Appender -->
+		<File name="thymeleafLogger" fileName="${logs}/thymeleaf.log"
+			append="true">
+			<PatternLayut pattern="[%t] %-5p %c %x - %m%n" />
+		</File>
+
+		<!-- <RollingFile name="thymeleafLogger" -->
+		<!-- fileName="${logs}/thymeleaf.log"> -->
+		<!-- <PatternLayout -->
+		<!-- pattern="%highlight{[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{1}: 
+			%L - %msg%n}" /> -->
+		<!-- <Policies> -->
+		<!-- <TimeBasedTriggeringPolicy interval="1" -->
+		<!-- modulate="true" /> -->
+		<!-- </Policies> -->
+		<!-- </RollingFile> -->
+
+		<!-- <Appender type="File" name="thymeleafLogger" fileName="${logs}/thymeleaf.log"> -->
+		<!-- <Layout type="PatternLayout"> -->
+		<!-- <Pattern>%d %p %C{1.} [%t] %m%n</Pattern> -->
+		<!-- </Layout> -->
+		<!-- </Appender> -->
+
+
+
+		<File name="ApplicationScheduledms" fileName="${logs}/asincrono.log">
+			<PatternLayout>
+				<pattern>%-5p _ %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n
+				</pattern>
+			</PatternLayout>
+		</File>
+
+
+		<File name="Application" fileName="${logs}/aspectos.log">
+			<PatternLayout>
+				<pattern>%-5p _ %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n
+				</pattern>
+			</PatternLayout>
+		</File>
+
+		<!-- Console Appender -->
+		<Console name="STDOUT" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="%-5p _ %d{yyyy-MM-dd HH:mm:ss} | [%t] %C{2} (%F:%L) - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+
+
+		<!-- <Logger name="co.edu.ucundinamarca.uperc" level="INFO" additivity="false"/> -->
+
+		<Logger name="org.thymeleaf" level="debug" additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+		<Logger name="org.thymeleaf.TemplateEngine" level="debug"
+			additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<Logger name="org.thymeleaf.TemplateEngine.CONFIG"
+			level="debug" additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<Logger name="org.thymeleaf.TemplateEngine.TIMER" level="debug"
+			additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<Logger
+			name="org.thymeleaf.TemplateEngine.cache.TEMPLATE_CACHE"
+			level="debug" additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<Logger
+			name="org.thymeleaf.TemplateEngine.cache.FRAGMENT_CACHE"
+			level="debug" additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<Logger name="org.thymeleaf.TemplateEngine.cache.MESSAGE_CACHE"
+			level="debug" additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<Logger
+			name="org.thymeleaf.TemplateEngine.cache.EXPRESSION_CACHE"
+			level="debug" additivity="false">
+			<AppenderRef ref="thymeleafLogger" />
+		</Logger>
+
+		<!-- <Logger name="org.springframework.web" level="debug" additivity="false"> -->
+		<!-- <AppenderRef ref="thymeleafLogger" /> -->
+		<!-- </Logger> -->
+
+		<Logger name="file" level="INFO" additivity="false">
+			<AppenderRef ref="FILE" />
+		</Logger>
+
+		<Logger name="applicationsfile" level="INFO" additivity="false">
+			<AppenderRef ref="Application" />
+		</Logger>
+
+		<Logger name="applicationsScheduledMS" level="INFO" additivity="false">
+			<AppenderRef ref="ApplicationScheduledms" />
+		</Logger>
+
+
+		<Root level="warn">
+			<AppenderRef ref="STDOUT" />
+			<AppenderRef ref="FILE" />
+			<AppenderRef ref="thymeleafLogger" />
+		</Root>
+	</Loggers>
+</Configuration>

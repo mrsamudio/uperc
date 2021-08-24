@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<title></title>
+</head>
+
+<!-- https://www.cdnpkg.com/jquery/3.5.1 -->
+<!-- https://www.cdnpkg.com/popper.js/1.16.1 -->
+<!-- bootsrap 4.6.0 -->
+<!-- https://www.cdnpkg.com/jquery-ui/file/jquery-ui.js/# -->
+
+<div th:fragment="ejecucscripts">
+
+	<script type="application/javascript"
+		src="../../../js/jquery-3.0.6.min.js" th:src="@{/js/jquery.min.js}"></script>
+		
+	<script type="application/javascript"
+		src="../../../js/jquery-3.0.6.min.js" th:src="@{/js/jquery.datetimepicker.full.min.js}"></script>
+
+	<script type="application/javascript" src="../../../js/popper.min.js"
+		th:src="@{/js/popper.min.js}"></script>
+
+	<script type="application/javascript"
+		src="../../../js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+
+
+	<script sec:authorize="isAuthenticated()" type="text/javascript">
+		$(document).ready(
+				function() {
+					$.each($('#navegacion').find('li'), function() {
+						$(this).toggleClass(
+								'active',
+								window.location.pathname.indexOf($(this).find(
+										'a').attr('href')) > -1);
+					});
+				});
+
+		function cambiarEstado() {
+
+		}
+	</script>
+	
+	
+</div>
+
+
+<script type="application/javascript" src="../../../js/jquery-ui.js"
+	th:src="@{/js/jquery-ui.js}"></script>
+
+</html>

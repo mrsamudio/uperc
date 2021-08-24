@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Usuarios Estático</title>
+<link rel="Stylesheet" href="../../../css/bootstrap.css" />
+<link rel="Stylesheet" href="../../../css/login.css" />
+</head>
+
+<body>
+
+	<nav th:replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion">
+		<a class="navbar-brand" href="#">Uperc</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="#">Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="../tableroPrincipal.html">Tablero principal <span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="supervision.html">Supervisión</a></li>
+				<li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+				<li class="nav-item"><a class="nav-link" href="informes.html">Informes</a></li>
+				<li class="nav-item dropdown active"><a
+					class="nav-link dropdown-toggle" href="configuracion.html"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Configuración </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="integracion.html">Sistemas
+							externos</a> <a class="dropdown-item active" href="recursos.html">Recursos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/roles.html">Roles</a>
+						<a class="dropdown-item" href="configuracion/perfiles.html">Perfiles
+							de usuario</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/espacios.html">Espacios
+							de parqueo</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+	<!-- Button trigger modal -->
+	<!-- 				TODO: crear insercion para recursos -->
+	<button sec:authorize="hasAnyAuthority('Administrador')" type="button"
+		class="btn btn-primary" data-toggle="modal"
+		data-target="#agregarRecurso">Nuevo recurso</button>
+
+	<div class="table-responsive">
+		<table aria-describedby="trecursos"
+			class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th id="thnum">#</th>
+					<th id="thnombre">Nombre</th>
+					<th id="thmarca">marca</th>
+					<th id="thtipo">tipo</th>
+					<th id="thip">ip</th>
+					<th id="thpuerto">puerto</th>
+					<th id="thmac">mac</th>
+					<th id="thprotocolo">protocolo</th>
+					<th id="fregistro">fecha de registro</th>
+					<th id="thurlfab">url fabricante</th>
+					<th id="thestado">Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="recurso : ${recursosl}">
+					<td th:text="${recurso.id}">El número</td>
+					<td th:text="${recurso.nombre}">nombre de recurso</td>
+					<td th:text="${recurso.marca}">marca del recurso</td>
+					<td th:text="${recurso.tipo}">tipo del recurso</td>
+					<td th:text="${recurso.ip}">ip del recurso</td>
+					<td th:text="${recurso.puerto}">puerto del recurso</td>
+					<td th:text="${recurso.mac}">mac del recurso</td>
+					<td th:text="${recurso.protocolo}">protocolo del recurso</td>
+					<td th:text="${#dates.format(recurso.fechaRegistro, 'EE dd MMM yyyy (hh:mm a)')}">fechaRegistro del
+						recurso</td>
+					<td th:text="${recurso.urlFabricante}">urlFabricante del
+						recurso</td>
+
+
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"
+									th:text="${recurso.estado}? 'Activo' : 'Inactivo'">Activo
+									o inactivo</button>
+
+								<div sec:authorize="hasAnyAuthority('Administrador')"
+									class="dropdown-menu">
+
+									<a class="dropdown-item"
+										th:href="@{/modulos/recursos.html(cambiarEstado=${recurso.id})}"
+										th:name="cambiarEstado">Cambiar estado</a>
+
+									<div role="separator" class="dropdown-divider"></div>
+
+									<a class="dropdown-item"
+										th:href="@{/comun/edit.html(editarRecurso=${recurso.id})}"
+										th:name="editarRecurso">Editar</a>
+								</div>
+
+							</div>
+						</div>
+					</td>
+
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<!-- Modal -->
+	<div sec:authorize="hasAnyAuthority('Administrador')"
+		class="modal fade" id="agregarRecurso" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalAgregarRecurso" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalAgregarRecurso">Agregar
+						Recurso</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelcrearUsuario="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form id="crearNuevoRecursoForm" class="form" method="POST" action=""
+						th:action="@{/modulos/recursos.html}" th:object="${nuevoRecurso}">
+
+						<h2 class="form-heading">Nuevo recurso</h2>
+
+						<input type="hidden" name="id" th:field="*{id}"
+							th:errorclass="fieldError" />
+
+						<div class="form-group">
+							<label for="nombre">Nombre</label> <input id="nombre"
+								name="nombre" class="form-control" type="text"
+								th:field="*{nombre}" th:errorclass="fieldError" />
+						</div>
+
+						<div class="form-group">
+							<label for="marca">Marca</label> <input id="marca" name="marca"
+								class="form-control" type="text" th:field="*{marca}"
+								th:errorclass="fieldError" />
+						</div>
+
+						<div class="form-group">
+							<label for="tipo">Tipo</label> <input id="tipo" name="tipo"
+								class="form-control" type="text" th:field="*{tipo}"
+								th:errorclass="fieldError" />
+						</div>
+
+						<div class="form-group">
+							<label for="laip">Dirección ip</label> <input id="laip"
+								name="laip" class="form-control" type="text" th:field="*{ip}"
+								th:errorclass="fieldError" />
+						</div>
+
+						<div class="form-group">
+							<label for="puerto">Puerto</label> <input id="puerto"
+								name="puerto" class="form-control" type="number"
+								th:field="*{puerto}" th:errorclass="fieldError" />
+						</div>
+
+						<div class="form-group">
+							<label for="ladirecmac">Dirección mac</label> <input
+								id="ladirecmac" name="ladirecmac" class="form-control"
+								type="text" th:field="*{mac}" th:errorclass="fieldError" />
+						</div>
+
+						<div class="form-group">
+							<label for="protocolo">Protocolo de comunicación</label> <input
+								id="protocolo" name="protocolo" class="form-control" type="text"
+								th:field="*{protocolo}" th:errorclass="fieldError" />
+						</div>
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="fechaRegistro">Fecha de registro</label> <input -->
+<!-- 								id="fechaRegistro" name="fechaRegistro" class="form-control" -->
+<!-- 								type="datetime" th:field="*{fechaRegistro}" -->
+<!-- 								th:errorclass="fieldError" disabled /> -->
+<!-- 						</div> -->
+
+						<div class="form-group">
+							<label for="urlFabricante">Dirección web del fabricante</label> <input
+								id="urlFabricante" name="urlFabricante" class="form-control"
+								type="text" th:field="*{urlFabricante}"
+								th:errorclass="fieldError" />
+						</div>
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label for="estado">Estado del recurso</label> <select -->
+<!-- 								class="form-control" th:field="*{estado}" -->
+<!-- 								th:errorclass="fieldError" disabled> -->
+<!-- 								<option th:value="true" th:text="Activo"></option> -->
+<!-- 								<option th:value="false" th:text="Inactivo"></option> -->
+<!-- 							</select> -->
+<!-- 						</div> -->
+
+					</form>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="crearNuevoRecurso"
+						form="crearNuevoRecursoForm" class="btn btn-primary">Guardar</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 		TODO: Crear footer de bootstrap  -->
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+
+</body>
+</html>

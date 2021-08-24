@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head data-th-replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Estático</title>
+<link rel="Stylesheet" href="../../css/bootstrap/bootstrap.min.css" />
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light"
+		data-th-replace="comun/cuerpo/navegacion.html :: navegacion">
+		<a class="navbar-brand" href="#">Uperc</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="#">Resumen
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Usuarios
+						Link</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> Recursos </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">Action</a> <a
+							class="dropdown-item" href="#">Another action</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div></li>
+				<li class="nav-item"><a class="nav-link disabled" href="#">Configuración</a>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="search"
+					placeholder="Buscar" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+			</form>
+		</div>
+	</nav>
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+	<div class="table-responsive">
+		<table aria-describedby="mitablaespacios"
+			class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th id="thnum">#</th>
+					<th id="thnombre">Nombre</th>
+					<th id="thubicacion">Ubicación</th>
+					<th id="thestado">Estado</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="espacio : ${espacios}">
+					<td th:text="${espacio.id}">El número</td>
+					<td th:text="${espacio.nombre}">Nombre del espacio</td>
+					<td th:text="${espacio.ubicacion?.getNombre}?: 'Sede chía'">Sede
+						Chía</td>
+
+					<!-- 					TODO: crear servicio de cambio de estado -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false" th:text="${espacio.ocupado}? 'Ocupado' : 'Libre'">Activo o inactivo</button>
+								
+								<div sec:authorize="hasAnyAuthority('Administrador')" class="dropdown-menu">
+									<a sec:authorize="hasAnyAuthority('Chango')" class="dropdown-item" th:href="@{/modulos/configuracion/espacios.html(cambiarEstado=${espacio.id})}"
+										th:name="cambiarEstado">Liberar/liberado</a>
+										
+									<div sec:authorize="hasAnyAuthority('Chango')" role="separator" class="dropdown-divider"></div>
+									
+									<a sec:authorize="hasAnyAuthority('Administrador')" class="dropdown-item"
+											th:href="@{/comun/edit.html(editarEspaciop=${espacio.id})}"
+											th:name="editarEspaciop"
+										>Editar</a>
+								</div>
+								
+							</div>
+						</div>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+
+
+	<!-- 		TODO: Crear footer de bootstrap  -->
+	<footer data-th-replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+
+</body>
+</html>
