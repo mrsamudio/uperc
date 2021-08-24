@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<div th:fragment="modalEditarUsuario" 
+	class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+	
+	th:attr="aria-labelledby='etiquetaModalEditarUsuario'+${usuario.id}"
+	id="editarUsuario"
+	>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title" 
+				th:id="'etiquetaModalEditarUsuario'+${usuario.id}"
+				>Agregar usuario</h5>
+				
+				<button type="button" class="close" data-dismiss="modal"
+					aria-labelcrearUsuario="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+
+			<div class="modal-body">
+
+				<form class="form"
+					id="editarUsuarioForm"
+					th:id="editarUsuarioForm+${usuario.id}" 
+					th:method="put"
+					th:action="@{/modulos/usuarios.html}" 
+					th:object="${editadoUsuario}">
+
+					<h2 class="form-heading">Usuario nuevo</h2>
+
+					<!--  Rol -->
+					<div class="form-group">
+						<label for="rol">Rol</label> 
+						<select th:class="form-control" th:field="*{rol.id}" th:value="${usuario.rol.id}" th:errorclass="fieldError">
+							<option th:each="roll : ${roles}" th:value="${roll.id}"	th:text="${roll.nombre}"></option>
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label for="estado">Estado</label> 
+						<select class="form-control" th:field="*{estado}" th:value="${usuario.estado}"
+							th:errorclass="fieldError">
+							<option th:value="true" th:text="Activo"></option>
+							<option th:value="false" th:text="Inactivo"></option>
+						</select>
+					</div>
+
+
+					<div class="form-group">
+						<label for="fechaReg">Fecha de registro</label> 
+						<input id="correo" name="fechaReg" class="form-control" type="date"
+							th:field="*{fechaReg}" th:value="${usuario.fechaReg}" 
+							th:errorclass="fieldError"
+							readonly/>
+					</div>
+
+					<div class="form-group">
+						<label for="fechaNac">Fecha de nacimiento</label> 
+						<input
+							id="fechaNac" name="fechaNac" class="form-control" type="date"
+							th:field="*{fechaNac}" th:value="${usuario.fechaNac}" th:errorclass="fieldError"
+							/>
+					</div>
+
+					<div class="form-group">
+						<label for="correo">Correo electrónico</label> 
+						<input id="correo"
+							name="correo" class="form-control" type="email"
+							th:field="*{correo}" th:value="${usuario.correo}" th:errorclass="fieldError"
+							/>
+					</div>
+
+					<!--  tipoId -->
+					<div class="form-group">
+						<label for="tipoId">Tipo de identificación</label> <select
+							class="form-control" th:field="*{tipoId}" th:value="${usuario.tipoId}"
+							th:errorclass="fieldError">
+							<option th:value="'C'" th:text="Cedula_de_ciudadania"></option>
+							<option th:value="'E'" th:text="Cedula_de_extranjeria"></option>
+							<option th:value="'T'" th:text="Tarjeta_de_identidad"></option>
+							<option th:value="'P'" th:text="Pasaporte"></option>
+						</select>
+					</div>
+
+					<!-- numid -->
+					<div class="form-group">
+						<label for="numId">Número de identificación</label> <input
+							id="numId" name="numId" class="form-control" type="text"
+							th:field="*{numId}" th:value="${usuario.numId}" th:errorclass="fieldError"
+							/>
+					</div>
+
+					<!-- nombres -->
+					<div class="form-group">
+						<label for="nombres">Nombres</label> <input id="nombres"
+							name="nombres" class="form-control" type="text"
+							th:field="*{nombres}" th:value="${usuario.nombres}" th:errorclass="fieldError"
+							placeholder="Escriba el nombre completo" />
+					</div>
+
+					<!-- apellidos -->
+					<div class="form-group">
+						<label for="apellidos">Apellidos</label> <input id="apellidos"
+							name="apellidos" class="form-control" type="text"
+							th:field="*{apellidos}" th:value="${usuario.apellidos}" th:errorclass="fieldError"
+							placeholder="Escriba los apellidos" />
+					</div>
+
+
+				</form>
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<button type="submit" 
+					th:name="'editarUsuariobtn'"
+					th:form="editarUsuarioForm'+${usuario.id}"
+					class="btn btn-primary">Guardar</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+</html>

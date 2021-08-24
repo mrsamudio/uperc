@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Reservas Estático</title>
+<link rel="Stylesheet" href="../../../css/bootstrap.css" />
+<link rel="Stylesheet" href="../../../css/login.css" />
+</head>
+
+<body>
+
+	<nav th:replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion">
+		<a class="navbar-brand" href="#">Uperc</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="usuarios.html">Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="../tableroPrincipal.html">Tablero principal <span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="supervision.html">Supervisión</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="reservas.html">Reservas</a></li>
+				<li class="nav-item"><a class="nav-link" href="informes.html">Informes</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="configuracion.html"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Configuración </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="integracion.html">Sistemas
+							externos</a> <a class="dropdown-item" href="recursos.html">Recursos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/roles.html">Roles</a>
+						<a class="dropdown-item" href="configuracion/perfiles.html">Perfiles
+							de usuario</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/espacios.html">Espacios
+							de parqueo</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+	<!-- Button trigger modal -->
+	<!-- 				TODO: crear insercion para reservas -->
+	<button id="agregarReservaBtn"
+		sec:authorize="hasAnyAuthority('Administrador', 'Administrativo')"
+		type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#agregarReserva">Nueva reserva</button>
+
+	<button id="solicitarReservaBtn"
+		sec:authorize="!hasAnyAuthority('Administrador', 'Administrativo')"
+		type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#solicitarReserva">Solicitar reserva</button>
+
+
+	<div class="table-responsive">
+		<table aria-describedby="treservas"
+			class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th id="thnum">#</th>
+					<th id="thusuario">Usuario</th>
+					<th id="thfreserva">Fecha de reserva</th>
+					<th id="thfsolicitud">Fecha de solicitud</th>
+					<th id="theparqueo">Espacio de parqueo</th>
+					<th id="thffin">Fecha de fin</th>
+					<th id="thcancel">Cancelada</th>
+					<th id="thestado">Estado</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="reserva : ${reservas}">
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:text="${reserva.id}">El número</td>
+						
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:text="${reserva.usuario.getNombres() + ' ' + reserva.usuario.getApellidos()}">El
+						nombre del usuario</td>
+					
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:text="${#dates.format(reserva.fechaReserva, 'EE dd MMM yyyy (hh:mm a)')}">Fecha
+						de reserva</td>
+					
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:text="${#dates.format(reserva.fechaSolicitud, 'yyyy-MM-dd')}">Fecha
+						de solicitud</td>
+					
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:text="${reserva.espacioParqueo.getNombre()}">El espacio
+						de parqueo</td>
+						
+						
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'text-primary font-weight-bold align-middle' : '')"
+						th:text="${reserva.fechaFin}? ${#dates.format(reserva.fechaFin, 'yyyy-MM-dd')} : (${ocupandoEspacios.get(reserva.usuario.id)}?  ${'En uso por '.concat(ocupandoEspacios.get(reserva.usuario.id))} : 'En espera de ingreso')">Fecha
+						de fin</td>
+						
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:text="${reserva.cancelada}? 'Si' : 'No'">El número</td>
+
+
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						sec:authorize="!hasAnyAuthority('Administrador', 'Administrativo')"
+						th:if="${#authentication.name == reserva.usuario.correo && !reserva.cancelada && reserva.estado}">
+
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"
+									th:text="${reserva.estado}? 'Activa' : 'Inactiva'">Activa
+									o inactiva</button>
+
+								<div class="dropdown-menu">
+									<a class="dropdown-item"
+										th:href="@{/modulos/reservas.html(cancelarReserva=${reserva.id})}"
+										th:name="cancelarReserva">Cancelar reserva</a>
+								</div>
+							</div>
+						</div>
+					</td>
+
+					<td id="laInactivass" th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						sec:authorize="!hasAnyAuthority('Administrador', 'Administrativo')"
+						th:if="${#authentication.name != reserva.usuario.correo && !reserva.cancelada && reserva.estado}"
+						th:text="${reserva.estado}? 'Activa' : 'Inactiva'"></td>
+
+					<td th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						sec:authorize="hasAnyAuthority('Administrador', 'Administrativo')"
+						th:if="${!reserva.cancelada && reserva.estado}">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<button class="btn btn-outline-secondary dropdown-toggle"
+									type="button" data-toggle="dropdown" aria-haspopup="true"
+									aria-expanded="false"
+									th:text="${reserva.estado}? 'Activa' : 'Finalizada'">Activa
+									o inactiva</button>
+								<div class="dropdown-menu">
+									<a class="dropdown-item"
+										th:href="@{/modulos/reservas.html(cancelarReserva=${reserva.id})}"
+										th:name="cancelarReserva">Cancelar reserva</a>
+									<div sec:authorize="hasAnyAuthority('Administrador')">
+										<div role="separator" class="dropdown-divider"></div>
+										<a class="dropdown-item"
+											th:href="@{/comun/edit.html(editarReserva=${reserva.id})}"
+											th:name="editarReserva">Editar</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+
+					<td id="laFinalizada" th:class="${reserva.fechaFin}? '' : (${ocupandoEspacios.get(reserva.usuario.id)}?  'align-middle' : '')"
+						th:if="${reserva.cancelada || (!reserva.cancelada && !reserva.estado)}"
+						th:text="${reserva.estado}? 'Activa' : 'Finalizada'"></td>
+
+<!-- 						sec:authorize="!hasAnyAuthority('Supervisor')" -->
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<!-- Modal crear nueva reserva -->
+	<div sec:authorize="hasAnyAuthority('Administrador', 'Administrativo')"
+		class="modal fade" id="agregarReserva" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalAgregarReserva" aria-hidden="true">
+
+		<div class="modal-dialog" role="document">
+
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalAgregarReserva">Nueva
+						reserva</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelcrearUsuario="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form class="form" id="agregarReservaForm" th:method="post"
+						th:action="@{/modulos/reservas.html}" th:object="${nuevaReserva}">
+
+						<h2 class="form-heading">Nueva reserva</h2>
+
+
+						<div class="form-group">
+							<label for="espacio">Espacio de parqueo solicitado</label> <select
+								class="form-control" th:field="*{espacioParqueo.id}"
+								th:errorclass="fieldError" required>
+								<option th:each="espacio : ${espacios}" th:value="${espacio.id}"
+									th:text="${espacio.nombre}"></option>
+							</select>
+						</div>
+
+						<!--  usuario -->
+						<div class="form-group">
+							<label for="usuario">Usuario asociado a la reserva</label> <select
+								class="form-control" th:field="*{usuario.id}"
+								th:errorclass="fieldError" required>
+								<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+									th:text="${usuario.nombres + ' ' + usuario.apellidos + '(' + usuario.correo + ')'}"></option>
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label for="fechaReserva">Fecha de reserva</label> <input
+								id="fechaReserva" name="fechaReserva" class="form-control"
+								type="text" th:field="*{fechaReserva}"
+								th:errorclass="fieldError" required />
+						</div>
+
+					</form>
+
+				</div>
+
+
+				<div class="modal-footer">
+					<a type="button" class="btn btn-secondary" data-dismiss="modal"
+						th:href="@{/modulos/reservas.html}">Cancelar</a>
+					<button type="submit" name="crearReserva" form="agregarReservaForm"
+						class="btn btn-primary">Guardar</button>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<!-- Modal solicitar reserva -->
+	<div
+		sec:authorize="!hasAnyAuthority('Administrador', 'Administrativo')"
+		class="modal fade" id="solicitarReserva" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalSolicitarReserva" aria-hidden="true">
+
+		<div class="modal-dialog" role="document">
+
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalSolicitarReserva">Nueva
+						solicitud</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelcrearUsuario="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form class="form" id="solicitarReservaForm" th:method="post"
+						th:action="@{/modulos/reservas.html}" th:object="${laReserva}">
+
+						<h2 class="form-heading">Solicitud de reserva</h2>
+
+						<div class="form-group">
+							<label for="fechaReserva">Fecha de reserva</label> <input
+								id="fechaReserva" name="fechaReserva" class="form-control"
+								type="text" th:field="*{fechaReserva}"
+								th:errorclass="fieldError" />
+						</div>
+					</form>
+				</div>
+
+
+				<div class="modal-footer">
+					<a type="button" class="btn btn-secondary" data-dismiss="modal"
+						th:href="@{/modulos/reservas.html}">Cancelar</a>
+					<button type="submit" name="solicitaReserva"
+						th:value="${idUsuario ne null? idUsuario : ''}"
+						form="solicitarReservaForm" class="btn btn-primary">Guardar</button>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+
+	<script type="application/javascript">
+		/*<![CDATA[*/
+			jQuery('#fechaReserva').datetimepicker({
+				format: 'Y-m-d H:i:00.00',
+				minDate: 'dateToday',
+				startDate: '+0d',
+				timepicker:true,
+				mask: false
+			});
+		/*]]>*/
+	</script>
+
+</body>
+</html>

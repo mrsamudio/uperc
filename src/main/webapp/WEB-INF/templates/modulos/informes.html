@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>Reservas Estático</title>
+<link rel="Stylesheet" href="../../../css/bootstrap.min.css" />
+<link rel="Stylesheet" href="../../../css/login.css" />
+</head>
+
+<body>
+
+	<nav th:replace="comun/cuerpo/navegacion.html :: navegacion"
+		class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top"
+		id="navegacion">
+		<a class="navbar-brand" href="#">Uperc</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="usuarios.html">Usuarios</a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="../tableroPrincipal.html">Tablero principal <span
+						class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link"
+					href="supervision.html">Supervisión</a></li>
+				<li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="informes.html">Informes</a></li>
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="configuracion.html"
+					id="navbarDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false"> Configuración </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="integracion.html">Sistemas
+							externos</a> <a class="dropdown-item" href="recursos.html">Recursos</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/roles.html">Roles</a>
+						<a class="dropdown-item" href="configuracion/perfiles.html">Perfiles
+							de usuario</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="configuracion/espacios.html">Espacios
+							de parqueo</a>
+					</div></li>
+			</ul>
+		</div>
+	</nav>
+
+
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+
+	<!-- Button trigger modal -->
+	<!-- 				TODO: crear Genweracion de informe -->
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#generarInforme">Generar informe</button>
+
+
+	<div class="table-responsive">
+		<table aria-describedby="tinformes"
+			class="table table-striped table-sm">
+			<thead>
+				<tr>
+					<th id="thnum">#</th>
+					<th id="thusuario">Usuario o sistema externo</th>
+					<th id="fechagenerado">Fecha de generado</th>
+					<th id="botongenerar"></th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="informe : ${informes}">
+
+					<td th:text="${informe.id}">El número</td>
+
+					<td th:if="${informe.usuario != null}"
+						th:text="${informe.usuario}? ${informe.usuario.correo} : ''"></td>
+					<td th:if="${informe.regServicio != null}"
+						th:text="${informe.regServicio}? ${informe.regServicio.sistemaExterno.nombre} : ''"></td>
+
+					<td
+						th:text="${#dates.format(informe.fechaGenerado, 'EE dd MMM yyyy (hh:mm a)')}">Fecha
+						de generado</td>
+					<!-- 					TODO: agregar los datos del informe o desplegarlos en mas detalles -->
+
+					<!-- 					TODO: crear servicio de ver informe -->
+					<td>
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<a class="btn btn-outline-secondary"
+									th:href="@{/modulos/informes.html(verDetalle=${informe.id})}"
+									th:name="verDetalle" th:value="${informe.id}">Ver Informe detallado</a>
+							</div>
+						</div>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="generarInforme" tabindex="-1" role="dialog"
+		aria-labelledby="etiquetaModalGenerarInforme" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title" id="etiquetaModalGenerarInforme">Generar
+						informe</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-labelcrearUsuario="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<form id="generarNuevoInforme" class="form" th:method="post"
+						th:action="@{/modulos/informes.html}" th:object="${nuevoInforme}">
+
+						<h2 class="form-heading">Generar nuevo informe</h2>
+
+						<!-- fecha inicio -->
+						<div class="form-group">
+							<label for="fechaInicio">Fecha de inicio</label> <input
+								id="fechaInicio" name="fechaInicio" class="form-control"
+								type="text" th:field="*{fechaInicio}" th:errorclass="fieldError" required/>
+						</div>
+
+						<!-- fecha fin -->
+						<div class="form-group">
+							<label for="fechaFin">Fecha de fin</label> <input id="fechaFin"
+								name="fechaFin" class="form-control" type="text"
+								th:field="*{fechaFin}" th:errorclass="fieldError" required/>
+						</div>
+					</form>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancelar</button>
+					<button type="submit" name="generarInforme" th:value="${idUsuario}"
+						form="generarNuevoInforme" class="btn btn-primary">Generar</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina">
+		<p>Proyecto de grado UPERC Est. 2021</p>
+	</footer>
+
+
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+	
+	<script type="application/javascript">
+		/*<![CDATA[*/
+			jQuery('#fechaInicio').datetimepicker({
+				format: 'Y-m-d H:i:00.00',
+				maxDate: 'dateToday',
+				startDate: '+0d',
+				timepicker:true,
+				mask: false
+			});
+			jQuery('#fechaFin').datetimepicker({
+				format: 'Y-m-d H:i:00.00',
+				maxDate: 'dateToday',
+				startDate: '+0d',
+				timepicker:true,
+				mask: false
+			});
+		/*]]>*/
+	</script>
+
+</body>
+</html>

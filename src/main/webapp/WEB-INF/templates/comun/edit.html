@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos"></head>
+
+<body data-multiple-spy="scroll" data-target="#navegacion, #opciones"
+	data-offset="50">
+
+	<nav th:replace="comun/cuerpo/navegacion.html :: navegacion"></nav>
+
+	<div class="container-fluid"></div>
+	<div class="row">
+		<p>
+		<p>
+		<p>
+	</div>
+
+	<div class="container-fluid">
+
+		<!-- edicion de usuario -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Usuario)}">
+
+			<form class="form" id="editarUsuarioForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar usuario</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+				<!--  Rol -->
+				<div class="form-group">
+					<label for="rol">Rol</label> <select th:class="form-control"
+						th:field="*{rol.id}" th:errorclass="fieldError">
+						<option th:each="roll : ${roles}" th:value="${roll.id}"
+							th:text="${roll.nombre}"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="estado">Estado</label> <select class="form-control"
+						th:field="*{estado}" th:errorclass="fieldError">
+						<option th:value="true" th:text="Activo"></option>
+						<option th:value="false" th:text="Inactivo"></option>
+					</select>
+				</div>
+
+
+				<div class="form-group">
+					<label for="fechaReg">Fecha de registro</label> <input id="correo"
+						name="fechaReg" class="form-control" type="datetime"
+						th:field="*{fechaReg}" th:errorclass="fieldError" disabled />
+				</div>
+
+				<div class="form-group">
+					<label for="fechaNac">Fecha de nacimiento</label> <input
+						id="fechaNac" name="fechaNac" class="form-control" type="date"
+						th:field="*{fechaNac}" th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="correo">Correo electrónico</label> <input id="correo"
+						name="correo" class="form-control" type="email"
+						th:field="*{correo}" th:errorclass="fieldError" />
+				</div>
+
+				<!--  tipoId -->
+				<div class="form-group">
+					<label for="tipoId">Tipo de identificación</label> <select
+						class="form-control" th:field="*{tipoId}"
+						th:errorclass="fieldError">
+						<option th:value="'C'" th:text="Cedula_de_ciudadania"></option>
+						<option th:value="'E'" th:text="Cedula_de_extranjeria"></option>
+						<option th:value="'T'" th:text="Tarjeta_de_identidad"></option>
+						<option th:value="'P'" th:text="Pasaporte"></option>
+					</select>
+				</div>
+
+				<!-- numid -->
+				<div class="form-group">
+					<label for="numId">Número de identificación</label> <input
+						id="numId" name="numId" class="form-control" type="text"
+						th:field="*{numId}" th:errorclass="fieldError" />
+				</div>
+
+				<!-- nombres -->
+				<div class="form-group">
+					<label for="nombres">Nombres</label> <input id="nombres"
+						name="nombres" class="form-control" type="text"
+						th:field="*{nombres}" th:errorclass="fieldError"
+						placeholder="Escriba el nombre completo" />
+				</div>
+
+				<!-- apellidos -->
+				<div class="form-group">
+					<label for="apellidos">Apellidos</label> <input id="apellidos"
+						name="apellidos" class="form-control" type="text"
+						th:field="*{apellidos}" th:errorclass="fieldError"
+						placeholder="Escriba los apellidos" />
+				</div>
+
+				<div
+					th:if="${ #authorization.expression('hasAuthority(''Administrador'')') || deConfiguracion ne null}">
+					<div class="form-group">
+						<label for="contrasena">Contraseña</label> <input id="contrasena"
+							name="contrasena" class="form-control" type="password"
+							th:field="*{contrasena}" th:errorclass="fieldError" />
+					</div>
+				</div>
+
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{'/modulos/'+ ${deConfiguracion ne null ? 'configuracion' : 'usuarios'}+'.html'}">Cancelar</a>
+				<button type="submit" name="guardarUsuario" form="editarUsuarioForm"
+					th:value="${deConfiguracion ne null ? deConfiguracion : ''}"
+					class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion supervision -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Supervision)}">
+			<form class="form" id="editarSupervisionForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar mensaje de supervisión</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+				<!-- tipo de mensaje -->
+				<div class="form-group">
+					<label for="tipo">Tipo de mensaje</label> <select
+						class="form-control" th:field="*{tipo}" th:errorclass="fieldError">
+						<option th:value="true" th:text="Alerta"></option>
+						<option th:value="false" th:text="Aviso"></option>
+					</select>
+				</div>
+
+				<!--  usuario -->
+				<div class="form-group">
+					<label for="usuario">Usuario a enviar el mensaje</label> <select
+						class="form-control" th:field="*{usuario.id}"
+						th:errorclass="fieldError">
+						<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+							th:text="${usuario.nombres + ' ' + usuario.apellidos}"></option>
+					</select>
+				</div>
+
+
+				<!-- mensaje -->
+				<div class="form-group">
+					<label for="mensaje">Mensaje</label> <input id="mensaje"
+						name="mensaje" class="form-control" type="text"
+						th:field="*{mensaje}" th:errorclass="fieldError"
+						placeholder="Escriba el mensaje" maxlength="50" />
+				</div>
+
+				<div class="form-group">
+					<label for="estado">Estado</label> <select class="form-control"
+						th:field="*{estado}" th:errorclass="fieldError">
+						<option th:value="true" th:text="Activo"></option>
+						<option th:value="false" th:text="Inactivo"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="fecha">Fecha de registro</label> <input id="fecha"
+						name="fecha" class="form-control" type="datetime"
+						th:field="*{fecha}" th:errorclass="fieldError" disabled />
+				</div>
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/supervision.html}">Cancelar</a>
+				<button type="submit" name="guardarSupervision"
+					form="editarSupervisionForm" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion reserva -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Reserva)}">
+			<form class="form" id="editarReservaForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar reserva</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+
+				<div class="form-group">
+					<label for="fechaSolicitud">Fecha de solicitud</label> <input
+						id="fechaSolicitud" name="fechaSolicitud" class="form-control"
+						type="datetime" th:field="*{fechaSolicitud}"
+						th:errorclass="fieldError" disabled />
+				</div>
+
+				<div class="form-group">
+					<label for="estado">Estado de la reserva</label> <select
+						class="form-control" th:field="*{estado}"
+						th:errorclass="fieldError" disabled>
+						<option th:value="true" th:text="Activa"></option>
+						<option th:value="false" th:text="Inactiva"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="espacio">Espacio de parqueo solicitado</label> <select
+						class="form-control" th:field="*{espacioParqueo.id}"
+						th:errorclass="fieldError">
+						<option th:each="espacio : ${espacios}" th:value="${espacio.id}"
+							th:text="${espacio.nombre}"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="fechaReserva">Fecha de reserva</label> <input
+						id="fechaReserva" name="fechaReserva" class="form-control"
+						type="datetime" th:field="*{fechaReserva}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="fechaFin">Fecha de finalización de reserva</label> <input
+						id="fechaFin" name="fechaFin" class="form-control" type="datetime"
+						th:field="*{fechaFin}" th:errorclass="fieldError" disabled />
+				</div>
+
+				<div class="form-group">
+					<label for="estado">Cancelada</label> <select class="form-control"
+						th:field="*{cancelada}" th:errorclass="fieldError" disabled>
+						<option th:value="true" th:text="Si"></option>
+						<option th:value="false" th:text="No"></option>
+					</select>
+				</div>
+
+				<!--  usuario -->
+				<div class="form-group">
+					<label for="usuario">Usuario asociado a la reserva</label> <select
+						class="form-control" th:field="*{usuario.id}"
+						th:errorclass="fieldError" disabled>
+						<option th:each="usuario : ${usuarios}" th:value="${usuario.id}"
+							th:text="${usuario.nombres + ' ' + usuario.apellidos}"></option>
+					</select>
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/reservas.html}">Cancelar</a>
+				<button type="submit" name="guardarReserva" form="editarReservaForm"
+					class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion Configuracion -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Configuracion)}">
+			<form class="form" id="editarConfiguracionForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar configuración</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+
+				<div class="form-group">
+					<label for="intentosFallidos">Número de intentos fallidos
+						(máx. 13 intentos)</label> <input id="intentosFallidos"
+						name="intentosFallidos" class="form-control" type="number"
+						th:field="*{intentosFallidos}" th:errorclass="fieldError" min="1"
+						max="13" />
+				</div>
+
+				<div class="form-group">
+					<label for="caducidadContrasena">Caducidad de la contraseña
+						(máx. 90 días)</label> <input id="caducidadContrasena"
+						name="caducidadContrasena" class="form-control" type="number"
+						th:field="*{caducidadContrasena}" th:errorclass="fieldError"
+						min="0" max="90" />
+				</div>
+
+				<div class="form-group">
+					<label for="maxAdministradores">Número máximo de
+						administradores (máx.tres)</label> <input id="maxAdministradores"
+						name="maxAdministradores" class="form-control" type="number"
+						th:field="*{maxAdmin}" th:errorclass="fieldError" min="1" max="3" />
+				</div>
+
+				<div class="form-group">
+					<label for="fechaGuardado">Fecha última edición</label> <input
+						id="fechaGuardado" name="fechaGuardado" class="form-control"
+						type="datetime" th:field="*{fechaGuardado}"
+						th:errorclass="fieldError" disabled />
+				</div>
+
+				<!--  usuario -->
+				<!-- 				<div class="form-group"> -->
+				<!-- 					<label for="usuario">Usuario asociado a la configuración</label> <select -->
+				<!-- 						class="form-control" th:field="*{usuario.id}" -->
+				<!-- 						th:errorclass="fieldError" disabled> -->
+				<!-- 						<option th:each="usuario : ${usuarios}" th:value="${usuario.id}" -->
+				<!-- 							th:text="${usuario.nombres + ' ' + usuario.apellidos}"></option> -->
+				<!-- 					</select> -->
+				<!-- 				</div> -->
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/configuracion.html}">Cancelar</a>
+				<button type="submit" name="guardarConfiguracion"
+					form="editarConfiguracionForm" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion espacios de parqueo -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.EspacioParqueo)}">
+			<form class="form" id="editarEspaciopForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar espacio de parqueo</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+
+				<div class="form-group">
+					<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
+						class="form-control" type="text" th:field="*{nombre}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="ubicacion">Ubicación</label> <select
+						class="form-control" th:field="*{ubicacion.id}"
+						th:errorclass="fieldError" disabled>
+						<option th:each="ub : ${ubicaciones}" th:value="${ub.id}"
+							th:text="${ub.nombre}"></option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="ocupado">Estado del espacio de parqueo</label> <select
+						class="form-control" th:field="*{ocupado}"
+						th:errorclass="fieldError" disabled>
+						<option th:value="true" th:text="Ocupado"></option>
+						<option th:value="false" th:text="Libre"></option>
+					</select>
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/configuracion/espacios.html}">Cancelar</a>
+				<button type="submit" name="guardarEspaciop"
+					form="editarEspaciopForm" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion recursos -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Recurso)}">
+			<form class="form" id="editarRecursoForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar recurso</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+				<div class="form-group">
+					<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
+						class="form-control" type="text" th:field="*{nombre}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="marca">Marca</label> <input id="marca" name="marca"
+						class="form-control" type="text" th:field="*{marca}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="tipo">Tipo</label> <input id="tipo" name="tipo"
+						class="form-control" type="text" th:field="*{tipo}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="laip">Dirección ip</label> <input id="laip" name="laip"
+						class="form-control" type="text" th:field="*{ip}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="puerto">Puerto</label> <input id="puerto" name="puerto"
+						class="form-control" type="number" th:field="*{puerto}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="ladirecmac">Dirección mac</label> <input
+						id="ladirecmac" name="ladirecmac" class="form-control" type="text"
+						th:field="*{mac}" th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="protocolo">Protocolo de comunicación</label> <input
+						id="protocolo" name="protocolo" class="form-control" type="text"
+						th:field="*{protocolo}" th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="fechaRegistro">Fecha de registro</label> <input
+						id="fechaRegistro" name="fechaRegistro" class="form-control"
+						type="datetime" th:field="*{fechaRegistro}"
+						th:errorclass="fieldError" disabled />
+				</div>
+
+				<div class="form-group">
+					<label for="urlFabricante">Dirección web del fabricante</label> <input
+						id="urlFabricante" name="urlFabricante" class="form-control"
+						type="text" th:field="*{urlFabricante}" th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="estado">Estado del recurso</label> <select
+						class="form-control" th:field="*{estado}"
+						th:errorclass="fieldError" disabled>
+						<option th:value="true" th:text="Activo"></option>
+						<option th:value="false" th:text="Inactivo"></option>
+					</select>
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/recursos.html}">Cancelar</a>
+				<button type="submit" name="guardarRecurso" form="editarRecursoForm"
+					class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion perfiles de usuario -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.PerfilUsuario)}">
+			<form class="form" id="editarPerfiluForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar perfil de usuario</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+				<div class="form-group">
+					<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
+						class="form-control" type="text" th:field="*{nombre}"
+						th:errorclass="fieldError" disabled />
+				</div>
+
+				<div class="form-group">
+					<label for="descripcion">Descripción</label> <input
+						id="descripcion" name="descripcion" class="form-control"
+						type="text" th:field="*{descripcion}" th:errorclass="fieldError" />
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/configuracion/perfiles.html}">Cancelar</a>
+				<button type="submit" name="guardarPerfilu" form="editarPerfiluForm"
+					class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion Roles -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Rol)}">
+			<form class="form" id="editarRolForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar rol</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+				<div class="form-group">
+					<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
+						class="form-control" type="text" th:field="*{nombre}"
+						th:errorclass="fieldError" disabled />
+				</div>
+
+				<div class="form-group">
+					<label for="descripcion">Descripción</label> <input
+						id="descripcion" name="descripcion" class="form-control"
+						type="text" th:field="*{descripcion}" th:errorclass="fieldError" />
+				</div>
+
+				<!--  usuario -->
+				<div class="form-group">
+					<label for="usuario">Perfil de usuario asociado</label> <select
+						class="form-control" th:field="*{perfil.id}"
+						th:errorclass="fieldError" disabled>
+						<option th:each="perf : ${perfiles}" th:value="${perf.id}"
+							th:text="${perf.nombre}"></option>
+					</select>
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/configuracion/roles.html}">Cancelar</a>
+				<button type="submit" name="guardarRol" form="editarRolForm"
+					class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+		<!-- Edicion Sistemas externos -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.SistemaExterno)}">
+			<form class="form" id="editarSistemaeForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar reserva</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+				<div class="form-group">
+					<label for="laip">Dirección ip</label> <input id="laip" name="laip"
+						class="form-control" type="text" th:field="*{ip}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="nombre">Nombre</label> <input id="nombre" name="nombre"
+						class="form-control" type="text" th:field="*{nombre}"
+						th:errorclass="fieldError" />
+				</div>
+
+				<div class="form-group">
+					<label for="contrasena">Contraseña</label> <input id="contrasena"
+						name="contrasena" class="form-control" type="password"
+						th:field="*{contrasena}" th:errorclass="fieldError" />
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/integracion.html}">Cancelar</a>
+				<button type="submit" name="guardarSistemae"
+					form="editarSistemaeForm" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+
+		<!-- Edicion Vehiculos -->
+		<div
+			th:if="${object instanceof T(co.edu.ucundinamarca.upercth.model.entities.Vehiculo)}">
+
+			<form class="form" id="editarVehiculoForm" th:method="post"
+				th:action="@{/comun/edit.html}" th:object="${object}">
+
+				<h2 class="form-heading">Editar Vehiculo</h2>
+
+				<input type="hidden" name="id" th:field="*{id}"
+					th:errorclass="fieldError" />
+
+
+				<!-- placa -->
+				<div class="form-group">
+					<label for="placa">Placa</label> <input id="placa" name="placa"
+						class="form-control" type="text" th:field="*{placa}"
+						th:errorclass="fieldError" placeholder="Escriba la placa" disabled/>
+				</div>
+
+				<!-- Marca -->
+				<div class="form-group">
+					<label for="marca">Marca</label> <input id="marca" name="marca"
+						list="marcaLista" class="form-control" type="text"
+						th:field="*{marca}" th:errorclass="fieldError"
+						placeholder="Elija una opción o escriba la marca" />
+
+					<datalist id="marcaLista">
+						<option value="BMW Motorrad">BMW Motorrad</option>
+						<option value="Horex">Horex</option>
+						<option value="Kreidler">Kreidler</option>
+						<option value="Sachs">Sachs</option>
+						<option value="Appia">Appia</option>
+						<option value="Brava">Brava</option>
+						<option value="Corven Motos">Corven Motos</option>
+						<option value="Crawdet">Crawdet</option>
+						<option value="Da Dalt">Da Dalt</option>
+						<option value="Guerrero">Guerrero</option>
+						<option value="Jawa">Jawa</option>
+						<option value="Keller">Keller</option>
+						<option value="Maverick Motorcycle">Maverick Motorcycle</option>
+						<option value="Mondial">Mondial</option>
+						<option value="Motomel">Motomel</option>
+						<option value="Puma">Puma</option>
+						<option value="Siam">Siam</option>
+						<option value="Zadina">Zadina</option>
+						<option value="Zanella">Zanella</option>
+						<option value="Brixton">Brixton</option>
+						<option value="Husaberg">Husaberg</option>
+						<option value="KTM">KTM</option>
+						<option value="Puch">Puch</option>
+						<option value="Jamuna Group">Jamuna Group</option>
+						<option value="PHP Family">PHP Family</option>
+						<option value="Runner Automobiles">Runner Automobiles</option>
+						<option value="Walton Motors">Walton Motors</option>
+						<option value="Saroléa">Saroléa</option>
+						<option value="Minsk">Minsk</option>
+						<option value="Dafra">Dafra</option>
+						<option value="Sundown">Sundown</option>
+						<option value="Big Brute">Big Brute</option>
+						<option value="Bombardier">Bombardier</option>
+						<option value="Can-Am">Can-Am</option>
+						<option value="Formula">Formula</option>
+						<option value="Freedom">Freedom</option>
+						<option value="Jialing">Jialing</option>
+						<option value="Haojue">Haojue</option>
+						<option value="Keeway">Keeway</option>
+						<option value="Lifan">Lifan</option>
+						<option value="Loncin">Loncin</option>
+						<option value="Qingqi">Qingqi</option>
+						<option value="Motorrad">Motorrad</option>
+						<option value="Takasaki">Takasaki</option>
+						<option value="United Motors">United Motors</option>
+						<option value="Yincheng">Yincheng</option>
+						<option value="Zongshen">Zongshen</option>
+						<option value="CFmoto">CFmoto</option>
+						<option value="Serpento">Serpento</option>
+						<option value="Auteco">Auteco</option>
+						<option value="AKT">AKT</option>
+						<option value="Daelim">Daelim</option>
+						<option value="Hyosung">Hyosung</option>
+						<option value="TOMOS">TOMOS</option>
+						<option value="AJR">AJR</option>
+						<option value="Alpha">Alpha</option>
+						<option value="Anvian">Anvian</option>
+						<option value="ArianeTech">ArianeTech</option>
+						<option value="Avello">Avello</option>
+						<option value="Beta Trueba">Beta Trueba</option>
+						<option value="Bultaco">Bultaco</option>
+						<option value="Cofersa">Cofersa</option>
+						<option value="Cremsa">Cremsa</option>
+						<option value="Derbi">Derbi</option>
+						<option value="Ducson">Ducson</option>
+						<option value="Elig">Elig</option>
+						<option value="Gas Gas">Gas Gas</option>
+						<option value="Inmotec">Inmotec</option>
+						<option value="JJ Cobas">JJ Cobas</option>
+						<option value="Leonart">Leonart</option>
+						<option value="Lube">Lube</option>
+						<option value="Merlin">Merlin</option>
+						<option value="Mini Marcelino">Mini Marcelino</option>
+						<option value="Montesa">Montesa</option>
+						<option value="Moto Vespa">Moto Vespa</option>
+						<option value="Motobic">Motobic</option>
+						<option value="MH Motorcycles">MH Motorcycles</option>
+						<option value="Mototrans">Mototrans</option>
+						<option value="MYMSA">MYMSA</option>
+						<option value="OSSA">OSSA</option>
+						<option value="Patria">Patria</option>
+						<option value="Rieju">Rieju</option>
+						<option value="RMH">RMH</option>
+						<option value="ROA">ROA</option>
+						<option value="Rovena">Rovena</option>
+						<option value="Sanglas">Sanglas</option>
+						<option value="Setter">Setter</option>
+						<option value="Soriano">Soriano</option>
+						<option value="Torrot">Torrot</option>
+						<option value="Villalbí">Villalbí</option>
+						<option value="Villof">Villof</option>
+						<option value="American Eagle Motorcycles">American Eagle
+							Motorcycles</option>
+						<option value="Boss Hoss">Boss Hoss</option>
+						<option value="Buell">Buell</option>
+						<option value="Harley Davidson">Harley Davidson</option>
+						<option value="Indian">Indian</option>
+						<option value="Rokon">Rokon</option>
+						<option value="UM-Motorcycles (United Motors)">UM-Motorcycles
+							(United Motors)</option>
+						<option value="Victory">Victory</option>
+						<option value="Chopper">Chopper</option>
+						<option value="Cleveland Cyclewerk">Cleveland Cyclewerk</option>
+						<option value="Orcal">Orcal</option>
+						<option value="Peugeot">Peugeot</option>
+						<option value="Scorpa">Scorpa</option>
+						<option value="Voxan">Voxan</option>
+						<option value="Sherco">Sherco</option>
+						<option value="CCM">CCM</option>
+						<option value="Douglas">Douglas</option>
+						<option value="Norton ">Norton</option>
+						<option value="Rickman">Rickman</option>
+						<option value="Royal Enfield">Royal Enfield</option>
+						<option value="Rudge-Whitworth">Rudge-Whitworth</option>
+						<option value="Triumph">Triumph</option>
+						<option value="Hero">Hero</option>
+						<option value="Bajaj">Bajaj</option>
+						<option value="TVS">TVS</option>
+						<option value="Aprilia">Aprilia</option>
+						<option value="Aermacchi">Aermacchi</option>
+						<option value="Benelli">Benelli</option>
+						<option value="Beta">Beta</option>
+						<option value="Bimota">Bimota</option>
+						<option value="Cagiva">Cagiva</option>
+						<option value="Ducati">Ducati</option>
+						<option value="Garelli">Garelli</option>
+						<option value="Gilera">Gilera</option>
+						<option value="Italjet">Italjet</option>
+						<option value="Lambretta">Lambretta</option>
+						<option value="Laverda">Laverda</option>
+						<option value="Malaguti">Malaguti</option>
+						<option value="Marabese">Marabese</option>
+						<option value="Millepercento">Millepercento</option>
+						<option value="Mondial Moto">Mondial Moto</option>
+						<option value="Moto Guzzi">Moto Guzzi</option>
+						<option value="Moto Morini">Moto Morini</option>
+						<option value="MV Agusta">MV Agusta</option>
+						<option value="Parilla">Parilla</option>
+						<option value="Piaggio">Piaggio</option>
+						<option value="Terra Modena">Terra Modena</option>
+						<option value="TM Racing">TM Racing</option>
+						<option value="Vertemati">Vertemati</option>
+						<option value="Vyrus">Vyrus</option>
+						<option value="WRM Motorcycles">WRM Motorcycles</option>
+						<option value="Fuji Heavy Industries">Fuji Heavy
+							Industries</option>
+						<option value="Honda">Honda</option>
+						<option value="Kawasaki">Kawasaki</option>
+						<option value="Suzuki">Suzuki</option>
+						<option value="Yamaha">Yamaha</option>
+						<option value="Modenas">Modenas</option>
+						<option value="Carabela">Carabela</option>
+						<option value="Dínamo">Dínamo</option>
+						<option value="Islo">Islo</option>
+						<option value="Italika">Italika</option>
+						<option value="Kurazai">Kurazai</option>
+						<option value="Motor´s Heaven">Motor´s Heaven</option>
+						<option value="Zanetti">Zanetti</option>
+						<option value="Veloci Motors">Veloci Motors</option>
+						<option value="MB motos">MB motos</option>
+						<option value="BDS">BDS</option>
+						<option value="Motos Izuka">Motos Izuka</option>
+						<option value="Vento">Vento</option>
+						<option value="Ronco Motors">Ronco Motors</option>
+						<option value="Artsun">Artsun</option>
+						<option value="Ssenda Motos">Ssenda Motos</option>
+						<option value="Nexus Motos">Nexus Motos</option>
+						<option value="Solaris Honda">Solaris Honda</option>
+						<option value="Rwanda Motorcycle Company">Rwanda
+							Motorcycle Company</option>
+						<option value="IMZ-Ural">IMZ-Ural</option>
+						<option value="IZH">IZH</option>
+						<option value="Karpaty">Karpaty</option>
+						<option value="Kovrov">Kovrov</option>
+						<option value="ZiD">ZiD</option>
+						<option value="Восхо́д(voskhod)">Восхо́д(voskhod)</option>
+						<option value="Husqvarna">Husqvarna</option>
+						<option value="Monark">Monark</option>
+						<option value="Kymco">Kymco</option>
+						<option value="Sym">Sym</option>
+						<option value="TGB">TGB</option>
+						<option value="Dnipro">Dnipro</option>
+						<option value="Empire Keeway">Empire Keeway</option>
+						<option value="Bera Motorcycles">Bera Motorcycles</option>
+						<option value="MD-Haojin">MD-Haojin</option>
+						<option value="Skygo">Skygo</option>
+						<option value="Leopard">Leopard</option>
+						<option value="Kenton">Kenton</option>
+						<option value="Star">Star</option>
+						<option value="Taiga">Taiga</option>
+						<option value="Yamazuky">Yamazuky</option>
+						<option value="Radam">Radam</option>
+						<option value="Abarth">Abarth</option>
+						<option value="Alfa Romeo">Alfa Romeo</option>
+						<option value="Aston Martin">Aston Martin</option>
+						<option value="Audi">Audi</option>
+						<option value="Bentley">Bentley</option>
+						<option value="BMW">BMW</option>
+						<option value="Cadillac">Cadillac</option>
+						<option value="Caterham">Caterham</option>
+						<option value="Chevrolet">Chevrolet</option>
+						<option value="Citroen">Citroen</option>
+						<option value="Dacia">Dacia</option>
+						<option value="Ferrari">Ferrari</option>
+						<option value="Fiat">Fiat</option>
+						<option value="Ford">Ford</option>
+						<option value="Honda">Honda</option>
+						<option value="Infiniti">Infiniti</option>
+						<option value="Isuzu">Isuzu</option>
+						<option value="Iveco">Iveco</option>
+						<option value="Jaguar">Jaguar</option>
+						<option value="Jeep">Jeep</option>
+						<option value="Kia">Kia</option>
+						<option value="KTM">KTM</option>
+						<option value="Lada">Lada</option>
+						<option value="Lamborghini">Lamborghini</option>
+						<option value="Lancia">Lancia</option>
+						<option value="Land Rover">Land Rover</option>
+						<option value="Lexus">Lexus</option>
+						<option value="Lotus">Lotus</option>
+						<option value="Maserati">Maserati</option>
+						<option value="Mazda">Mazda</option>
+						<option value="Mercedes-Benz">Mercedes-Benz</option>
+						<option value="Mini">Mini</option>
+						<option value="Mitsubishi">Mitsubishi</option>
+						<option value="Morgan">Morgan</option>
+						<option value="Nissan">Nissan</option>
+						<option value="Opel">Opel</option>
+						<option value="Peugeot">Peugeot</option>
+						<option value="Piaggio">Piaggio</option>
+						<option value="Porsche">Porsche</option>
+						<option value="Renault">Renault</option>
+						<option value="Rolls-Royce">Rolls-Royce</option>
+						<option value="Seat">Seat</option>
+						<option value="Skoda">Skoda</option>
+						<option value="Smart">Smart</option>
+						<option value="SsangYong">SsangYong</option>
+						<option value="Subaru">Subaru</option>
+						<option value="Suzuki">Suzuki</option>
+						<option value="Tata">Tata</option>
+						<option value="Tesla">Tesla</option>
+						<option value="Toyota">Toyota</option>
+						<option value="Volkswagen">Volkswagen</option>
+						<option value="Volvo">Volvo</option>
+					</datalist>
+				</div>
+
+				<!-- Color -->
+				<div class="form-group">
+					<label for="color">Color</label> <input id="color" name="color"
+						class="form-control" type="text" th:field="*{color}"
+						th:errorclass="fieldError" placeholder="Escriba la color" />
+				</div>
+
+				<!-- Modelo -->
+				<div class="form-group">
+					<label for="modelo">Modelo</label> <input id="modelo" name="modelo"
+						class="form-control" type="text" th:field="*{modelo}"
+						th:errorclass="fieldError" placeholder="Escriba la modelo" />
+				</div>
+
+				<!-- Clase -->
+				<div class="form-group">
+					<label for="clase">Clase</label> <select class="form-control"
+						th:field="*{clase}" th:errorclass="fieldError" required>
+						<option value="">Elija una opción</option>
+						<option th:value="Automovil" th:text="Automovil"></option>
+						<option th:value="Motocicleta" th:text="Motocicleta"></option>
+						<option th:value="Autobus" th:text="Autobus"></option>
+						<option th:value="Furgon" th:text="Furgon"></option>
+					</select>
+				</div>
+
+				<!-- Tipo de servicio -->
+				<div class="form-group">
+					<label for="tipoServicio">Tipo de servicio</label> <select
+						class="form-control" th:field="*{tipoServicio}"
+						th:errorclass="fieldError" required>
+						<option value="">Elija una opción</option>
+						<option th:value="Particular" th:text="Particular"></option>
+						<option th:value="Público" th:text="Público"></option>
+						<option th:value="Especial" th:text="Especial"></option>
+					</select>
+				</div>
+
+			</form>
+
+			<div class="modal-footer">
+				<a type="button" class="btn btn-secondary" data-dismiss="modal"
+					th:href="@{/modulos/vehiculos.html}">Cancelar</a>
+				<button type="submit" name="guardarVehiculo"
+					form="editarVehiculoForm" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div class="modal fade" id="mensajeModal" tabindex="-1" role="dialog">
+
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="titulomodal">Intentalo de nuevo</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" th:text="${errormensaje}">Este es un
+					mensaje modal</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina"></footer>
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+	<script type="application/javascript">
+		
+		
+		
+		
+		
+		
+		
+		/*<![CDATA[*/
+		$('#fechaNac').datepicker({
+			dateFormat : 'dd-MM-yy'
+		});
+		/*]]>*/
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	<script type="text/javascript"
+		th:utext="${mostrar ne null? mostrar : ''}"></script>
+
+</body>
+</html>

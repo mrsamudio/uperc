@@ -1,6 +1,0 @@
-Estimado [(${usuario})],
-
-Estos son los espacios disponibles para reservas:
-[# th:each="d : ${disponibles}"]
-   - [(${d.nombre})]. ID: [(${d.id})]
-[/]

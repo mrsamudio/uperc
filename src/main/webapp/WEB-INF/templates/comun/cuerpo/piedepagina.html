@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos">
+<meta charset="UTF-8">
+<title>pie de página Estático</title>
+<link rel="Stylesheet" href="../../../../css/bootstrap.min.css" />
+</head>
+
+<footer th:fragment="piedepagina" class="sticky-footer" id="piedepagina">
+
+	<nav class="navbar fixed-bottom"
+		th:class="'navbar fixed-bottom ' + ${rolusuario ne null ? rolusuario : ''}"
+		style="background-color: #11462b;">
+
+		<a href="https://www.ucundinamarca.edu.co/" class="col navbar-brand">
+			<img
+			th:if="${rolusuario == null || (rolusuario ne null && rolusuario != 'navbar-light bg-light ')}"
+			style="display: block; max-width: 100%; height: 37px;"
+			th:src="@{/images/ESCUDO-BLANCO-H.png}"> <img
+			th:if="${rolusuario ne null && rolusuario == 'navbar-light bg-light '}"
+			style="display: block; max-width: 100%; height: 37px;"
+			th:src="@{/images/ESCUDO-COLOR-H.png}">
+		</a>
+
+		<div class="col navbar-brand justify-content-center text-middle"
+			sec:authorize="isAuthenticated()">
+			Bienvenido: <span sec:authentication="name">Bob</span>
+
+		</div>
+
+<!-- 				<div class="col navbar-brand justify-content-center text-middle" -->
+<!-- 					sec:authorize="isAuthenticated()"> -->
+<!-- 					Su correo: <span sec:authentication="name">Bob</span> -->
+<!-- 					Bienvenido: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span> -->
+<!-- 				</div> -->
+
+		<a class="col navbar-brand text-right"
+			th:class="'col navbar-brand text-right ' + ${rolusuario == null ? 'text-white' : ''}">2021</a>
+
+	</nav>
+
+</footer>
+<!-- 				<li class="nav-item"> -->
+<!-- 					<a class="nav-link fab fa-github text-white" href="https://github.com/mrsamudio/uperc"></a> -->
+<!-- 				</li> -->
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="comun/metadatos.html :: metadatos"></head>
+
+<body>
+
+	<div class="container">
+
+
+		<form class="form" id="solicitarRegistroForm" th:method="post"
+			th:action="@{/registro.html}" th:object="${object}">
+
+			<h2 class="form-heading">Editar usuario</h2>
+
+			<input type="hidden" name="id" th:field="*{id}"
+				th:errorclass="fieldError" />
+
+			<!--  Rol -->
+			<div class="form-group">
+				<label for="rol">¿Es usted un ...?</label> <select th:class="form-control"
+					th:field="*{rol.id}" th:errorclass="fieldError">
+					<option th:each="roll : ${roles}" th:value="${roll.id}"
+						th:text="${roll.nombre}"></option>
+				</select>
+			</div>
+
+			<!-- 				<div class="form-group"> -->
+			<!-- 					<label for="estado">Estado</label> <select class="form-control" -->
+			<!-- 						th:field="*{estado}" th:errorclass="fieldError"> -->
+			<!-- 						<option th:value="true" th:text="Activo"></option> -->
+			<!-- 						<option th:value="false" th:text="Inactivo"></option> -->
+			<!-- 					</select> -->
+			<!-- 				</div> -->
+
+
+
+			<div class="form-group">
+				<label for="fechaNac">¿cuál es su fecha de nacimiento?</label> <input
+					id="fechaNac" name="fechaNac" class="form-control" type="date"
+					th:field="*{fechaNac}" th:errorclass="fieldError" />
+			</div>
+
+			<div class="form-group">
+				<label for="correo">Escriba su correo electrónico</label> <input id="correo"
+					name="correo" class="form-control" type="email"
+					th:field="*{correo}" th:errorclass="fieldError" />
+			</div>
+
+			<!--  tipoId -->
+			<div class="form-group">
+				<label for="tipoId">Tipo de identificación</label> <select
+					class="form-control" th:field="*{tipoId}"
+					th:errorclass="fieldError">
+					<option th:value="'C'" th:text="Cedula_de_ciudadania"></option>
+					<option th:value="'E'" th:text="Cedula_de_extranjeria"></option>
+					<option th:value="'T'" th:text="Tarjeta_de_identidad"></option>
+					<option th:value="'P'" th:text="Pasaporte"></option>
+				</select>
+			</div>
+
+			<!-- numid -->
+			<div class="form-group">
+				<label for="numId">Número de identificación</label> <input
+					id="numId" name="numId" class="form-control" type="text"
+					th:field="*{numId}" th:errorclass="fieldError" />
+			</div>
+
+			<!-- nombres -->
+			<div class="form-group">
+				<label for="nombres">Nombres</label> <input id="nombres"
+					name="nombres" class="form-control" type="text"
+					th:field="*{nombres}" th:errorclass="fieldError"
+					placeholder="Escriba el nombre completo" />
+			</div>
+
+			<!-- apellidos -->
+			<div class="form-group">
+				<label for="apellidos">Apellidos</label> <input id="apellidos"
+					name="apellidos" class="form-control" type="text"
+					th:field="*{apellidos}" th:errorclass="fieldError"
+					placeholder="Escriba los apellidos" />
+			</div>
+
+			<div>
+				<div class="form-group">
+					<label for="contrasena">Escriba una contraseña</label> <input id="contrasena"
+						name="contrasena" class="form-control" type="password"
+						th:field="*{contrasena}" th:errorclass="fieldError" />
+				</div>
+			</div>
+
+
+		</form>
+
+		<div class="modal-footer">
+			<a type="button" class="btn btn-secondary" data-dismiss="modal"
+				th:href="@{/login.html}">Cancelar</a>
+			<button type="submit" name="solicitarRegistro"
+				form="solicitarRegistroForm"
+				th:value="${deConfiguracion ne null ? deConfiguracion : ''}"
+				class="btn btn-primary">Guardar</button>
+		</div>
+
+	</div>
+
+
+	<footer th:replace="comun/cuerpo/piedepagina.html :: piedepagina"></footer>
+	<div th:replace="comun/scripts.html :: ejecucscripts"></div>
+</body>
+</html>
