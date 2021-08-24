@@ -112,6 +112,8 @@
 		<springsecurity.version>5.3.10.RELEASE</springsecurity.version>
 		<spring-integration-mail.version>5.4.0
 		</spring-integration-mail.version>
+		
+		<junit-bom.version>5.7.2</junit-bom.version>
 
 		<java-mail-sun.version>1.6.2</java-mail-sun.version>
 
@@ -204,7 +206,21 @@
 
 	</profiles>
 
+	<dependencyManagement>
+		<dependencies>
 
+			<!-- begin pruebas -->
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit-bom.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<!-- end pruebas -->
+
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 
@@ -489,6 +505,44 @@
 
 
 		<!-- end onvif -->
+
+
+		<!-- begin test -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${springframework.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.junit.vintage/junit-vintage-engine -->
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-test -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<version>${springsecurity.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- end test -->
 
 
 	</dependencies>
