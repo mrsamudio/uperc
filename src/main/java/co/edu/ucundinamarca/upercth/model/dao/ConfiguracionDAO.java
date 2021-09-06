@@ -16,7 +16,7 @@ import co.edu.ucundinamarca.upercth.model.entities.Configuracion;
 public interface ConfiguracionDAO {
 
 	/**
-	 * Consulta de configuraci??n por id del registro en BD
+	 * Consulta de configuración por id del registro en BD
 	 * 
 	 * @param id
 	 */
@@ -30,14 +30,14 @@ public interface ConfiguracionDAO {
 	public List<Configuracion> selectAll();
 
 	/**
-	 * Inserta un registro de configuraci??n
+	 * Inserta un registro de configuración
 	 * 
 	 * @param configuracion
 	 */
 	public boolean insert(Configuracion configuracion);
 
 	/**
-	 * Actualiza un registro de configuraci??n
+	 * Actualiza un registro de configuración
 	 * 
 	 * @param configuracion
 	 */

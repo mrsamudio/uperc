@@ -9,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
@@ -18,10 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-//@ComponentScan
-//@ComponentScan("co.edu.ucundinamarca.upercth.model")
 @EnableTransactionManagement
-//@Component
 public class DataSourceConfig {
 	
 	private static Logger logger = LoggerFactory.getLogger(DataSourceConfig.class);
@@ -31,7 +27,6 @@ public class DataSourceConfig {
 	 * Configuración relacionada con el motor de base de datos
 	 * @return
 	 */
-//	@Bean
 	@Bean(name = "dataSource")
 	public DataSource fuenteDatos() {
 
