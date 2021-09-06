@@ -15,35 +15,16 @@ public class EmailConfig {
 	public JavaMailSender getJavaMailSender() {
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		Properties props = mailSender.getJavaMailProperties();
-        mailSender.setHost("server295.web-hosting.com");
-        mailSender.setPort(465);
-        mailSender.setUsername("proyectouperc@ingsamudio.co");
-        mailSender.setPassword("lPpigH @Vu! ]y ? b1oc}(#");
-        
-        props.put("mail.transport.protocol", "smtps");
-        props.put("mail.smtps.auth", "true");
-//        props.put("mail.transport.protocol", "smtp");
-//        props.put("mail.smtp.auth", "true");
-        
+		mailSender.setHost("your-host.name");
+		mailSender.setPort(465);
+		mailSender.setUsername("your-username@your-hostname");
+		mailSender.setPassword("Your email password ;)");
+
+		props.put("mail.transport.protocol", "smtps");
+		props.put("mail.smtps.auth", "true");
 		props.put("mail.debug", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-		
-		
-
-//        mailSender.setHost("smtp.office365.com");
-//		mailSender.setHost("outlook.office365.com");
-//		mailSender.setPort(587);
-
-//		mailSender.setUsername("mrsamudio@ucundinamarca.edu.co");
-
-
-//		props.put("mail.smtp.tls.enable", "true");
-
-//		props.put("mail.smtp.ssl.enable", "true");
-//		props.put("smtpd_recipient_restrictions", "permit_sasl_authenticated");
-//		props.put("mail.smtp.socketFactory.fallback", "true");
-		
 
 		return mailSender;
 	}
@@ -51,9 +32,8 @@ public class EmailConfig {
 	@Bean
 	public SimpleMailMessage emailTemplate() {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setTo("ingsjobs@gmail.com");
-		message.setFrom("proyectouperc@ingsamudio.co");
-//		message.setFrom("noreply@cv.ingsamudio.co");
+		message.setTo("your-username@your-hostname");
+		message.setFrom("your-username@your-hostname");
 		message.setText("FATAL - Application crash. Save your job !!");
 		message.setSubject("El asunto mejor pagado del mundo");
 		return message;
