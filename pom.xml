@@ -104,7 +104,7 @@
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<thymeleaf.version>3.0.12.RELEASE</thymeleaf.version>
+		<thymeleaf.version>3.0.13.RELEASE</thymeleaf.version>
 		<thymeleafspringsecurity5.version>3.0.4.RELEASE
 		</thymeleafspringsecurity5.version>
 
