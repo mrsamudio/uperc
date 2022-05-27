@@ -108,7 +108,7 @@
 		<thymeleafspringsecurity5.version>3.0.4.RELEASE
 		</thymeleafspringsecurity5.version>
 
-		<springframework.version>5.3.8</springframework.version>
+		<springframework.version>5.3.18</springframework.version>
 		<springsecurity.version>5.5.7</springsecurity.version>
 		<spring-integration-mail.version>5.4.0
 		</spring-integration-mail.version>
