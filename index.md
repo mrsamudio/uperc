@@ -48,4 +48,3 @@ public String colorNav(Authentication auth) {
   }
   return coloresnav;
 }
-```
